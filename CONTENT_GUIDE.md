@@ -125,6 +125,7 @@ Each entry in `timeline` is an object:
   date: "2026 சனவரி 20",
   label: "அடிக்கல் நாட்டல் விழா",
   description: "ஒரு வாக்கிய விளக்கம் இங்கே.",
+  photos: [],  // optional — see "Adding photos to a timeline stage" below
 }
 ```
 
@@ -180,6 +181,38 @@ import scienceLabCover from "../assets/developments/science-lab/cover.jpg";
   image: scienceLabCover,
 },
 ```
+
+### Adding photos to a timeline stage
+
+Beyond the one cover/banner photo, **each stage in a development's `timeline` array can have its own photos** — any number, including zero. On the detail page, a stage with no photos just shows its text as before; a stage with photos shows them as a row of thumbnails underneath.
+
+**Step 1 — create a subfolder per stage**, numbered by that stage's position in the `timeline` array (1st entry = `stage-1`, 2nd = `stage-2`, etc.):
+
+```
+src/assets/developments/<development-id>/stage-1/1.jpg
+src/assets/developments/<development-id>/stage-1/2.jpg
+src/assets/developments/<development-id>/stage-2/1.jpg
+```
+
+**Step 2 — import them at the top of `src/data/developments.js`:**
+
+```js
+import stage1Photo1 from "../assets/developments/science-lab/stage-1/1.jpg";
+import stage1Photo2 from "../assets/developments/science-lab/stage-1/2.jpg";
+```
+
+**Step 3 — add a `photos` array to that timeline entry:**
+
+```js
+{
+  date: "2025 நவம்பர் 10",
+  label: "திட்டம் அங்கீகரிக்கப்பட்டது",
+  description: "...",
+  photos: [stage1Photo1, stage1Photo2],
+},
+```
+
+You can list 1 photo, 5 photos, or leave `photos` out entirely — whatever's there shows, exactly that many.
 
 ---
 

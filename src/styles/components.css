@@ -341,6 +341,16 @@ textarea.input { min-height: 90px; resize: vertical; }
   color: color-mix(in srgb, var(--color-text) 78%, transparent);
   margin: 0;
 }
+.timeline-photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+.timeline-photo {
+  width: 130px;
+  border-radius: var(--radius-md);
+}
 
 /* — placeholder image — */
 .placeholder-image {

@@ -29,7 +29,7 @@ export default function DevelopmentDetail() {
         {development.summary}
       </p>
 
-      <figure className="grayscale" style={{ margin: "0 0 40px" }}>
+      <figure style={{ margin: "0 0 40px" }}>
         <PlaceholderImage aspectRatio="21/9" caption="அபிவிருத்தி இடப் புகைப்படம்" src={development.image} alt={development.title} />
       </figure>
 
