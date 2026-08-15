@@ -1,0 +1,73 @@
+import PlaceholderImage from "../components/ui/PlaceholderImage";
+import Card from "../components/ui/Card";
+import Button from "../components/ui/Button";
+
+const COMMITTEE = [
+  { id: "committee-president", name: "திரு. சி. சிவகுமார்", role: "தலைவர்" },
+  { id: "committee-vp", name: "திருமதி. அ. பாலசுந்தரம்", role: "துணைத் தலைவர்" },
+  { id: "committee-secretary", name: "திரு. க. நடராஜா", role: "செயலாளர்" },
+  { id: "committee-treasurer", name: "திரு. வ. ஜெயரட்ணம்", role: "பொருளாளர்" },
+];
+
+const DECADES = [
+  { range: "1980–1989", count: "340+ உறுப்பினர்கள்" },
+  { range: "1990–1999", count: "610+ உறுப்பினர்கள்" },
+  { range: "2000–2009", count: "890+ உறுப்பினர்கள்" },
+];
+
+export default function Directory() {
+  return (
+    <div className="container" style={{ padding: "56px clamp(20px,4vw,48px) 80px" }}>
+      <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-700)", marginBottom: 14 }}>
+        உறுப்பினர் பட்டியல்
+      </span>
+      <h1 style={{ fontSize: "clamp(28px,3.6vw,40px)", margin: "0 0 12px" }}>பழைய மாணவர் பட்டியல்</h1>
+      <p style={{ fontSize: "15.5px", lineHeight: 1.6, color: "color-mix(in srgb, var(--color-text) 78%, transparent)", margin: "0 0 36px", maxWidth: "60ch" }}>
+        முழுமையான பழைய மாணவர் பட்டியலை பதிவுசெய்த உறுப்பினர்கள் மட்டுமே பார்வையிட முடியும்.
+      </p>
+
+      <section style={{ padding: "0 0 36px" }}>
+        <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 24 }}>
+          நிர்வாகக் குழு
+        </span>
+        <div className="grid-4">
+          {COMMITTEE.map((member) => (
+            <div key={member.id} style={{ textAlign: "center" }}>
+              <PlaceholderImage
+                shape="circle"
+                aspectRatio="1/1"
+                caption="புகைப்படம்"
+                style={{ width: 100, height: 100, margin: "0 auto 14px" }}
+              />
+              <p style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>{member.name}</p>
+              <p style={{ margin: "2px 0 0", fontSize: 13, color: "var(--color-accent-700)" }}>{member.role}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <hr className="hr" style={{ marginBottom: 36 }} />
+
+      <div className="grid-3" style={{ marginBottom: 36 }}>
+        {DECADES.map((decade) => (
+          <Card key={decade.range} kicker={decade.range} title={decade.count} kickerColor="var(--color-accent-2-700)" style={{ opacity: 0.55, position: "relative" }}>
+            <p className="card-body is-redacted">●●●●●●● ●●●●●● ●●●●●●●●</p>
+          </Card>
+        ))}
+      </div>
+
+      <Card
+        elevation="md"
+        kicker="உறுப்பினர்கள் மட்டும்"
+        kickerColor="var(--color-accent-2-700)"
+        title="முழு பட்டியலைப் பார்க்க உறுப்பினராகுங்கள்"
+        body="பெயர், தொகுதி, தொழில் மற்றும் தொடர்பு விபரங்களுடன் கூடிய முழு பழைய மாணவர் பட்டியலை அணுக, உறுப்பினராக பதிவு செய்யவும்."
+        style={{ maxWidth: 520, textAlign: "left" }}
+      >
+        <Button as="link" to="/join" variant="primary" style={{ marginTop: 8 }}>
+          உறுப்பினராகுங்கள்
+        </Button>
+      </Card>
+    </div>
+  );
+}
