@@ -76,7 +76,7 @@ src/assets/events/annual-sports-day-2027/photo-3.jpg
 ```
 
 - `cover.jpg` is used on the event card in the `/events` list (16:10 ratio looks best — e.g. 1600×1000px).
-- `photo-1.jpg`, `photo-2.jpg`, `photo-3.jpg` are used in the 3-photo gallery on the event's own detail page (roughly 4:3 looks best). You can add 1, 2, or 3 of these — any you skip just show a placeholder in that slot.
+- `photo-1.jpg`, `photo-2.jpg`, `photo-3.jpg`, ... are used in the photo gallery on the event's own detail page (roughly 4:3 looks best). The `gallery` array can hold **any number of photos — 1, 2, 3, 5, however many you have** — the detail page shows exactly that many, no more, no less. If you leave `gallery` out entirely, the detail page shows a default 3-box "photos coming soon" placeholder grid instead.
 - Use `.jpg`, `.png`, or `.webp`. Keep each file under ~1MB (compress large phone photos first) — they get bundled into the website.
 
 **Step 2 — import the photos at the top of `src/data/events.js`**, above `export const EVENTS = [`:

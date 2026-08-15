@@ -6,6 +6,7 @@ import bookDonationCover from "../assets/events/book-donation-2026/2.jpg";
 import bookDonationPhoto1 from "../assets/events/book-donation-2026/1.jpg";
 import bookDonationPhoto2 from "../assets/events/book-donation-2026/3.jpg";
 import bookDonationPhoto3 from "../assets/events/book-donation-2026/4.jpg";
+import photocopyDonationCover from "../assets/events/photocopy-machine-donation-2025/1.jpg";
 
 export const EVENTS = [
   {
@@ -35,10 +36,8 @@ export const EVENTS = [
   body: "க.பொ.த உயர்தரம் 2000 பிரிவு மாணவர்களின் பங்களிப்புடன் மறுசீரமைப்பு செய்யப்பட்ட போட்டோ பிரதி இயந்திரம் (Reconditioned photocopy machine) ஒன்று அதிபரிடம் கையளிக்கப்பட்டது.",
   meta: "2026 சித்திரை 15", // தேவைக்கேற்ப திகதியை மாற்றிக் கொள்ளலாம்
   long: "எமது கல்லூரியின் க.பொ.த உயர்தரம் 2000 பிரிவு மாணவர்களின் பெருமுயற்சி மற்றும் பங்களிப்புடன் மறுசீரமைப்பு செய்யப்பட்ட போட்டோ பிரதி இயந்திரம் (Reconditioned photocopy machine) ஒன்று கல்லூரி அதிபரிடம் உத்தியோகபூர்வமாக கையளிக்கப்பட்டது.\n\nமாணவர்களின் கற்றல் செயற்பாடுகளுக்கும் கல்லூரியின் நிர்வாகத் தேவைகளுக்கும் பெரிதும் உதவும் வகையில் மேற்கொள்ளப்பட்ட இந்த நற்பணிக்குக் கல்லூரி நிர்வாகமும் மாணவர்களும் தமது மனமார்ந்த நன்றிகளையும் பாராட்டுகளையும் தெரிவித்துக் கொள்கின்றனர்.",
-  image: "/src/assets/events/photocopy-machine-donation-2025/1.jpg",
-  gallery: [
-    "/src/assets/events/photocopy-machine-donation-2025/1.jpg"
-  ],
+  image: photocopyDonationCover,
+  gallery: [photocopyDonationCover],
 }
   // {
   //   id: "award",

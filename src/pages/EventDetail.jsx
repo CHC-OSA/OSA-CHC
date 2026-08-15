@@ -24,8 +24,8 @@ export default function EventDetail() {
       </div>
       <h1 style={{ fontSize: "clamp(28px,3.6vw,40px)", margin: "0 0 20px", maxWidth: "24ch" }}>{event.title}</h1>
       <div className="grid-3" style={{ marginBottom: 32 }}>
-        {[0, 1, 2].map((i) => (
-          <PlaceholderImage key={i} aspectRatio="4/3" caption="நிகழ்வுப் புகைப்படம்" src={event.gallery?.[i]} alt={event.title} />
+        {(event.gallery?.length ? event.gallery : [undefined, undefined, undefined]).map((photo, i) => (
+          <PlaceholderImage key={i} aspectRatio="4/3" caption="நிகழ்வுப் புகைப்படம்" src={photo} alt={event.title} />
         ))}
       </div>
       <p style={{ fontSize: 16, lineHeight: 1.7, maxWidth: "70ch", color: "color-mix(in srgb, var(--color-text) 82%, transparent)", margin: 0 }}>
