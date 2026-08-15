@@ -26,7 +26,7 @@ export default function ContactForm() {
 
     if (!emailjsReady) {
       setStatus("error");
-      setErrorMessage("தொடர்பு படிவம் தற்போது கிடைக்கவில்லை — நேரடியாக osa@chc.lk முகவரிக்கு மின்னஞ்சல் அனுப்பவும்.");
+      setErrorMessage("தொடர்பு படிவம் தற்போது கிடைக்கவில்லை — நேரடியாக chcostasecretary@gmail.com முகவரிக்கு மின்னஞ்சல் அனுப்பவும்.");
       return;
     }
 
