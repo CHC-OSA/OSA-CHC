@@ -3,7 +3,7 @@ import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 
 const COMMITTEE = [
-  { id: "committee-president", name: "திரு. சி. சிவகுமார்", role: "தலைவர்" },
+  { id: "committee-president", name: "திரு. ந.சர்வேஸ்வரன்", role: "தலைவர்" },
   { id: "committee-vp", name: "திருமதி. அ. பாலசுந்தரம்", role: "துணைத் தலைவர்" },
   { id: "committee-secretary", name: "திரு. க. நடராஜா", role: "செயலாளர்" },
   { id: "committee-treasurer", name: "திரு. வ. ஜெயரட்ணம்", role: "பொருளாளர்" },

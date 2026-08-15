@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa6";
 import crest from "../../assets/chc-crest.jpg";
 import { CONTACT_INFO } from "../../data/constants";
 
@@ -12,9 +13,9 @@ const QUICK_LINKS = [
 ];
 
 const SOCIALS = [
-  { label: "Facebook", glyph: "f" },
-  { label: "YouTube", glyph: "▶" },
-  { label: "Instagram", glyph: "◎" },
+  { label: "Facebook", icon: <FaFacebookF />, url: "https://www.facebook.com/share/1YDNMVwJH9/?mibextid=wwXIfr" },
+  { label: "YouTube", icon: <FaYoutube />, url: "https://www.youtube.com/@CHCOSAOfficial" },
+  { label: "Instagram", icon: <FaInstagram />, url: "https://www.instagram.com/chcosaofficial/" },
 ];
 
 export default function Footer() {
@@ -61,7 +62,7 @@ export default function Footer() {
           </p>
           <div style={{ display: "flex", gap: 10 }}>
             {SOCIALS.map((social) => (
-              <a key={social.label} href="#" aria-label={social.label} className="social-icon">
+              <a key={social.label} href={social.url} aria-label={social.label} className="social-icon" target="_blank" rel="noopener noreferrer">
                 {social.glyph}
               </a>
             ))}

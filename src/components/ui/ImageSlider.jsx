@@ -8,7 +8,7 @@ const SLIDES = [
   { id: "slide-main-4", caption: "பட்டமளிப்பு விழா" },
 ];
 
-const AUTOPLAY_MS = 5000;
+const AUTOPLAY_MS = 2000;
 
 export default function ImageSlider() {
   const [index, setIndex] = useState(0);

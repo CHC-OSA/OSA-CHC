@@ -10,7 +10,7 @@ import { getRecentDevelopments } from "../data/developments";
 
 const STATS = [
   { value: "1904", label: "ஸ்தாபிக்கப்பட்ட ஆண்டு" },
-  { value: "12,000+", label: "பதிவுசெய்த பழைய மாணவர்கள்" },
+  { value: "470+", label: "பதிவுசெய்த பழைய மாணவர்கள்" },
   { value: "45", label: "நாடுகளில் வாழும் உறுப்பினர்கள்" },
   { value: "122", label: "ஆண்டுகால பாரம்பரியம்" },
 ];

@@ -36,7 +36,7 @@ export function DevelopmentCard({ development }) {
 export function DevelopmentCardWithPhoto({ development }) {
   return (
     <div className="card" style={{ padding: 0, overflow: "hidden", display: "flex", flexDirection: "column" }}>
-      <PlaceholderImage shape="rect" aspectRatio="16/10" caption="அபிவிருத்தி இடப் புகைப்படம்" />
+      <PlaceholderImage shape="rect" aspectRatio="16/10" caption="அபிவிருத்தி இடப் புகைப்படம்" src={development.image} alt={development.title} />
       <div style={{ padding: 20, display: "flex", flexDirection: "column", gap: 10, flex: 1 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 8 }}>
           <div className="card-kicker" style={{ color: "var(--color-accent-2-700)" }}>{development.kicker}</div>

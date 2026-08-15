@@ -17,7 +17,7 @@ export function EventCard({ event }) {
 export function EventCardWithPhoto({ event }) {
   return (
     <div className="card" style={{ padding: 0, overflow: "hidden", display: "flex", flexDirection: "column" }}>
-      <PlaceholderImage shape="rect" aspectRatio="16/10" caption="நிகழ்வுப் புகைப்படம்" />
+      <PlaceholderImage shape="rect" aspectRatio="16/10" caption="நிகழ்வுப் புகைப்படம்" src={event.image} alt={event.title} />
       <div style={{ padding: 20, display: "flex", flexDirection: "column", flex: 1 }}>
         <div className="card-kicker" style={{ color: "var(--color-accent-2-700)" }}>{event.kicker}</div>
         <div className="card-title">{event.title}</div>

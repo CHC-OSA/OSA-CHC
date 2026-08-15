@@ -356,4 +356,4 @@ textarea.input { min-height: 90px; resize: vertical; }
   line-height: 1.4;
   overflow: hidden;
 }
-.placeholder-image.shape-circle { border-radius: 50%; }
+.shape-circle { border-radius: 50%; }

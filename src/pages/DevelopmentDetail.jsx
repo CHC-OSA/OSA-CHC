@@ -30,7 +30,7 @@ export default function DevelopmentDetail() {
       </p>
 
       <figure className="grayscale" style={{ margin: "0 0 40px" }}>
-        <PlaceholderImage aspectRatio="21/9" caption="அபிவிருத்தி இடப் புகைப்படம்" />
+        <PlaceholderImage aspectRatio="21/9" caption="அபிவிருத்தி இடப் புகைப்படம்" src={development.image} alt={development.title} />
       </figure>
 
       <div style={{ maxWidth: "70ch" }}>
