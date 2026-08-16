@@ -1,6 +1,7 @@
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import ContactForm from "../components/forms/ContactForm";
 import { CONTACT_INFO } from "../data/constants";
+import Entrance from "../assets/Entrance.jpg";
 
 export default function Contact() {
   return (
@@ -30,8 +31,8 @@ export default function Contact() {
               {CONTACT_INFO.email}
             </p>
           </div>
-          <figure className="grayscale" style={{ margin: "24px 0 0" }}>
-            <PlaceholderImage aspectRatio="16/10" caption="இருப்பிட வரைபடம்" />
+          <figure style={{ margin: "24px 0 0" }}>
+            <PlaceholderImage shape="rect" aspectRatio="16/10" caption="இருப்பிட வரைபடம்"  src={Entrance} alt="Entrance" />
           </figure>
         </div>
 

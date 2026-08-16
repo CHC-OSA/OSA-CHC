@@ -35,7 +35,7 @@ export default function DevelopmentDetail() {
 
       <div style={{ maxWidth: "70ch" }}>
         <p style={{ fontSize: 22, letterSpacing: "-0.01em", color: "var(--color-accent-700)", margin: "0 0 24px", fontWeight: 800, fontFamily: "var(--font-heading)" }}>
-          முன்னேற்றக் காலவரிசை
+          அபிவிருத்தி காலவரைவு
         </p>
         <DevelopmentTimeline entries={development.timeline} />
       </div>

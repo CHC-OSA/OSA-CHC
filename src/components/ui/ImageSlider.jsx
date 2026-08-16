@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import PlaceholderImage from "./PlaceholderImage";
+import schoolFront from "../../assets/school-front.jpg";
+import hBlock from "../../assets/H-block.jpg";
+import entrance from "../../assets/Entrance.jpg";
 
 const SLIDES = [
-  { id: "slide-main-1", caption: "பாடசாலை முகப்புக் கட்டிடம்" },
-  { id: "slide-main-2", caption: "மறுசந்திப்பு நிகழ்வு" },
-  { id: "slide-main-3", caption: "விளையாட்டு விழா" },
-  { id: "slide-main-4", caption: "பட்டமளிப்பு விழா" },
+  { id: "slide-school-front", caption: "பாடசாலை முகப்புக் கட்டிடம்", image: schoolFront },
+  { id: "slide-h-block", caption: "H-block கட்டிடம்", image: hBlock },
+  { id: "slide-entrance", caption: "பாடசாலை நுழைவாயில்", image: entrance },
 ];
 
 const AUTOPLAY_MS = 2000;
@@ -26,7 +28,6 @@ export default function ImageSlider() {
   return (
     <section
       style={{ position: "relative", width: "100%", aspectRatio: "16/6", overflow: "hidden" }}
-      className="grayscale"
       aria-label="பாடசாலைப் புகைப்பட ஸ்லைடர்"
     >
       {SLIDES.map((slide, i) => (
@@ -34,6 +35,8 @@ export default function ImageSlider() {
           key={slide.id}
           shape="rect"
           caption={slide.caption}
+          src={slide.image}
+          alt={slide.caption}
           style={{
             position: "absolute",
             inset: 0,

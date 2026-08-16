@@ -9,21 +9,21 @@ import { DevelopmentCard } from "../components/developments/DevelopmentCard";
 import { getRecentDevelopments } from "../data/developments";
 
 const STATS = [
-  { value: "1904", label: "ஸ்தாபிக்கப்பட்ட ஆண்டு" },
+  { value: "1957", label: "ஸ்தாபிக்கப்பட்ட ஆண்டு" },
   { value: "470+", label: "பதிவுசெய்த பழைய மாணவர்கள்" },
   { value: "45", label: "நாடுகளில் வாழும் உறுப்பினர்கள்" },
-  { value: "122", label: "ஆண்டுகால பாரம்பரியம்" },
+  { value: "69", label: "ஆண்டுகால பாரம்பரியம்" },
 ];
 
 const WHY_JOIN = [
   {
     n: "01",
     title: "பழைய நண்பர்களுடன் இணைப்பு",
-    text: "உங்கள் வகுப்பு தோழர்களையும் ஆசிரியர்களையும் மீண்டும் சந்தியுங்கள், ஆண்டுதோறும் நடைபெறும் மறுசந்திப்பு நிகழ்வுகளில் பங்குபற்றுங்கள் .",
+    text: "உங்கள் வகுப்பு தோழர்களையும் ஆசிரியர்களையும் மீண்டும் சந்தியுங்கள், ஆண்டுதோறும் நடைபெறும் ஒன்று கூடல்களில் பங்குபற்றுங்கள் .",
   },
   {
     n: "02",
-    title: "பாடசாலை மேம்பாட்டில் பங்களிப்பு",
+    title: "பாடசாலை அபிவிருத்திகளில் பங்களிப்பு",
     text: "புதிய கட்டிடங்கள், நூலகம், விளையாட்டு வசதிகள் என பாடசாலையின் வளர்ச்சிக்கு உங்கள் பங்களிப்பை வழங்குங்கள் .",
   },
   {
@@ -41,13 +41,13 @@ export default function Home() {
       <div className="container">
         <section style={{ padding: "64px 0 48px" }}>
           <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 14 }}>
-            பழைய மாணவர் சங்கம் ஸ்தாபிக்கப்பட்டது- 1904
+            பழைய மாணவர் சங்கம் ஸ்தாபிக்கப்பட்டது- 1957
           </span>
           <h1 style={{ fontSize: "clamp(34px,5vw,58px)", lineHeight: 1.08, letterSpacing: "-0.02em", margin: "0 0 20px", maxWidth: "16ch" }}>
             நினைவுகளால் இணைந்தோம், சேவையால் வளர்கிறோம்.
           </h1>
           <p style={{ fontSize: 17, lineHeight: 1.65, maxWidth: "58ch", color: "color-mix(in srgb, var(--color-text) 80%, transparent)", margin: "0 0 28px" }}>
-            சாவகச்சேரி இந்துக் கல்லூரியின் பழைய மாணவர் சங்கமானது உலகெங்கும் வாழும் பழைய மாணவர்களை இணைத்து எமது பாடசாலையின் தொடர்ச்சியான வளர்ச்சிக்காக உழைக்கிறது.
+            சாவகச்சேரி இந்துக் கல்லூரியின் பழைய மாணவர் சங்கமானது உலகெங்கும் வாழும் பழைய மாணவர்களை இணைத்து எமது பாடசாலையின் தொடர்ச்சியான வளர்ச்சிக்காக உழைத்து வருகிறது.
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
             <Button as="link" to="/join" variant="primary">உறுப்பினராகுங்கள்</Button>
@@ -116,9 +116,9 @@ export default function Home() {
           </div>
         </section>
 
-        <hr className="hr" style={{ margin: 0 }} />
+        {/* <hr className="hr" style={{ margin: 0 }} /> */}
 
-        <section className="grid-2" style={{ alignItems: "center", padding: "56px 0 64px" }}>
+        {/* <section className="grid-2" style={{ alignItems: "center", padding: "56px 0 64px" }}>
           <div>
             <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-700)", marginBottom: 14 }}>
               எமது பாரம்பரியம்
@@ -131,13 +131,13 @@ export default function Home() {
           <figure className="grayscale" style={{ margin: 0 }}>
             <PlaceholderImage aspectRatio="16/10" caption="பாடசாலைக் கட்டிடப் புகைப்படம்" />
           </figure>
-        </section>
+        </section> */}
       </div>
 
       <section style={{ background: "var(--color-accent)", color: "var(--color-bg)", borderTop: "6px solid var(--color-accent-2)" }}>
         <div className="container" style={{ padding: "56px clamp(20px,4vw,48px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
           <h3 style={{ fontSize: "clamp(26px,3.4vw,38px)", margin: 0, color: "var(--color-bg)", maxWidth: "20ch" }}>
-            எங்கள் பாரம்பரியத்தில் பங்குசேருங்கள்.
+            எங்கள் பாரம்பரியத்தில் பங்கு கொள்ளுங்கள்.
           </h3>
           <Button as="link" to="/join" variant="ghost" style={{ color: "var(--color-bg)", borderColor: "var(--color-bg)" }}>
             இப்போதே பதிவு செய்யுங்கள்

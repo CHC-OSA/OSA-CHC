@@ -1,6 +1,8 @@
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import TimelineRow from "../components/ui/TimelineRow";
 import Card from "../components/ui/Card";
+import presidentPhoto from "../assets/Principal.jpg";
+import secretaryPhoto from "../assets/Secretary.jpg";
 
 const OBJECTIVES = [
   {
@@ -19,9 +21,9 @@ const OBJECTIVES = [
 
 const MILESTONES = [
   { year: "1904", text: "பாடசாலை நிறுவப்பட்டது" },
-  { year: "1954", text: "பழைய மாணவர் சங்கம் ஆரம்பிக்கப்பட்டது" },
+  { year: "1957", text: "பழைய மாணவர் சங்கம் ஆரம்பிக்கப்பட்டது" },
   { year: "2004", text: "நூற்றாண்டு விழா கொண்டாட்டம்" },
-  { year: "2024", text: "பன்னாட்டு பழைய மாணவர் இணைப்பு வலையமைப்பு தொடக்கம்" },
+  // { year: "2024", text: "பன்னாட்டு பழைய மாணவர் இணைப்பு வலையமைப்பு தொடக்கம்" },
 ];
 
 export default function About() {
@@ -34,7 +36,7 @@ export default function About() {
         எமது வரலாறும் நோக்கமும்
       </h1>
       <p style={{ fontSize: 16, lineHeight: 1.7, maxWidth: "72ch", color: "color-mix(in srgb, var(--color-text) 80%, transparent)", margin: "0 0 40px" }}>
-        1904 ஆம் ஆண்டு நிறுவப்பட்ட சாவகச்சேரி இந்துக் கல்லூரி, யாழ்ப்பாண மாவட்டத்தின் மிகவும் பழமையான மற்றும் புகழ்பெற்ற கல்வி நிலையங்களில் ஒன்றாகும். கடந்த நூற்றியிருபது ஆண்டுகளுக்கும் மேலாக, ஆயிரக்கணக்கான மாணவர்களுக்குக் கல்வி வழங்கி, சமூகத்தின் பல்வேறு துறைகளிலும் சிறந்து விளங்கும் தலைவர்களை உருவாக்கியுள்ளது.
+        1904 ஆம் ஆண்டு நிறுவப்பட்ட சாவகச்சேரி இந்துக் கல்லூரி, யாழ்ப்பாண மாவட்டத்தின் மிகவும் பழமையான மற்றும் புகழ்பெற்ற கல்வி நிலையங்களில் ஒன்றாகும். கடந்த நூற்றியிருபது ஆண்டுகளுக்கும் மேலாக, ஆயிரக்கணக்கான மாணவர்களுக்குக் கல்வி வழங்கி, சமூகத்தின் பல்வேறு துறைகளிலும் சிறந்து விளங்கும் தலைவர்களை உருவாக்கியுள்ளது. எமது பாடசாலையின் அபிவிருத்தி பணிகளை முன்னெடுக்கும் பொருட்டும் பழைய மாணவர்களை ஒன்றிணைக்கும் பொருட்டும் எமது பழைய மாணவர் சங்கமானது 1957 இல் ஸ்தாபிக்கப்பட்டது.
       </p>
 
       <hr className="hr" />
@@ -91,8 +93,8 @@ export default function About() {
       </section>
 
       <section className="grid-2" style={{ alignItems: "center", padding: "44px 0 12px" }}>
-        <figure className="grayscale" style={{ margin: 0 }}>
-          <PlaceholderImage aspectRatio="4/3" caption="பாடசாலை முகப்பு புகைப்படம்" />
+        <figure style={{ margin: 0 }}>
+          <PlaceholderImage aspectRatio="4/3" src={presidentPhoto} alt="பழைய மாணவர் சங்கத் தலைவர்" />
         </figure>
         <Card
           kicker="தலைவரின் செய்தி"
@@ -100,6 +102,19 @@ export default function About() {
           title="பழைய மாணவர் சங்கத் தலைவர்"
           body="எமது பாடசாலையின் மதிப்புகளையும் பாரம்பரியத்தையும் அடுத்த தலைமுறைக்கும் கொண்டு செல்வதே எமது சங்கத்தின் முதன்மையான நோக்கம். ஒவ்வொரு உறுப்பினரின் ஆதரவும் இதை மெய்யாக்குகிறது."
           meta="— தலைவர், பழைய மாணவர் சங்கம்"
+        />
+      </section>
+
+      <section className="grid-2" style={{ alignItems: "center", padding: "44px 0 12px" }}>
+        <figure style={{ margin: 0 }}>
+          <PlaceholderImage aspectRatio="4/3" src={secretaryPhoto} alt="பழைய மாணவர் சங்க செயலாளர்" />
+        </figure>
+        <Card
+          kicker="செயலாளரின் செய்தி"
+          kickerColor="var(--color-accent-2-700)"
+          title="பழைய மாணவர் சங்க செயலாளர்"
+          body="எமது பாடசாலையின் மதிப்புகளையும் பாரம்பரியத்தையும் அடுத்த தலைமுறைக்கும் கொண்டு செல்வதே எமது சங்கத்தின் முதன்மையான நோக்கம். ஒவ்வொரு உறுப்பினரின் ஆதரவும் இதை மெய்யாக்குகிறது."
+          meta="— செயலாளர், பழைய மாணவர் சங்கம்"
         />
       </section>
     </div>

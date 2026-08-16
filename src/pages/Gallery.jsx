@@ -1,4 +1,4 @@
-import PlaceholderImage from "../components/ui/PlaceholderImage";
+import { GalleryAlbumCard } from "../components/gallery/GalleryAlbumCard";
 import { GALLERY_PHOTOS } from "../data/gallery";
 
 export default function Gallery() {
@@ -9,11 +9,8 @@ export default function Gallery() {
       </span>
       <h1 style={{ fontSize: "clamp(28px,3.6vw,40px)", margin: "0 0 36px" }}>நினைவலைகள்</h1>
       <div className="grid-3">
-        {GALLERY_PHOTOS.map((photo) => (
-          <figure key={photo.id} className="grayscale" style={{ margin: 0 }}>
-            <PlaceholderImage aspectRatio="4/3" caption={photo.caption} src={photo.image} alt={photo.caption} />
-            <figcaption>{photo.caption}</figcaption>
-          </figure>
+        {GALLERY_PHOTOS.map((album) => (
+          <GalleryAlbumCard key={album.id} album={album} />
         ))}
       </div>
     </div>

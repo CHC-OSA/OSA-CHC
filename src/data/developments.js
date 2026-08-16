@@ -8,7 +8,7 @@ import drinkingWaterPhoto4 from "../assets/developments/drinking-water-renovatio
 
 export const STATUS_LABELS = {
   ongoing: "நடைபெறுகிறது",
-  completed: "முடிவடைந்தது",
+  completed: "நிறைவுற்றது",
   planned: "திட்டமிடல் கட்டத்தில்",
 };
 

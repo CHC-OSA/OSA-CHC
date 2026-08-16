@@ -10,7 +10,7 @@ function LatestUpdate({ development }) {
   const latest = getLatestEntry(development);
   return (
     <p className="card-meta" style={{ margin: 0 }}>
-      <span>சமீபத்திய புதுப்பிப்பு: {latest.date} — {latest.label}</span>
+      <span>இறுதி இற்றைப்படுத்தல்: {latest.date} — {latest.label}</span>
     </p>
   );
 }

@@ -51,7 +51,6 @@ figcaption {
 :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
 ::selection { background: color-mix(in srgb, var(--color-accent) 30%, transparent); }
 
-.grayscale { filter: grayscale(1) contrast(1.08); }
 
 .hr {
   height: 2px;

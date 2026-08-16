@@ -8,7 +8,7 @@ There is no admin panel — content lives directly in three JavaScript data file
 |---|---|---|
 | Events (`/events`) | `src/data/events.js` | One-off happenings: ceremonies, reunions, awards, announcements, news |
 | Developments (`/developments`) | `src/data/developments.js` | Ongoing infrastructure/construction projects, tracked with a status and a dated progress timeline |
-| Gallery (`/gallery`) | `src/data/gallery.js` | A simple photo wall — no dates or write-ups, just photos with a short caption each |
+| Gallery (`/gallery`) | `src/data/gallery.js` | Photo albums — a cover photo + title per album, click through to see every photo in that album |
 
 These are **not interchangeable** — a school building project belongs in Developments (so it gets a status badge and timeline); a one-time event or announcement belongs in Events; a photo with no story to tell belongs in the Gallery.
 
@@ -218,30 +218,43 @@ You can list 1 photo, 5 photos, or leave `photos` out entirely — whatever's th
 
 ## 5. Adding to the Gallery
 
-The Gallery (`/gallery`) is simpler than Events/Developments — just a grid of photos with a caption each, no detail page, no dates, no status.
+The Gallery (`/gallery`) shows **albums**: a cover photo + title card that links to the album's own page (`/gallery/<id>`) showing every photo in that album. Same idea as Events, but without dates or write-ups.
 
 Open `src/data/gallery.js`. It exports one array called `GALLERY_PHOTOS`:
 
 | Field | Required | Description |
 |---|---|---|
-| `id` | Yes | A short, unique, lowercase-hyphenated identifier. Used as the React key and as the recommended photo filename (see below) — doesn't appear in any URL. |
-| `caption` | Yes | The short text shown under the photo. |
-| `image` | No | The photo itself — omit it and a gray placeholder box shows instead. |
+| `id` | Yes | A short, unique, lowercase-hyphenated identifier. Becomes the album page URL (`/gallery/<id>`) and the name of the photo folder (see below). |
+| `caption` | Yes | The album title, shown on the album card and its detail page. |
+| `cover` | No | The cover photo shown on the album card — omit it and a gray placeholder box shows instead. |
+| `photos` | No | An array of every photo in the album, shown on the album's own page — omit it (or leave it `[]`) and a 3-box "photos coming soon" placeholder grid shows instead. |
 
-There's no "recent" slicing here — every entry in the array always shows, in array order. Add new photos wherever you like; putting them at the top keeps the newest photos first.
+There's no "recent" slicing here — every album always shows, in array order. Add new albums wherever you like; putting them at the top keeps the newest ones first.
 
-**Step 1 — add the photo file.** Unlike Events/Developments, a Gallery entry is just one photo, so no per-entry folder is needed — drop it straight into a shared folder, named after the `id`:
+**Step 1 — create a folder for this album's photos**, named exactly after the album's `id`:
 
 ```
-src/assets/gallery/<photo-id>.jpg
+src/assets/gallery/<album-id>/cover.jpg
+src/assets/gallery/<album-id>/photo-1.jpg
+src/assets/gallery/<album-id>/photo-2.jpg
 ```
 
-Example: `src/assets/gallery/founders-day-2027.jpg`. Aim for roughly 4:3 (e.g. 1200×900px), under ~1MB.
+Example, for `id: "founders-day-2027"`:
 
-**Step 2 — import it at the top of `src/data/gallery.js`:**
+```
+src/assets/gallery/founders-day-2027/cover.jpg
+src/assets/gallery/founders-day-2027/photo-1.jpg
+src/assets/gallery/founders-day-2027/photo-2.jpg
+```
+
+`cover.jpg` is used on the album card in the `/gallery` grid (16:10 ratio looks best). `photo-1.jpg`, `photo-2.jpg`, ... are used on the album's own page (roughly 4:3 looks best) — list any number, however many you have. Use `.jpg`, `.png`, or `.webp`, under ~1MB each.
+
+**Step 2 — import the photos at the top of `src/data/gallery.js`:**
 
 ```js
-import foundersDay from "../assets/gallery/founders-day-2027.jpg";
+import foundersDayCover from "../assets/gallery/founders-day-2027/cover.jpg";
+import foundersDayPhoto1 from "../assets/gallery/founders-day-2027/photo-1.jpg";
+import foundersDayPhoto2 from "../assets/gallery/founders-day-2027/photo-2.jpg";
 ```
 
 **Step 3 — add an entry:**
@@ -251,9 +264,10 @@ export const GALLERY_PHOTOS = [
   {
     id: "founders-day-2027",
     caption: "நிறுவனர் தினம் 2027",
-    image: foundersDay,
+    cover: foundersDayCover,
+    photos: [foundersDayPhoto1, foundersDayPhoto2],
   },
-  // ...existing photos
+  // ...existing albums
 ];
 ```
 

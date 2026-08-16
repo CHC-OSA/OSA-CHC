@@ -28,7 +28,7 @@ export default function Footer() {
             சாவகச்சேரி இந்துக் கல்லூரி OSA
           </span>
           <p style={{ fontSize: "13.5px", lineHeight: 1.6, color: "color-mix(in srgb, var(--color-bg) 72%, transparent)", margin: 0, maxWidth: "32ch", fontStyle: "italic" }}>
-            &ldquo;நலம் நாடுக, அறம் புரிக, புகழ் ஒளிர்க&rdquo;
+            &ldquo;நலமே நாடுக, நலமே புரிக, நலமே ஒளிர்க&rdquo;
           </p>
         </div>
 
@@ -63,7 +63,7 @@ export default function Footer() {
           <div style={{ display: "flex", gap: 10 }}>
             {SOCIALS.map((social) => (
               <a key={social.label} href={social.url} aria-label={social.label} className="social-icon" target="_blank" rel="noopener noreferrer">
-                {social.glyph}
+                {social.icon}
               </a>
             ))}
           </div>

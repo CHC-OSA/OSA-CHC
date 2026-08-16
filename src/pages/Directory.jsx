@@ -1,11 +1,13 @@
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
+import presidentPhoto from "../assets/Principal.jpg";
+import secretaryPhoto from "../assets/Secretary.jpg";
 
 const COMMITTEE = [
-  { id: "committee-president", name: "திரு. ந.சர்வேஸ்வரன்", role: "தலைவர்" },
+  { id: "committee-president", name: "திரு. ந.சர்வேஸ்வரன்", role: "தலைவர்", photo: presidentPhoto },
   { id: "committee-vp", name: "திருமதி. அ. பாலசுந்தரம்", role: "துணைத் தலைவர்" },
-  { id: "committee-secretary", name: "திரு. க. நடராஜா", role: "செயலாளர்" },
+  { id: "committee-secretary", name: "திரு. ஆ.தங்கவேலு", role: "செயலாளர்", photo: secretaryPhoto },
   { id: "committee-treasurer", name: "திரு. வ. ஜெயரட்ணம்", role: "பொருளாளர்" },
 ];
 
@@ -37,6 +39,8 @@ export default function Directory() {
                 shape="circle"
                 aspectRatio="1/1"
                 caption="புகைப்படம்"
+                src={member.photo}
+                alt={member.name}
                 style={{ width: 100, height: 100, margin: "0 auto 14px" }}
               />
               <p style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>{member.name}</p>
