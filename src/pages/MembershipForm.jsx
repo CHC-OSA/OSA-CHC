@@ -33,7 +33,7 @@ export default function MembershipForm() {
   const setField = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
   const openGoogleForm = () => {
-    window.open(MEMBERSHIP_GOOGLE_FORM_URL, "_blank", "noopener,noreferrer");
+    window.open("https://forms.gle/vW2AfKaFbGEUbnbH6", "_blank", "noopener,noreferrer");
   };
 
   return (
