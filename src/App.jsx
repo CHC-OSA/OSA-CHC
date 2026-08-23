@@ -26,8 +26,8 @@ export default function App() {
           <Route path="developments" element={<Developments />} />
           <Route path="developments/:id" element={<DevelopmentDetail />} />
           <Route path="directory" element={<Directory />} />
-          <Route path="gallery" element={<Gallery />} />
-          <Route path="gallery/:id" element={<GalleryAlbum />} />
+          {/* <Route path="gallery" element={<Gallery />} />
+          <Route path="gallery/:id" element={<GalleryAlbum />} /> */}
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>

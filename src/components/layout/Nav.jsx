@@ -14,7 +14,7 @@ const LINKS = [
   },
   { to: "/events", label: "நிகழ்வுகள்" },
   { to: "/developments", label: "அபிவிருத்திகள்" },
-  { to: "/gallery", label: "படத்தொகுப்பு" },
+  // { to: "/gallery", label: "படத்தொகுப்பு" },
   { to: "/contact", label: "தொடர்பு" },
 ];
 
