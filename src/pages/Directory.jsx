@@ -1,14 +1,16 @@
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import presidentPhoto from "../assets/Principal.jpg";
-import secretaryPhoto from "../assets/Secretary.jpg";
+import presidentPhoto from "../assets/PrincipalCommittee.jpeg";
+import secretaryPhoto from "../assets/SecretaryCommittee.jpeg";
+import vicePresidentPhoto from "../assets/vicepresident.jpeg"
 
 const COMMITTEE = [
   { id: "committee-president", name: "திரு. ந.சர்வேஸ்வரன்", role: "தலைவர்", photo: presidentPhoto },
-  { id: "committee-vp", name: "திருமதி. அ. பாலசுந்தரம்", role: "துணைத் தலைவர்" },
+  { id: "committee-vp", name: "திரு. கி. ராகுலன்", role: "துணைத் தலைவர்", photo: vicePresidentPhoto },
   { id: "committee-secretary", name: "திரு. ஆ.தங்கவேலு", role: "செயலாளர்", photo: secretaryPhoto },
-  { id: "committee-treasurer", name: "திரு. வ. ஜெயரட்ணம்", role: "பொருளாளர்" },
+  { id: "committee-assistant-secretary", name: "திரு.சு.சுமன்", role: "துணை செயலாளர்"},
+  { id: "committee-treasurer", name: "திரு. க.முரளி", role: "பொருளாளர்" },
 ];
 
 const DECADES = [
@@ -52,13 +54,13 @@ export default function Directory() {
 
       <hr className="hr" style={{ marginBottom: 36 }} />
 
-      <div className="grid-3" style={{ marginBottom: 36 }}>
+      {/* <div className="grid-3" style={{ marginBottom: 36 }}>
         {DECADES.map((decade) => (
           <Card key={decade.range} kicker={decade.range} title={decade.count} kickerColor="var(--color-accent-2-700)" style={{ opacity: 0.55, position: "relative" }}>
             <p className="card-body is-redacted">●●●●●●● ●●●●●● ●●●●●●●●</p>
           </Card>
         ))}
-      </div>
+      </div> */}
 
       {/* <Card
         elevation="md"
