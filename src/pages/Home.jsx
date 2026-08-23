@@ -9,10 +9,10 @@ import { DevelopmentCard } from "../components/developments/DevelopmentCard";
 import { getRecentDevelopments } from "../data/developments";
 
 const STATS = [
-  { value: "1957", label: "ஸ்தாபிக்கப்பட்ட ஆண்டு" },
+  { value: "1960", label: "ஸ்தாபிக்கப்பட்ட ஆண்டு" },
   { value: "470+", label: "பதிவுசெய்த பழைய மாணவர்கள்" },
-  { value: "45", label: "நாடுகளில் வாழும் உறுப்பினர்கள்" },
-  { value: "69", label: "ஆண்டுகால பாரம்பரியம்" },
+  { value: "7", label: "நாடுகளில் கிளைகள்" },
+  { value: "66", label: "ஆண்டுகால பாரம்பரியம்" },
 ];
 
 const WHY_JOIN = [
@@ -41,7 +41,7 @@ export default function Home() {
       <div className="container">
         <section style={{ padding: "64px 0 48px" }}>
           <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 14 }}>
-            பழைய மாணவர் சங்கம் ஸ்தாபிக்கப்பட்டது- 1957
+            பழைய மாணவர் சங்கம் ஸ்தாபிக்கப்பட்டது- 1960
           </span>
           <h1 style={{ fontSize: "clamp(34px,5vw,58px)", lineHeight: 1.08, letterSpacing: "-0.02em", margin: "0 0 20px", maxWidth: "16ch" }}>
             நினைவுகளால் இணைந்தோம், சேவையால் வளர்கிறோம்.
