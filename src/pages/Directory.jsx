@@ -13,6 +13,19 @@ const COMMITTEE = [
   { id: "committee-treasurer", name: "திரு. க.முரளி", role: "பொருளாளர்" },
 ];
 
+const MEMBERS = [
+  { id: "committee-member-1", name: "திரு.வ.கௌசிகன்" },
+  { id: "committee-member-2", name: "பு.குகானந்தன்" },
+  { id: "committee-member-3", name: "க.தர்சன்" },
+  { id: "committee-member-4", name: "ந.ஜதுர்சன்" },
+  { id: "committee-member-5", name: "சி.கமலரூபன்" },
+  { id: "committee-member-6", name: "க.எழில்ஆதவன்" },
+  { id: "committee-member-7", name: "யோ.ஜவாஸ்கர்" },
+  { id: "committee-member-8", name: "யோ.அர்ச்சுனன்" },
+  { id: "committee-member-9", name: "பொ.மனோகரன்" },
+  { id: "committee-member-10", name: "சு.அயூசனா" },
+];
+
 const DECADES = [
   { range: "1980–1989", count: "340+ உறுப்பினர்கள்" },
   { range: "1990–1999", count: "610+ உறுப்பினர்கள்" },
@@ -34,7 +47,7 @@ export default function Directory() {
         <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 24 }}>
           நிர்வாகக் குழு
         </span>
-        <div className="grid-4">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: "var(--space-8)" }}>
           {COMMITTEE.map((member) => (
             <div key={member.id} style={{ textAlign: "center" }}>
               <PlaceholderImage
@@ -47,6 +60,19 @@ export default function Directory() {
               />
               <p style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>{member.name}</p>
               <p style={{ margin: "2px 0 0", fontSize: 13, color: "var(--color-accent-700)" }}>{member.role}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section style={{ padding: "0 0 36px" }}>
+        <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 24 }}>
+          உறுப்பினர்கள்
+        </span>
+        <div className="grid-3">
+          {MEMBERS.map((member, index) => (
+            <div key={member.id} style={{ textAlign: "left" }}>
+              <p style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>{index + 1}. {member.name}</p>
             </div>
           ))}
         </div>
