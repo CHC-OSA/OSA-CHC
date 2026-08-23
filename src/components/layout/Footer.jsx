@@ -7,7 +7,7 @@ const QUICK_LINKS = [
   { to: "/about", label: "எங்களைப் பற்றி" },
   { to: "/events", label: "நிகழ்வுகள்" },
   { to: "/developments", label: "அபிவிருத்திகள்" },
-  { to: "/join", label: "உறுப்பினராகுங்கள்" },
+  // { to: "/join", label: "உறுப்பினராகுங்கள்" },
   { to: "/directory", label: "உறுப்பினர் பட்டியல்" },
   // { to: "/gallery", label: "படத்தொகுப்பு" },
 ];

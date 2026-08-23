@@ -50,7 +50,7 @@ export default function Home() {
             சாவகச்சேரி இந்துக் கல்லூரியின் பழைய மாணவர் சங்கமானது உலகெங்கும் வாழும் பழைய மாணவர்களை இணைத்து எமது பாடசாலையின் தொடர்ச்சியான வளர்ச்சிக்காக உழைத்து வருகிறது.
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Button as="link" to="/join" variant="primary">உறுப்பினராகுங்கள்</Button>
+            {/* <Button as="link" to="/join" variant="primary">உறுப்பினராகுங்கள்</Button> */}
             <Button as="link" to="/about" variant="ghost">எமது வரலாறு</Button>
           </div>
         </section>
@@ -139,9 +139,9 @@ export default function Home() {
           <h3 style={{ fontSize: "clamp(26px,3.4vw,38px)", margin: 0, color: "var(--color-bg)", maxWidth: "20ch" }}>
             எங்கள் பாரம்பரியத்தில் பங்கு கொள்ளுங்கள்.
           </h3>
-          <Button as="link" to="/join" variant="ghost" style={{ color: "var(--color-bg)", borderColor: "var(--color-bg)" }}>
+          {/* <Button as="link" to="/join" variant="ghost" style={{ color: "var(--color-bg)", borderColor: "var(--color-bg)" }}>
             இப்போதே பதிவு செய்யுங்கள்
-          </Button>
+          </Button> */}
         </div>
       </section>
     </div>

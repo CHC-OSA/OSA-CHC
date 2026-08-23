@@ -107,9 +107,9 @@ export default function Nav() {
         )}
       </div>
 
-      <Button as="link" to="/join" pill className="nav-cta" onClick={() => setOpen(false)}>
+      {/* <Button as="link" to="/join" pill className="nav-cta" onClick={() => setOpen(false)}>
         உறுப்பினராகுங்கள்
-      </Button>
+      </Button> */}
     </nav>
   );
 }

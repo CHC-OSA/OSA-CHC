@@ -60,7 +60,7 @@ export default function Directory() {
         ))}
       </div>
 
-      <Card
+      {/* <Card
         elevation="md"
         kicker="உறுப்பினர்கள் மட்டும்"
         kickerColor="var(--color-accent-2-700)"
@@ -71,7 +71,7 @@ export default function Directory() {
         <Button as="link" to="/join" variant="primary" style={{ marginTop: 8 }}>
           உறுப்பினராகுங்கள்
         </Button>
-      </Card>
+      </Card> */}
     </div>
   );
 }
