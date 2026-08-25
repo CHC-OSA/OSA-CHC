@@ -1,0 +1,35 @@
+name: Auto-create PR to main
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  create-pr:
+    if: github.event.deleted == false
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create PR if one doesn't already exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          existing=$(gh pr list --head "${{ github.ref_name }}" --base main --json number --jq 'length')
+          if [ "$existing" -gt 0 ]; then
+            echo "PR already exists for ${{ github.ref_name }} -> main, skipping."
+            exit 0
+          fi
+
+          gh pr create \
+            --base main \
+            --head "${{ github.ref_name }}" \
+            --title "Merge ${{ github.ref_name }} into main" \
+            --body "Automated PR opened from push to \`${{ github.ref_name }}\`." \
+            --reviewer Danujan06
