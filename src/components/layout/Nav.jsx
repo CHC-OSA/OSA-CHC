@@ -14,7 +14,7 @@ const LINKS = [
   },
   { to: "/events", label: "நிகழ்வுகள்" },
   { to: "/developments", label: "அபிவிருத்திகள்" },
-  { to: "/gallery", label: "படத்தொகுப்பு" },
+  // { to: "/gallery", label: "படத்தொகுப்பு" },
   { to: "/contact", label: "தொடர்பு" },
 ];
 
@@ -107,9 +107,9 @@ export default function Nav() {
         )}
       </div>
 
-      <Button as="link" to="/join" pill className="nav-cta" onClick={() => setOpen(false)}>
+      {/* <Button as="link" to="/join" pill className="nav-cta" onClick={() => setOpen(false)}>
         உறுப்பினராகுங்கள்
-      </Button>
+      </Button> */}
     </nav>
   );
 }

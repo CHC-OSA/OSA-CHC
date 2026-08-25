@@ -1,14 +1,29 @@
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
-import presidentPhoto from "../assets/Principal.jpg";
-import secretaryPhoto from "../assets/Secretary.jpg";
+import presidentPhoto from "../assets/PrincipalCommittee.jpeg";
+import secretaryPhoto from "../assets/SecretaryCommittee.jpeg";
+import vicePresidentPhoto from "../assets/vicepresident.jpeg"
 
 const COMMITTEE = [
   { id: "committee-president", name: "திரு. ந.சர்வேஸ்வரன்", role: "தலைவர்", photo: presidentPhoto },
-  { id: "committee-vp", name: "திருமதி. அ. பாலசுந்தரம்", role: "துணைத் தலைவர்" },
+  { id: "committee-vp", name: "திரு. கி. ராகுலன்", role: "துணைத் தலைவர்", photo: vicePresidentPhoto },
   { id: "committee-secretary", name: "திரு. ஆ.தங்கவேலு", role: "செயலாளர்", photo: secretaryPhoto },
-  { id: "committee-treasurer", name: "திரு. வ. ஜெயரட்ணம்", role: "பொருளாளர்" },
+  { id: "committee-assistant-secretary", name: "திரு.சு.சுமன்", role: "துணை செயலாளர்"},
+  { id: "committee-treasurer", name: "திரு. க.முரளி", role: "பொருளாளர்" },
+];
+
+const MEMBERS = [
+  { id: "committee-member-1", name: "திரு.வ.கௌசிகன்" },
+  { id: "committee-member-2", name: "பு.குகானந்தன்" },
+  { id: "committee-member-3", name: "க.தர்சன்" },
+  { id: "committee-member-4", name: "ந.ஜதுர்சன்" },
+  { id: "committee-member-5", name: "சி.கமலரூபன்" },
+  { id: "committee-member-6", name: "க.எழில்ஆதவன்" },
+  { id: "committee-member-7", name: "யோ.ஜவாஸ்கர்" },
+  { id: "committee-member-8", name: "யோ.அர்ச்சுனன்" },
+  { id: "committee-member-9", name: "பொ.மனோகரன்" },
+  { id: "committee-member-10", name: "சு.அயூசனா" },
 ];
 
 const DECADES = [
@@ -32,7 +47,7 @@ export default function Directory() {
         <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 24 }}>
           நிர்வாகக் குழு
         </span>
-        <div className="grid-4">
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: "var(--space-8)" }}>
           {COMMITTEE.map((member) => (
             <div key={member.id} style={{ textAlign: "center" }}>
               <PlaceholderImage
@@ -50,17 +65,30 @@ export default function Directory() {
         </div>
       </section>
 
+      <section style={{ padding: "0 0 36px" }}>
+        <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 24 }}>
+          உறுப்பினர்கள்
+        </span>
+        <div className="grid-3">
+          {MEMBERS.map((member, index) => (
+            <div key={member.id} style={{ textAlign: "left" }}>
+              <p style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>{index + 1}. {member.name}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <hr className="hr" style={{ marginBottom: 36 }} />
 
-      <div className="grid-3" style={{ marginBottom: 36 }}>
+      {/* <div className="grid-3" style={{ marginBottom: 36 }}>
         {DECADES.map((decade) => (
           <Card key={decade.range} kicker={decade.range} title={decade.count} kickerColor="var(--color-accent-2-700)" style={{ opacity: 0.55, position: "relative" }}>
             <p className="card-body is-redacted">●●●●●●● ●●●●●● ●●●●●●●●</p>
           </Card>
         ))}
-      </div>
+      </div> */}
 
-      <Card
+      {/* <Card
         elevation="md"
         kicker="உறுப்பினர்கள் மட்டும்"
         kickerColor="var(--color-accent-2-700)"
@@ -71,7 +99,7 @@ export default function Directory() {
         <Button as="link" to="/join" variant="primary" style={{ marginTop: 8 }}>
           உறுப்பினராகுங்கள்
         </Button>
-      </Card>
+      </Card> */}
     </div>
   );
 }

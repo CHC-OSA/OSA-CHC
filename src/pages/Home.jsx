@@ -9,10 +9,10 @@ import { DevelopmentCard } from "../components/developments/DevelopmentCard";
 import { getRecentDevelopments } from "../data/developments";
 
 const STATS = [
-  { value: "1957", label: "ஸ்தாபிக்கப்பட்ட ஆண்டு" },
+  { value: "1960", label: "ஸ்தாபிக்கப்பட்ட ஆண்டு" },
   { value: "470+", label: "பதிவுசெய்த பழைய மாணவர்கள்" },
-  { value: "45", label: "நாடுகளில் வாழும் உறுப்பினர்கள்" },
-  { value: "69", label: "ஆண்டுகால பாரம்பரியம்" },
+  { value: "7", label: "நாடுகளில் கிளைகள்" },
+  { value: "66", label: "ஆண்டுகால பாரம்பரியம்" },
 ];
 
 const WHY_JOIN = [
@@ -41,7 +41,7 @@ export default function Home() {
       <div className="container">
         <section style={{ padding: "64px 0 48px" }}>
           <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 14 }}>
-            பழைய மாணவர் சங்கம் ஸ்தாபிக்கப்பட்டது- 1957
+            பழைய மாணவர் சங்கம் ஸ்தாபிக்கப்பட்டது- 1960
           </span>
           <h1 style={{ fontSize: "clamp(34px,5vw,58px)", lineHeight: 1.08, letterSpacing: "-0.02em", margin: "0 0 20px", maxWidth: "16ch" }}>
             நினைவுகளால் இணைந்தோம், சேவையால் வளர்கிறோம்.
@@ -50,7 +50,7 @@ export default function Home() {
             சாவகச்சேரி இந்துக் கல்லூரியின் பழைய மாணவர் சங்கமானது உலகெங்கும் வாழும் பழைய மாணவர்களை இணைத்து எமது பாடசாலையின் தொடர்ச்சியான வளர்ச்சிக்காக உழைத்து வருகிறது.
           </p>
           <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            <Button as="link" to="/join" variant="primary">உறுப்பினராகுங்கள்</Button>
+            {/* <Button as="link" to="/join" variant="primary">உறுப்பினராகுங்கள்</Button> */}
             <Button as="link" to="/about" variant="ghost">எமது வரலாறு</Button>
           </div>
         </section>
@@ -139,9 +139,9 @@ export default function Home() {
           <h3 style={{ fontSize: "clamp(26px,3.4vw,38px)", margin: 0, color: "var(--color-bg)", maxWidth: "20ch" }}>
             எங்கள் பாரம்பரியத்தில் பங்கு கொள்ளுங்கள்.
           </h3>
-          <Button as="link" to="/join" variant="ghost" style={{ color: "var(--color-bg)", borderColor: "var(--color-bg)" }}>
+          {/* <Button as="link" to="/join" variant="ghost" style={{ color: "var(--color-bg)", borderColor: "var(--color-bg)" }}>
             இப்போதே பதிவு செய்யுங்கள்
-          </Button>
+          </Button> */}
         </div>
       </section>
     </div>
