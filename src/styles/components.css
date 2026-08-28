@@ -146,19 +146,26 @@ textarea.input { min-height: 90px; resize: vertical; }
 /* — navigation — */
 .nav {
   position: sticky;
-  top: 16px;
+  top: 0;
   z-index: 20;
   display: flex;
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
   width: min(calc(100% - (clamp(20px, 4vw, 48px) * 2)), 1180px);
-  margin: 16px auto 0;
+  margin: 0 auto;
   padding: 8px 10px 8px 16px;
   background: var(--color-surface);
   border: 1px solid var(--color-divider);
   border-radius: 999px;
   box-shadow: var(--shadow-md);
+}
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .nav {
+    background: color-mix(in srgb, var(--color-surface) 78%, transparent);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    backdrop-filter: blur(16px) saturate(160%);
+  }
 }
 @media (max-width: 1300px) {
   .nav.is-menu-open { border-radius: 28px; }
