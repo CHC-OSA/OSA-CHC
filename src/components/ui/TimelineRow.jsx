@@ -1,12 +1,8 @@
 export default function TimelineRow({ year, text, borderBottom = false }) {
   return (
     <div
+      className="timeline-row"
       style={{
-        display: "grid",
-        gridTemplateColumns: "80px minmax(0,1fr)",
-        gap: 24,
-        alignItems: "baseline",
-        padding: "22px 0",
         borderTop: "2px solid var(--color-divider)",
         borderBottom: borderBottom ? "2px solid var(--color-divider)" : undefined,
       }}
