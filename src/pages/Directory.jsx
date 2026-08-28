@@ -47,7 +47,7 @@ export default function Directory() {
         <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 24 }}>
           நிர்வாகக் குழு
         </span>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(5, minmax(0, 1fr))", gap: "var(--space-8)" }}>
+        <div className="grid-5">
           {COMMITTEE.map((member) => (
             <div key={member.id} style={{ textAlign: "center" }}>
               <PlaceholderImage

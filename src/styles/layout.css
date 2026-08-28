@@ -19,13 +19,13 @@
 .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-8); }
 .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-8); }
+.grid-5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 20px; }
 
 @media (max-width: 860px) {
-  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
 }
 @media (min-width: 861px) and (max-width: 1024px) {
-  .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-3, .grid-4, .grid-5 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 .numbered-row {
@@ -36,6 +36,20 @@
 }
 @media (max-width: 640px) {
   .numbered-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+
+.timeline-row {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 24px;
+  align-items: baseline;
+  padding: 22px 0;
+}
+@media (max-width: 640px) {
+  .timeline-row {
     grid-template-columns: 1fr;
     gap: 6px;
   }
