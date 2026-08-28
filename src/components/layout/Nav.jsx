@@ -70,7 +70,7 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   return (
-    <nav className="nav">
+    <nav className={`nav${open ? " is-menu-open" : ""}`}>
       <Link to="/" className="nav-brand" onClick={() => setOpen(false)}>
         <img src={crest} alt="CHC crest" className="nav-brand-crest" />
         <span className="nav-brand-text">
