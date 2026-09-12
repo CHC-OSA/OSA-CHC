@@ -1,7 +1,7 @@
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import ContactForm from "../components/forms/ContactForm";
 import { CONTACT_INFO } from "../data/constants";
-import Entrance from "../assets/Entrance.jpg";
+import Entrance from "../assets/entrance-gate.jpg";
 
 export default function Contact() {
   return (
