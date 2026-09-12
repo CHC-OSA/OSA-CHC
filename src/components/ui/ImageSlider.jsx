@@ -33,7 +33,7 @@ export default function ImageSlider() {
 
   return (
     <section
-      style={{ position: "relative", width: "100%", aspectRatio: "16/6", overflow: "hidden" }}
+      style={{ position: "relative", width: "100%", aspectRatio: "16/7.5", overflow: "hidden" }}
       aria-label="பாடசாலைப் புகைப்பட ஸ்லைடர்"
     >
       {SLIDES.map((slide, i) => (
