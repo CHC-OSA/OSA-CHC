@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
 import PlaceholderImage from "./PlaceholderImage";
-import schoolFront from "../../assets/school-front.jpg";
-import hBlock from "../../assets/H-block.jpg";
-import entrance from "../../assets/Entrance.jpg";
+import entranceGate from "../../assets/entrance-gate.jpg";
+import technologicalFaculty from "../../assets/technological-faculty.jpg";
+import facultyBlockRow from "../../assets/faculty-block-row.jpg";
+import schoolRoadside from "../../assets/school-roadside.jpg";
+import founderStatue from "../../assets/founder-statue.jpg";
+import schoolFrontageDusk from "../../assets/school-frontage-dusk.jpg";
 
 const SLIDES = [
-  { id: "slide-school-front", caption: "பாடசாலை முகப்புக் கட்டிடம்", image: schoolFront },
-  { id: "slide-h-block", caption: "H-block கட்டிடம்", image: hBlock },
-  { id: "slide-entrance", caption: "பாடசாலை நுழைவாயில்", image: entrance },
+  { id: "slide-school-frontage-dusk", caption: "பாடசாலை முகப்பு", image: schoolFrontageDusk },
+  { id: "slide-founder-statue", caption: "ஸ்தாபகரின் சிலை", image: founderStatue, objectPosition: "center top" },
+  { id: "slide-entrance-gate", caption: "பாடசாலை நுழைவாயில்", image: entranceGate },
+  { id: "slide-technological-faculty", caption: "தொழில்நுட்பபீடக் கட்டிடம்", image: technologicalFaculty },
+  { id: "slide-school-roadside", caption: "பாடசாலை முகப்பு - வீதி நோக்கு", image: schoolRoadside },
+  { id: "slide-faculty-block-row", caption: "தொழில்நுட்பபீடம் மற்றும் அருகாமைக் கட்டிடங்கள்", image: facultyBlockRow },
 ];
 
-const AUTOPLAY_MS = 2000;
+const AUTOPLAY_MS = 4500;
 
 export default function ImageSlider() {
   const [index, setIndex] = useState(0);
@@ -41,6 +47,7 @@ export default function ImageSlider() {
             position: "absolute",
             inset: 0,
             height: "100%",
+            objectPosition: slide.objectPosition || "center",
             opacity: i === index ? 1 : 0,
             transition: "opacity .5s",
           }}
