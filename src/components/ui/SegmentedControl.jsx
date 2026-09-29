@@ -12,6 +12,7 @@ export default function SegmentedControl({ name, options, value, onChange, label
             checked={value === option.value}
             onChange={() => onChange(option.value)}
           />
+          <span className="seg-dot" aria-hidden="true" />
           {option.label}
         </label>
       ))}

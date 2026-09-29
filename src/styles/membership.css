@@ -1,0 +1,202 @@
+/* Membership application page (/join): form layout, tick-box card, side panel.
+   Banner, panels, inputs, toggles and alerts come from the shared components.css. */
+
+/* — layout — */
+.apply-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 28px;
+  align-items: start;
+}
+
+/* — sections — */
+.apply-section { padding: 28px 28px 6px; }
+.apply-section + .apply-section { margin-top: 20px; }
+.apply-section-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+.apply-section-step {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--color-accent-500);
+}
+.apply-section-head h2 { margin: 3px 0 4px; font-size: 21px; }
+.apply-section-head p { margin: 0; font-size: 14px; color: var(--color-text-muted); }
+
+/* — fields — */
+.apply-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 20px; }
+.apply-span-2 { grid-column: 1 / -1; }
+.apply-row-start { grid-column-start: 1; }
+
+.apply .field { min-width: 0; padding-bottom: 22px; }
+@supports (grid-template-rows: subgrid) {
+  /* Label / control / error rows line up across a pair of fields, even when one Tamil label wraps. */
+  .apply .field { display: grid; grid-row: span 3; grid-template-rows: subgrid; align-content: start; }
+}
+.apply .field > label:not(.apply-option) { align-self: end; }
+
+/* — membership tick box — */
+.apply .field > .apply-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0;
+  padding: 16px 18px;
+  font-size: 14px;
+  color: var(--color-text);
+  cursor: pointer;
+  background: var(--color-card);
+  border: 1.5px solid var(--color-border-strong);
+  border-radius: 14px;
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+.apply-option:hover { border-color: var(--color-accent-400); }
+.apply-option input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.apply-option:has(input:focus-visible) { border-color: var(--color-accent); box-shadow: 0 0 0 4px var(--ring); }
+.apply-option.is-checked { border-color: var(--color-accent); background: var(--color-accent-100); }
+.apply-option.is-invalid { border-color: var(--color-danger); }
+.apply-option-box {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  font-size: 15px;
+  color: transparent;
+  background: var(--color-card);
+  border: 2px solid var(--color-neutral-500);
+  border-radius: 7px;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.apply-option.is-checked .apply-option-box { color: #fff; background: var(--color-accent); border-color: var(--color-accent); }
+.apply-option-text { flex: 1; display: grid; gap: 2px; min-width: 0; }
+.apply-option-title { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+.apply-option-title strong { font-size: 15.5px; }
+.apply-option-text small { font-size: 12.5px; color: var(--color-text-muted); }
+.apply-option-price {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 19px;
+  white-space: nowrap;
+  color: var(--color-accent);
+}
+
+/* — submit — */
+.apply-submit { display: grid; gap: 14px; margin-top: 24px; }
+.apply-required-note { margin: 0; font-size: 13px; color: var(--color-text-muted); }
+.apply-submit-btn { width: 100%; min-height: 56px; gap: 10px; font-size: 16px; border-radius: 14px; }
+.apply-submit-btn:disabled { opacity: 0.85; cursor: progress; }
+.apply-submit-btn svg { font-size: 18px; }
+.apply-spinner {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid rgb(255 255 255 / 0.35);
+  border-top-color: #fff;
+  animation: apply-spin 0.7s linear infinite;
+}
+@keyframes apply-spin { to { transform: rotate(360deg); } }
+
+/* — side panel — */
+.apply-aside { position: sticky; top: 96px; display: grid; gap: 14px; }
+.apply-summary { padding: 24px; }
+.apply-summary-label { margin: 0; font-size: 13px; font-weight: 700; color: var(--color-text-muted); }
+.apply-summary-price {
+  margin: 6px 0 0;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 34px;
+  line-height: 1.1;
+  color: var(--color-accent);
+}
+.apply-progress { margin: 22px 0 0; padding: 16px; border-radius: 14px; background: var(--color-muted-bg); }
+.apply-progress-head { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 13px; font-weight: 600; }
+.apply-progress-track { height: 8px; overflow: hidden; border-radius: 999px; background: var(--color-border); }
+.apply-progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--color-accent), var(--color-accent-500));
+  transition: width 0.35s ease;
+}
+/* Registration process (பதிவு செய்யும் முறை), numbered in gold like the association's flyer. */
+.apply-process-title {
+  margin: 22px 0 14px;
+  padding-top: 20px;
+  font-size: 15px;
+  border-top: 1px solid var(--color-border);
+}
+.apply-process { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.apply-process li {
+  counter-increment: step;
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  column-gap: 12px;
+  align-items: start;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--color-text) 84%, transparent);
+}
+.apply-process li::before {
+  content: counter(step, decimal-leading-zero);
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--color-accent-2-900);
+  background: var(--color-accent-2-300);
+}
+.apply-help {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  border: 1px dashed var(--color-border-strong);
+  border-radius: 14px;
+}
+.apply-help svg { flex: none; margin-top: 3px; color: var(--color-accent); }
+.apply-help a { font-weight: 600; overflow-wrap: anywhere; }
+
+/* — success — */
+.apply-success { max-width: 640px; margin: 0 auto; padding: 48px 32px; text-align: center; }
+.apply-success-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+  font-size: 34px;
+  color: #fff;
+  background: var(--color-success);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--color-success) 14%, transparent);
+}
+.apply-success h2 { margin-bottom: 10px; font-size: clamp(22px, 3vw, 28px); }
+.apply-success p { max-width: 460px; margin: 0 auto 28px; color: var(--color-text-muted); }
+
+/* — responsive — */
+@media (max-width: 1024px) {
+  .apply-layout { grid-template-columns: minmax(0, 1fr); }
+  .apply-aside { position: static; }
+  .apply-progress { display: none; } /* the panel sits below the form here, so live progress isn't useful */
+}
+@media (max-width: 640px) {
+  .apply-section { padding: 20px 18px 4px; }
+  .apply-section-head { gap: 12px; }
+  .apply-grid { grid-template-columns: minmax(0, 1fr); }
+  .apply .field > .apply-option { padding: 14px; gap: 12px; }
+  .apply-option-price { font-size: 16px; }
+}

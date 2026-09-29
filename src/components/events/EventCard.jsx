@@ -1,37 +1,29 @@
 import { Link } from "react-router";
+import { FiArrowRight, FiCalendar } from "react-icons/fi";
 import PlaceholderImage from "../ui/PlaceholderImage";
 
-export function EventCard({ event }) {
-  return (
-    <Link to={`/events/${event.id}`} className="card" style={{ cursor: "pointer", textDecoration: "none" }}>
-      <div className="card-kicker" style={{ color: "var(--color-accent-2-700)" }}>{event.kicker}</div>
-      <div className="card-title">{event.title}</div>
-      <p className="card-body">{event.body}</p>
-      <div className="card-meta">
-        <span>{event.meta}</span>
-      </div>
-    </Link>
-  );
-}
-
 export function EventCardWithPhoto({ event }) {
+  const to = `/events/${event.id}`;
   return (
-    <div className="card" style={{ padding: 0, overflow: "hidden", display: "flex", flexDirection: "column" }}>
-      <PlaceholderImage shape="rect" aspectRatio="16/10" caption="நிகழ்வுப் புகைப்படம்" src={event.image} alt={event.title} />
-      <div style={{ padding: 20, display: "flex", flexDirection: "column", flex: 1 }}>
-        <div className="card-kicker" style={{ color: "var(--color-accent-2-700)" }}>{event.kicker}</div>
-        <div className="card-title">{event.title}</div>
+    <article className="card card-photo card-hover">
+      <Link to={to} className="card-photo-media" tabIndex={-1} aria-hidden="true">
+        <PlaceholderImage shape="rect" aspectRatio="16/10" caption="நிகழ்வுப் புகைப்படம்" src={event.image} alt="" />
+      </Link>
+      <div className="card-photo-body">
+        <span className="card-kicker">{event.kicker}</span>
+        <h3 className="card-title">
+          <Link to={to}>{event.title}</Link>
+        </h3>
         <p className="card-body">{event.body}</p>
-        <div
-          className="card-meta"
-          style={{ marginTop: "auto", display: "flex", alignItems: "center", justifyContent: "space-between" }}
-        >
-          <span>{event.meta}</span>
-          <Link to={`/events/${event.id}`} style={{ cursor: "pointer", fontSize: "13.5px" }}>
-            முழு விபரம் காண →
+        <div className="card-footer">
+          <span className="card-meta">
+            <FiCalendar aria-hidden="true" /> {event.meta}
+          </span>
+          <Link to={to} className="link-arrow">
+            முழு விபரம் காண <FiArrowRight aria-hidden="true" />
           </Link>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

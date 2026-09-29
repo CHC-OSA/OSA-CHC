@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import PlaceholderImage from "./PlaceholderImage";
 import entranceGate from "../../assets/entrance-gate.jpg";
 import technologicalFaculty from "../../assets/technological-faculty.jpg";
@@ -32,10 +33,7 @@ export default function ImageSlider() {
   const goNext = () => setIndex((current) => (current + 1) % SLIDES.length);
 
   return (
-    <section
-      style={{ position: "relative", width: "100%", aspectRatio: "16/7.5", overflow: "hidden" }}
-      aria-label="பாடசாலைப் புகைப்பட ஸ்லைடர்"
-    >
+    <section className="slider" aria-label="பாடசாலைப் புகைப்பட ஸ்லைடர்">
       {SLIDES.map((slide, i) => (
         <PlaceholderImage
           key={slide.id}
@@ -49,65 +47,30 @@ export default function ImageSlider() {
             height: "100%",
             objectPosition: slide.objectPosition || "center",
             opacity: i === index ? 1 : 0,
-            transition: "opacity .5s",
+            transition: "opacity .6s",
           }}
         />
       ))}
-      <button
-        type="button"
-        aria-label="முந்தையது"
-        onClick={goPrev}
-        style={arrowStyle({ left: 16 })}
-      >
-        ←
+      <button type="button" className="slider-arrow slider-prev" aria-label="முந்தையது" onClick={goPrev}>
+        <FiChevronLeft aria-hidden="true" />
       </button>
-      <button
-        type="button"
-        aria-label="அடுத்தது"
-        onClick={goNext}
-        style={arrowStyle({ right: 16 })}
-      >
-        →
+      <button type="button" className="slider-arrow slider-next" aria-label="அடுத்தது" onClick={goNext}>
+        <FiChevronRight aria-hidden="true" />
       </button>
-      <div style={{ position: "absolute", bottom: 14, left: 0, right: 0, display: "flex", justifyContent: "center", gap: 8 }}>
-        {SLIDES.map((slide, i) => (
-          <button
-            key={slide.id}
-            type="button"
-            aria-label={`புகைப்படம் ${i + 1}`}
-            onClick={() => setIndex(i)}
-            style={{
-              width: 9,
-              height: 9,
-              borderRadius: "50%",
-              border: "none",
-              cursor: "pointer",
-              padding: 0,
-              background: i === index ? "var(--color-bg)" : "color-mix(in srgb, var(--color-bg) 45%, transparent)",
-            }}
-          />
-        ))}
+      <div className="slider-footer">
+        <div className="slider-dots">
+          {SLIDES.map((slide, i) => (
+            <button
+              key={slide.id}
+              type="button"
+              className={`slider-dot${i === index ? " is-active" : ""}`}
+              aria-label={`புகைப்படம் ${i + 1}`}
+              aria-current={i === index ? "true" : undefined}
+              onClick={() => setIndex(i)}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
-}
-
-function arrowStyle(position) {
-  return {
-    position: "absolute",
-    top: "50%",
-    transform: "translateY(-50%)",
-    width: 40,
-    height: 40,
-    borderRadius: "50%",
-    border: "2px solid var(--color-bg)",
-    background: "color-mix(in srgb, var(--color-text) 40%, transparent)",
-    color: "var(--color-bg)",
-    fontSize: 18,
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    ...position,
-  };
 }

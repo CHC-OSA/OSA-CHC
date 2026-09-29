@@ -1,5 +1,6 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { FiAlertCircle, FiCheckCircle, FiSend } from "react-icons/fi";
 import Field from "../ui/Field";
 import Button from "../ui/Button";
 
@@ -47,7 +48,7 @@ export default function ContactForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} style={{ display: "grid", gap: 18 }}>
       <Field label="பெயர்" id="ct-name" placeholder="உங்கள் பெயர்" value={form.name} onChange={setField("name")} required />
       <Field
         label="மின்னஞ்சல்"
@@ -57,7 +58,6 @@ export default function ContactForm() {
         value={form.email}
         onChange={setField("email")}
         required
-        style={{ marginTop: 16 }}
       />
       <Field
         label="செய்தி"
@@ -68,20 +68,22 @@ export default function ContactForm() {
         value={form.message}
         onChange={setField("message")}
         required
-        style={{ marginTop: 16 }}
       />
 
-      <Button type="submit" variant="primary" block style={{ marginTop: 20 }} disabled={status === "sending"}>
+      <Button type="submit" variant="primary" block disabled={status === "sending"}>
         {status === "sending" ? "அனுப்புகிறது…" : "அனுப்பு"}
+        {status !== "sending" && <FiSend aria-hidden="true" />}
       </Button>
 
       {status === "success" && (
-        <p className="text-muted" style={{ fontSize: 13, marginTop: 12 }}>
-          நன்றி! உங்கள் செய்தி அனுப்பப்பட்டது.
+        <p className="alert alert-success" role="status">
+          <FiCheckCircle aria-hidden="true" /> நன்றி! உங்கள் செய்தி அனுப்பப்பட்டது.
         </p>
       )}
       {status === "error" && (
-        <p style={{ fontSize: 13, marginTop: 12, color: "var(--color-accent)" }}>{errorMessage}</p>
+        <p className="alert alert-error" role="alert">
+          <FiAlertCircle aria-hidden="true" /> {errorMessage}
+        </p>
       )}
     </form>
   );
