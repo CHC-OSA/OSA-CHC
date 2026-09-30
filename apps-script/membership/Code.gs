@@ -39,6 +39,7 @@ const HEADERS = ["சமர்ப்பித்த நேரம்"].concat(FIE
 // The website sends these choices as English codes; the sheet shows the Tamil option text instead.
 const CHOICE_LABELS = {
   gender: { male: "ஆண்", female: "பெண்" },
+  marital: { married: "மணமானவர்", unmarried: "மணமாகாதவர்" },
   membershipType: { lifetime: "ஆயுட்காலம்" },
   emailConsent: { yes: "ஆம்", no: "இல்லை" },
 };
@@ -46,6 +47,7 @@ const CHOICE_LABELS = {
 // Format checks, mirrored from src/pages/MembershipForm.jsx. Empty optional fields are skipped.
 const RULES = {
   gender: (v) => v === "male" || v === "female",
+  marital: (v) => v === "married" || v === "unmarried",
   dob: (v) => /^\d{4}-\d{2}-\d{2}$/.test(v),
   nic: isValidNic_,
   phone: isValidPhone_,
@@ -130,9 +132,9 @@ function isValidYear_(v) {
   return /^\d{4}$/.test(v) && Number(v) >= MIN_YEAR && Number(v) <= new Date().getFullYear();
 }
 
-// School grades 1–13 (the website sends the grade number).
+// The college teaches grades 6–13 (the website sends the grade number).
 function isValidGrade_(v) {
-  return /^\d{1,2}$/.test(v) && Number(v) >= 1 && Number(v) <= 13;
+  return /^\d{1,2}$/.test(v) && Number(v) >= 6 && Number(v) <= 13;
 }
 
 function getSheet_() {

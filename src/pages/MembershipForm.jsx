@@ -24,11 +24,19 @@ const MIN_YEAR = 1900;
 const CURRENT_YEAR = new Date().getFullYear();
 const TODAY = new Date().toLocaleDateString("en-CA"); // local YYYY-MM-DD, same format as <input type="date">
 
-// Sri Lankan school grades 1–13; grade 11 ends with the O/L exam and grade 13 with the A/L exam.
-const GRADES = Array.from({ length: 13 }, (_, i) => {
-  const exam = { 11: " — க.பொ.த (சா/த)", 13: " — க.பொ.த (உ/த)" }[i + 1] || "";
-  return { value: String(i + 1), label: `${i + 1}ஆம் வகுப்பு${exam}` };
+// The college teaches grades 6–13; grade 11 ends with the O/L exam and grade 13 with the A/L exam.
+// Mirrored in apps-script/membership/Code.gs (isValidGrade_).
+const GRADES = Array.from({ length: 8 }, (_, i) => {
+  const grade = i + 6;
+  const exam = { 11: " — க.பொ.த (சா/த)", 13: " — க.பொ.த (உ/த)" }[grade] || "";
+  return { value: String(grade), label: `${grade}ஆம் வகுப்பு${exam}` };
 });
+
+// Values are codes; the Apps Script turns them back into the Tamil text for the sheet.
+const MARITAL_STATUSES = [
+  { value: "married", label: "மணமானவர்" },
+  { value: "unmarried", label: "மணமாகாதவர்" },
+];
 
 // Keys are in page order, so the first invalid one is the first on screen.
 const initialState = {
@@ -122,15 +130,15 @@ function validate(form) {
 const digitsOnly = (max) => (v) => v.replace(/\D/g, "").slice(0, max);
 const nicInput = (v) => v.toUpperCase().replace(/[^0-9VX]/g, "").slice(0, 12);
 
-function GradeOptions() {
+function SelectOptions({ items, placeholder }) {
   return (
     <>
       <option value="" disabled>
-        வகுப்பைத் தெரிவு செய்யவும்
+        {placeholder}
       </option>
-      {GRADES.map((grade) => (
-        <option key={grade.value} value={grade.value}>
-          {grade.label}
+      {items.map((item) => (
+        <option key={item.value} value={item.value}>
+          {item.label}
         </option>
       ))}
     </>
@@ -244,7 +252,9 @@ export default function MembershipForm() {
                   {errors.gender && <p className="field-error">{errors.gender}</p>}
                 </div>
 
-                <Field label="3. குடிசார்நிலை (மணமானவர் / மணமாகாதவர்) *" id="f-marital" value={form.marital} onChange={setField("marital")} error={errors.marital} required />
+                <Field label="3. குடிசார்நிலை *" id="f-marital" type="select" value={form.marital} onChange={setField("marital")} error={errors.marital} required>
+                  <SelectOptions items={MARITAL_STATUSES} placeholder="தெரிவு செய்யவும்" />
+                </Field>
                 <Field label="4. பிறந்த திகதி *" id="f-dob" type="date" max={TODAY} value={form.dob} onChange={setField("dob")} error={errors.dob} required />
                 <Field label="5. தேசிய அடையாள அட்டை இல. *" id="f-nic" autoCapitalize="characters" value={form.nic} onChange={setField("nic", nicInput)} error={errors.nic} required />
                 <Field label="6. தொழில் *" id="f-occupation" className="apply-span-2" value={form.occupation} onChange={setField("occupation")} error={errors.occupation} required />
@@ -262,11 +272,11 @@ export default function MembershipForm() {
                 <Field label="11. கல்லூரி சேர்விலக்கம் *" id="f-admitNo" inputMode="numeric" value={form.admitNo} onChange={setField("admitNo", digitsOnly(5))} error={errors.admitNo} required />
                 <Field label="12. கல்லூரியில் சேர்ந்த ஆண்டு *" id="f-joinedYear" className="apply-row-start" inputMode="numeric" value={form.joinedYear} onChange={setField("joinedYear", digitsOnly(4))} error={errors.joinedYear} required />
                 <Field label="13. கல்லூரியில் சேர்ந்த வகுப்பு *" id="f-joinedGrade" type="select" value={form.joinedGrade} onChange={setField("joinedGrade")} error={errors.joinedGrade} required>
-                  <GradeOptions />
+                  <SelectOptions items={GRADES} placeholder="வகுப்பைத் தெரிவு செய்யவும்" />
                 </Field>
                 <Field label="14. கல்லூரியில் கடைசியாகப் படித்த ஆண்டு *" id="f-leftYear" inputMode="numeric" value={form.leftYear} onChange={setField("leftYear", digitsOnly(4))} error={errors.leftYear} required />
                 <Field label="15. கல்லூரியில் கடைசியாகப் படித்த வகுப்பு *" id="f-leftGrade" type="select" value={form.leftGrade} onChange={setField("leftGrade")} error={errors.leftGrade} required>
-                  <GradeOptions />
+                  <SelectOptions items={GRADES} placeholder="வகுப்பைத் தெரிவு செய்யவும்" />
                 </Field>
                 <Field label="16. இக்கல்லூரியில் கல்வி கற்றதை உறுதி செய்யும் வேறு ஆதாரம்" id="f-proof" className="apply-span-2" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.proof} onChange={setField("proof")} />
               </Section>
