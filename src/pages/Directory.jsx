@@ -4,12 +4,13 @@ import Button from "../components/ui/Button";
 import presidentPhoto from "../assets/PrincipalCommittee.jpeg";
 import secretaryPhoto from "../assets/SecretaryCommittee.jpeg";
 import vicePresidentPhoto from "../assets/vicepresident.jpeg"
+import viceSecretaryPhoto from "../assets/ViceSecretaryCommittee.jpeg"
 
 const COMMITTEE = [
   { id: "committee-president", name: "திரு. ந.சர்வேஸ்வரன்", role: "தலைவர்", photo: presidentPhoto },
   { id: "committee-vp", name: "திரு. கி. ராகுலன்", role: "துணைத் தலைவர்", photo: vicePresidentPhoto },
   { id: "committee-secretary", name: "திரு. ஆ.தங்கவேலு", role: "செயலாளர்", photo: secretaryPhoto },
-  { id: "committee-assistant-secretary", name: "திரு.சு.சுமன்", role: "துணை செயலாளர்"},
+  { id: "committee-assistant-secretary", name: "திரு.சு.சுமன்", role: "துணை செயலாளர்", photo: viceSecretaryPhoto },
   { id: "committee-treasurer", name: "திரு. க.முரளி", role: "பொருளாளர்" },
 ];
 
