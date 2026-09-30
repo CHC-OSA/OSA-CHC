@@ -70,9 +70,9 @@ const REQUIRED = [
 const MESSAGES = {
   required: "இந்த வினா கட்டாயமானது.",
   dob: "சரியான பிறந்த திகதியை உள்ளிடவும்.",
-  nic: "சரியான அடையாள அட்டை இலக்கத்தை உள்ளிடவும் — எ.கா. 636835640V அல்லது 200328805624.",
+  nic: "சரியான அடையாள அட்டை இலக்கத்தை உள்ளிடவும் — எ.கா. 736835640V அல்லது 200328805624.",
   email: "சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும் — எ.கா. name@email.com.",
-  phone: "சரியான தொலைபேசி இலக்கத்தை உள்ளிடவும் — எ.கா. +94 77 123 4567.",
+  phone: "சரியான இலங்கைத் தொலைபேசி இலக்கத்தை உள்ளிடவும் — 0765463456, 765463456 அல்லது +94 765463456.",
   admitNo: "சேர்விலக்கம் அதிகபட்சம் 5 இலக்கங்கள் மட்டுமே.",
   year: `${MIN_YEAR} – ${CURRENT_YEAR} இடையிலான ஆண்டை உள்ளிடவும்.`,
   joinedAfterBirth: "பிறந்த ஆண்டுக்குப் பின்னரான ஆண்டாக இருக்க வேண்டும்.",
@@ -92,10 +92,9 @@ function isValidNic(nic) {
   return (day >= 1 && day <= 366) || (day >= 501 && day <= 866);
 }
 
-function isValidPhone(v) {
-  const digits = v.replace(/\D/g, "").length;
-  return /^\+?[\d\s-]+$/.test(v) && digits >= 9 && digits <= 15;
-}
+// Sri Lankan numbers only: 0765463456 (10 digits), 765463456 (9 digits, no leading 0) or
+// +94 765463456 (+94 in place of the 0; the space is optional). Mirrored in apps-script/membership/Code.gs.
+const isValidPhone = (v) => /^(0[1-9]\d{8}|[1-9]\d{8}|\+94 ?[1-9]\d{8})$/.test(v);
 
 const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
 const isValidYear = (v) => /^\d{4}$/.test(v) && Number(v) >= MIN_YEAR && Number(v) <= CURRENT_YEAR;
@@ -129,6 +128,7 @@ function validate(form) {
 // These cap the length themselves; a maxLength attribute would truncate pasted "2003 2880 5624" before the spaces are stripped.
 const digitsOnly = (max) => (v) => v.replace(/\D/g, "").slice(0, max);
 const nicInput = (v) => v.toUpperCase().replace(/[^0-9VX]/g, "").slice(0, 12);
+const phoneInput = (v) => v.replace(/[^\d+ ]/g, "");
 
 function SelectOptions({ items, placeholder }) {
   return (
@@ -264,7 +264,7 @@ export default function MembershipForm() {
                 <Field label="7. சொந்த முகவரி *" id="f-homeAddress" className="apply-span-2" type="textarea" rows={2} value={form.homeAddress} onChange={setField("homeAddress")} error={errors.homeAddress} required />
                 <Field label="தற்காலிக முகவரி" id="f-tempAddress" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.tempAddress} onChange={setField("tempAddress")} />
                 <Field label="8. அலுவலக முகவரி" id="f-officeAddress" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.officeAddress} onChange={setField("officeAddress")} />
-                <Field label="9. தொலைபேசி இல. (WhatsApp இலக்கம் விரும்பத்தக்கது) *" id="f-phone" type="tel" value={form.phone} onChange={setField("phone")} error={errors.phone} required />
+                <Field label="9. தொலைபேசி இல. (WhatsApp இலக்கம் விரும்பத்தக்கது) *" id="f-phone" type="tel" value={form.phone} onChange={setField("phone", phoneInput)} error={errors.phone} required />
                 <Field label="10. மின்னஞ்சல் முகவரி *" id="f-email" type="email" value={form.email} onChange={setField("email")} error={errors.email} required />
               </Section>
 

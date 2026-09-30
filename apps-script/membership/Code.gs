@@ -123,9 +123,9 @@ function isValidNic_(nic) {
   return (day >= 1 && day <= 366) || (day >= 501 && day <= 866);
 }
 
+// Sri Lankan numbers only: 0765463456, 765463456 or +94 765463456 (the space after +94 is optional).
 function isValidPhone_(v) {
-  const digits = v.replace(/\D/g, "").length;
-  return /^\+?[\d\s-]+$/.test(v) && digits >= 9 && digits <= 15;
+  return /^(0[1-9]\d{8}|[1-9]\d{8}|\+94 ?[1-9]\d{8})$/.test(v);
 }
 
 function isValidYear_(v) {
