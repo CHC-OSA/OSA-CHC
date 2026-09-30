@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa6";
+import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
 import crest from "../../assets/chc-crest.jpg";
 import { CONTACT_INFO } from "../../data/constants";
 
@@ -21,57 +22,56 @@ const SOCIALS = [
 export default function Footer() {
   return (
     <footer className="footer">
-      <div className="container grid-4" style={{ padding: "52px clamp(20px,4vw,48px) 28px" }}>
-        <div>
-          <span style={{ display: "flex", alignItems: "center", gap: 10, fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: 16, marginBottom: 12 }}>
-            <img src={crest} alt="CHC crest" style={{ width: 32, height: 32, borderRadius: "50%", objectFit: "cover" }} />
-            சாவகச்சேரி இந்துக் கல்லூரி OSA
-          </span>
-          <p style={{ fontSize: "13.5px", lineHeight: 1.6, color: "color-mix(in srgb, var(--color-bg) 72%, transparent)", margin: 0, maxWidth: "32ch", fontStyle: "italic" }}>
-            &ldquo;நலமே நாடுக, நலமே புரிக, நலமே ஒளிர்க&rdquo;
-          </p>
-        </div>
+      {/* .footer-grid sits inside .container (not on it) so the container's padding shorthand can't wipe its vertical padding. */}
+      <div className="container">
+        <div className="footer-grid">
+          <div>
+            <span className="footer-brand">
+              <img src={crest} alt="CHC crest" />
+              சாவகச்சேரி இந்துக் கல்லூரி OSA
+            </span>
+            <p className="footer-motto">&ldquo;நலமே நாடுக, நலமே புரிக, நலமே ஒளிர்க&rdquo;</p>
+          </div>
 
-        <div>
-          <p style={{ fontSize: 12, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2)", margin: "0 0 14px" }}>
-            விரைவு இணைப்புகள்
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 9 }}>
-            {QUICK_LINKS.map((link) => (
-              <Link key={link.to} to={link.to} style={{ fontSize: "13.5px" }}>
-                {link.label}
-              </Link>
-            ))}
+          <div>
+            <p className="footer-title">விரைவு இணைப்புகள்</p>
+            <ul className="footer-links">
+              {QUICK_LINKS.map((link) => (
+                <li key={link.to}>
+                  <Link to={link.to}>{link.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <p className="footer-title">தொடர்பு</p>
+            <ul className="footer-contact">
+              <li>
+                <FiMapPin aria-hidden="true" /> <span>{CONTACT_INFO.address}</span>
+              </li>
+              <li>
+                <FiPhone aria-hidden="true" /> <a href={`tel:${CONTACT_INFO.phone.replace(/\s/g, "")}`}>{CONTACT_INFO.phone}</a>
+              </li>
+              <li>
+                <FiMail aria-hidden="true" /> <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p className="footer-title">பின்தொடருங்கள்</p>
+            <div className="footer-socials">
+              {SOCIALS.map((social) => (
+                <a key={social.label} href={social.url} aria-label={social.label} className="social-icon" target="_blank" rel="noopener noreferrer">
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div>
-          <p style={{ fontSize: 12, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2)", margin: "0 0 14px" }}>
-            தொடர்பு
-          </p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 9, fontSize: "13.5px", color: "color-mix(in srgb, var(--color-bg) 85%, transparent)" }}>
-            <span>{CONTACT_INFO.address}</span>
-            <span>{CONTACT_INFO.phone}</span>
-            <span>{CONTACT_INFO.email}</span>
-          </div>
-        </div>
-
-        <div>
-          <p style={{ fontSize: 12, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2)", margin: "0 0 14px" }}>
-            பின்தொடருங்கள்
-          </p>
-          <div style={{ display: "flex", gap: 10 }}>
-            {SOCIALS.map((social) => (
-              <a key={social.label} href={social.url} aria-label={social.label} className="social-icon" target="_blank" rel="noopener noreferrer">
-                {social.icon}
-              </a>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <div className="container footer-bottom" style={{ padding: "20px clamp(20px,4vw,48px)" }}>
-        © 2026 பழைய மாணவர் சங்கம். அனைத்து உரிமைகளும் காக்கப்பட்டவை.
+        <div className="footer-bottom">© 2026 பழைய மாணவர் சங்கம். அனைத்து உரிமைகளும் காக்கப்பட்டவை.</div>
       </div>
     </footer>
   );

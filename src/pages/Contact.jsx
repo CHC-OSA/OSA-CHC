@@ -1,3 +1,5 @@
+import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import ContactForm from "../components/forms/ContactForm";
 import { CONTACT_INFO } from "../data/constants";
@@ -5,39 +7,56 @@ import Entrance from "../assets/entrance-gate.jpg";
 
 export default function Contact() {
   return (
-    <div className="container" style={{ padding: "56px clamp(20px,4vw,48px) 80px" }}>
-      <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-700)", marginBottom: 14 }}>
-        தொடர்பு
-      </span>
-      <h1 style={{ fontSize: "clamp(28px,3.6vw,40px)", margin: "0 0 36px" }}>எங்களைத் தொடர்பு கொள்ளுங்கள்</h1>
+    <>
+      <PageHero eyebrow="தொடர்பு" title="எங்களைத் தொடர்பு கொள்ளுங்கள்" />
 
-      <div className="grid-2">
-        <div>
-          <div style={{ marginBottom: 24 }}>
-            <h4 style={{ margin: "0 0 6px" }}>முகவரி</h4>
-            <p style={{ margin: 0, fontSize: 15, color: "color-mix(in srgb, var(--color-text) 78%, transparent)" }}>
-              {CONTACT_INFO.address}
-            </p>
-          </div>
-          <div style={{ marginBottom: 24 }}>
-            <h4 style={{ margin: "0 0 6px" }}>தொலைபேசி</h4>
-            <p style={{ margin: 0, fontSize: 15, color: "color-mix(in srgb, var(--color-text) 78%, transparent)" }}>
-              {CONTACT_INFO.phone}
-            </p>
-          </div>
-          <div style={{ marginBottom: 24 }}>
-            <h4 style={{ margin: "0 0 6px" }}>மின்னஞ்சல்</h4>
-            <p style={{ margin: 0, fontSize: 15, color: "color-mix(in srgb, var(--color-text) 78%, transparent)" }}>
-              {CONTACT_INFO.email}
-            </p>
-          </div>
-          <figure style={{ margin: "24px 0 0" }}>
-            <PlaceholderImage shape="rect" aspectRatio="16/10" caption="இருப்பிட வரைபடம்"  src={Entrance} alt="Entrance" />
-          </figure>
+      <div className="container page-body">
+        <div className="grid-2" style={{ alignItems: "start" }}>
+          <section className="panel">
+            <ul className="info-list">
+              <li>
+                <span className="icon-badge" aria-hidden="true">
+                  <FiMapPin />
+                </span>
+                <div>
+                  <h3>முகவரி</h3>
+                  <p>{CONTACT_INFO.address}</p>
+                </div>
+              </li>
+              <li>
+                <span className="icon-badge" aria-hidden="true">
+                  <FiPhone />
+                </span>
+                <div>
+                  <h3>தொலைபேசி</h3>
+                  <p>
+                    <a href={`tel:${CONTACT_INFO.phone.replace(/\s/g, "")}`}>{CONTACT_INFO.phone}</a>
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="icon-badge" aria-hidden="true">
+                  <FiMail />
+                </span>
+                <div>
+                  <h3>மின்னஞ்சல்</h3>
+                  <p>
+                    <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
+                  </p>
+                </div>
+              </li>
+            </ul>
+            <figure className="media-rounded">
+              <PlaceholderImage shape="rect" aspectRatio="16/10" caption="இருப்பிட வரைபடம்" src={Entrance} alt="Entrance" />
+            </figure>
+          </section>
+
+          <section className="panel">
+            <h2 className="panel-title">செய்தி அனுப்புங்கள்</h2>
+            <ContactForm />
+          </section>
         </div>
-
-        <ContactForm />
       </div>
-    </div>
+    </>
   );
 }

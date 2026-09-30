@@ -105,11 +105,15 @@ export default function Nav() {
             </NavLink>
           )
         )}
+        {/* Phones: the bar has no room for the CTA, so it moves into the menu (see .nav-cta-menu). */}
+        <Button as="link" to="/join" pill className="nav-cta-menu" onClick={() => setOpen(false)}>
+          உறுப்பினராகுங்கள்
+        </Button>
       </div>
 
-      {/* <Button as="link" to="/join" pill className="nav-cta" onClick={() => setOpen(false)}>
+      <Button as="link" to="/join" pill className="nav-cta" onClick={() => setOpen(false)}>
         உறுப்பினராகுங்கள்
-      </Button> */}
+      </Button>
     </nav>
   );
 }

@@ -1,4 +1,5 @@
-import PlaceholderImage from "../components/ui/PlaceholderImage";
+import { FiUser, FiUsers } from "react-icons/fi";
+import PageHero from "../components/layout/PageHero";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
 import presidentPhoto from "../assets/PrincipalCommittee.jpeg";
@@ -35,72 +36,72 @@ const DECADES = [
 
 export default function Directory() {
   return (
-    <div className="container" style={{ padding: "56px clamp(20px,4vw,48px) 80px" }}>
-      <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-700)", marginBottom: 14 }}>
-        உறுப்பினர் பட்டியல்
-      </span>
-      <h1 style={{ fontSize: "clamp(28px,3.6vw,40px)", margin: "0 0 12px" }}>பழைய மாணவர் பட்டியல்</h1>
-      <p style={{ fontSize: "15.5px", lineHeight: 1.6, color: "color-mix(in srgb, var(--color-text) 78%, transparent)", margin: "0 0 36px", maxWidth: "60ch" }}>
-        முழுமையான பழைய மாணவர் பட்டியலை பதிவுசெய்த உறுப்பினர்கள் மட்டுமே பார்வையிட முடியும்.
-      </p>
+    <>
+      <PageHero
+        eyebrow="உறுப்பினர் பட்டியல்"
+        title="பழைய மாணவர் பட்டியல்"
+        lead="முழுமையான பழைய மாணவர் பட்டியலை பதிவுசெய்த உறுப்பினர்கள் மட்டுமே பார்வையிட முடியும்."
+      />
 
-      <section style={{ padding: "0 0 36px" }}>
-        <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 24 }}>
-          நிர்வாகக் குழு
-        </span>
-        <div className="grid-5">
-          {COMMITTEE.map((member) => (
-            <div key={member.id} style={{ textAlign: "center" }}>
-              <PlaceholderImage
-                shape="circle"
-                aspectRatio="1/1"
-                caption="புகைப்படம்"
-                src={member.photo}
-                alt={member.name}
-                style={{ width: 100, height: 100, margin: "0 auto 14px" }}
-              />
-              <p style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>{member.name}</p>
-              <p style={{ margin: "2px 0 0", fontSize: 13, color: "var(--color-accent-700)" }}>{member.role}</p>
-            </div>
+      <div className="container page-body page-stack">
+        <section className="panel">
+          <h2 className="panel-title">
+            <span className="icon-badge" aria-hidden="true">
+              <FiUsers />
+            </span>
+            நிர்வாகக் குழு
+          </h2>
+          <div className="people">
+            {COMMITTEE.map((member) => (
+              <div key={member.id} className="person">
+                <div className="person-avatar">
+                  {member.photo ? <img src={member.photo} alt={member.name} /> : <FiUser aria-hidden="true" />}
+                </div>
+                <p className="person-name">{member.name}</p>
+                <span className="tag tag-accent">{member.role}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="panel">
+          <h2 className="panel-title">
+            <span className="icon-badge" aria-hidden="true">
+              <FiUser />
+            </span>
+            உறுப்பினர்கள்
+          </h2>
+          <ol className="members">
+            {MEMBERS.map((member, index) => (
+              <li key={member.id}>
+                <span className="members-num">{index + 1}</span>
+                {member.name}
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        {/* <div className="grid-3" style={{ marginBottom: 36 }}>
+          {DECADES.map((decade) => (
+            <Card key={decade.range} kicker={decade.range} title={decade.count} kickerColor="var(--color-accent-2-700)" style={{ opacity: 0.55, position: "relative" }}>
+              <p className="card-body is-redacted">●●●●●●● ●●●●●● ●●●●●●●●</p>
+            </Card>
           ))}
-        </div>
-      </section>
+        </div> */}
 
-      <section style={{ padding: "0 0 36px" }}>
-        <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 24 }}>
-          உறுப்பினர்கள்
-        </span>
-        <div className="grid-3">
-          {MEMBERS.map((member, index) => (
-            <div key={member.id} style={{ textAlign: "left" }}>
-              <p style={{ margin: 0, fontWeight: 700, fontSize: 15 }}>{index + 1}. {member.name}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <hr className="hr" style={{ marginBottom: 36 }} />
-
-      {/* <div className="grid-3" style={{ marginBottom: 36 }}>
-        {DECADES.map((decade) => (
-          <Card key={decade.range} kicker={decade.range} title={decade.count} kickerColor="var(--color-accent-2-700)" style={{ opacity: 0.55, position: "relative" }}>
-            <p className="card-body is-redacted">●●●●●●● ●●●●●● ●●●●●●●●</p>
-          </Card>
-        ))}
-      </div> */}
-
-      {/* <Card
-        elevation="md"
-        kicker="உறுப்பினர்கள் மட்டும்"
-        kickerColor="var(--color-accent-2-700)"
-        title="முழு பட்டியலைப் பார்க்க உறுப்பினராகுங்கள்"
-        body="பெயர், தொகுதி, தொழில் மற்றும் தொடர்பு விபரங்களுடன் கூடிய முழு பழைய மாணவர் பட்டியலை அணுக, உறுப்பினராக பதிவு செய்யவும்."
-        style={{ maxWidth: 520, textAlign: "left" }}
-      >
-        <Button as="link" to="/join" variant="primary" style={{ marginTop: 8 }}>
-          உறுப்பினராகுங்கள்
-        </Button>
-      </Card> */}
-    </div>
+        {/* <Card
+          elevation="md"
+          kicker="உறுப்பினர்கள் மட்டும்"
+          kickerColor="var(--color-accent-2-700)"
+          title="முழு பட்டியலைப் பார்க்க உறுப்பினராகுங்கள்"
+          body="பெயர், தொகுதி, தொழில் மற்றும் தொடர்பு விபரங்களுடன் கூடிய முழு பழைய மாணவர் பட்டியலை அணுக, உறுப்பினராக பதிவு செய்யவும்."
+          style={{ maxWidth: 520, textAlign: "left" }}
+        >
+          <Button as="link" to="/join" variant="primary" style={{ marginTop: 8 }}>
+            உறுப்பினராகுங்கள்
+          </Button>
+        </Card> */}
+      </div>
+    </>
   );
 }

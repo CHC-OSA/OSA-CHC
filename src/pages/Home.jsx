@@ -1,11 +1,11 @@
 import { Link } from "react-router";
+import { FiArrowRight } from "react-icons/fi";
 import ImageSlider from "../components/ui/ImageSlider";
 import StatStrip from "../components/ui/StatStrip";
-import PlaceholderImage from "../components/ui/PlaceholderImage";
 import Button from "../components/ui/Button";
-import { EventCard } from "../components/events/EventCard";
+import { EventCardWithPhoto } from "../components/events/EventCard";
 import { getRecentEvents } from "../data/events";
-import { DevelopmentCard } from "../components/developments/DevelopmentCard";
+import { DevelopmentCardWithPhoto } from "../components/developments/DevelopmentCard";
 import { getRecentDevelopments } from "../data/developments";
 
 const STATS = [
@@ -35,88 +35,71 @@ const WHY_JOIN = [
 
 export default function Home() {
   return (
-    <div>
+    <div className="home">
       <ImageSlider />
 
       <div className="container">
-        <section style={{ padding: "64px 0 48px" }}>
-          <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-2-700)", marginBottom: 14 }}>
-            பழைய மாணவர் சங்கம் ஸ்தாபிக்கப்பட்டது- 1960
-          </span>
-          <h1 style={{ fontSize: "clamp(34px,5vw,58px)", lineHeight: 1.08, letterSpacing: "-0.02em", margin: "0 0 20px", maxWidth: "16ch" }}>
-            நினைவுகளால் இணைந்தோம், சேவையால் வளர்கிறோம்.
-          </h1>
-          <p style={{ fontSize: 17, lineHeight: 1.65, maxWidth: "58ch", color: "color-mix(in srgb, var(--color-text) 80%, transparent)", margin: "0 0 28px" }}>
-            சாவகச்சேரி இந்துக் கல்லூரியின் பழைய மாணவர் சங்கமானது உலகெங்கும் வாழும் பழைய மாணவர்களை இணைத்து எமது பாடசாலையின் தொடர்ச்சியான வளர்ச்சிக்காக உழைத்து வருகிறது.
-          </p>
-          <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-            {/* <Button as="link" to="/join" variant="primary">உறுப்பினராகுங்கள்</Button> */}
-            <Button as="link" to="/about" variant="ghost">எமது வரலாறு</Button>
+        <section className="home-intro">
+          <div>
+            <span className="eyebrow eyebrow-gold">பழைய மாணவர் சங்கம் ஸ்தாபிக்கப்பட்டது- 1960</span>
+            <h1>நினைவுகளால் இணைந்தோம், சேவையால் வளர்கிறோம்.</h1>
+            <p className="lead">
+              சாவகச்சேரி இந்துக் கல்லூரியின் பழைய மாணவர் சங்கமானது உலகெங்கும் வாழும் பழைய மாணவர்களை இணைத்து எமது பாடசாலையின் தொடர்ச்சியான வளர்ச்சிக்காக உழைத்து வருகிறது.
+            </p>
+            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              {/* <Button as="link" to="/join" variant="primary">உறுப்பினராகுங்கள்</Button> */}
+              <Button as="link" to="/about" variant="secondary">
+                எமது வரலாறு <FiArrowRight aria-hidden="true" />
+              </Button>
+            </div>
+          </div>
+          <div aria-label="புள்ளிவிபரங்கள்">
+            <StatStrip stats={STATS} />
           </div>
         </section>
 
-        <hr className="hr" style={{ margin: 0 }} />
-
-        <section style={{ padding: "44px 0" }} aria-label="புள்ளிவிபரங்கள்">
-          <StatStrip stats={STATS} />
-        </section>
-
-        <hr className="hr" style={{ margin: 0 }} />
-
-        <section style={{ padding: "56px 0 40px" }}>
-          <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-700)", marginBottom: 28 }}>
-            ஏன் உறுப்பினராக வேண்டும்?
-          </span>
-          <div>
-            {WHY_JOIN.map((item, i) => (
-              <div
-                key={item.n}
-                className="numbered-row"
-                style={{
-                  padding: "26px 0",
-                  borderTop: "2px solid var(--color-divider)",
-                  borderBottom: i === WHY_JOIN.length - 1 ? "2px solid var(--color-divider)" : undefined,
-                }}
-              >
-                <p style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: 14, margin: 0 }}>{item.n}</p>
-                <h3 style={{ fontSize: 22, margin: 0 }}>{item.title}</h3>
-                <p style={{ fontSize: 15, lineHeight: 1.6, color: "color-mix(in srgb, var(--color-text) 78%, transparent)", margin: 0, maxWidth: "52ch" }}>
-                  {item.text}
-                </p>
+        <section className="page-section">
+          <div className="section-head">
+            <h2 className="section-title">ஏன் உறுப்பினராக வேண்டும்?</h2>
+          </div>
+          <div className="grid-3">
+            {WHY_JOIN.map((item) => (
+              <div key={item.n} className="card">
+                <span className="feature-num">{item.n}</span>
+                <h3 className="card-title">{item.title}</h3>
+                <p className="card-body">{item.text}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <section style={{ padding: "40px 0 56px" }}>
-          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 22 }}>
-            <span style={{ fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-700)" }}>
-              சமீபத்திய செய்திகள்
-            </span>
-            <Link to="/events" style={{ cursor: "pointer", fontSize: "13.5px" }}>அனைத்தையும் காண →</Link>
+        <section className="page-section">
+          <div className="section-head">
+            <h2 className="section-title">சமீபத்திய செய்திகள்</h2>
+            <Link to="/events" className="link-arrow">
+              அனைத்தையும் காண <FiArrowRight aria-hidden="true" />
+            </Link>
           </div>
           <div className="grid-3">
             {getRecentEvents(3).map((event) => (
-              <EventCard key={event.id} event={event} />
+              <EventCardWithPhoto key={event.id} event={event} />
             ))}
           </div>
         </section>
 
-        <section style={{ padding: "0px 0 56px" }}>
-          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 22 }}>
-            <span style={{ fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-700)" }}>
-              சமீபத்திய அபிவிருத்திகள்
-            </span>
-            <Link to="/developments" style={{ cursor: "pointer", fontSize: "13.5px" }}>அனைத்தையும் காண →</Link>
+        <section className="page-section">
+          <div className="section-head">
+            <h2 className="section-title">சமீபத்திய அபிவிருத்திகள்</h2>
+            <Link to="/developments" className="link-arrow">
+              அனைத்தையும் காண <FiArrowRight aria-hidden="true" />
+            </Link>
           </div>
           <div className="grid-3">
             {getRecentDevelopments(3).map((development) => (
-              <DevelopmentCard key={development.id} development={development} />
+              <DevelopmentCardWithPhoto key={development.id} development={development} />
             ))}
           </div>
         </section>
-
-        {/* <hr className="hr" style={{ margin: 0 }} /> */}
 
         {/* <section className="grid-2" style={{ alignItems: "center", padding: "56px 0 64px" }}>
           <div>
@@ -132,18 +115,24 @@ export default function Home() {
             <PlaceholderImage aspectRatio="16/10" caption="பாடசாலைக் கட்டிடப் புகைப்படம்" />
           </figure>
         </section> */}
-      </div>
 
-      <section style={{ background: "var(--color-accent)", color: "var(--color-bg)", borderTop: "6px solid var(--color-accent-2)" }}>
-        <div className="container" style={{ padding: "56px clamp(20px,4vw,48px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, flexWrap: "wrap" }}>
-          <h3 style={{ fontSize: "clamp(26px,3.4vw,38px)", margin: 0, color: "var(--color-bg)", maxWidth: "20ch" }}>
-            எங்கள் பாரம்பரியத்தில் பங்கு கொள்ளுங்கள்.
-          </h3>
-          {/* <Button as="link" to="/join" variant="ghost" style={{ color: "var(--color-bg)", borderColor: "var(--color-bg)" }}>
-            இப்போதே பதிவு செய்யுங்கள்
-          </Button> */}
-        </div>
-      </section>
+        <section className="page-section">
+          <div className="cta-band">
+            <div>
+              <span className="eyebrow">உறுப்பினர் பதிவு</span>
+              <h2>எங்கள் பாரம்பரியத்தில் பங்கு கொள்ளுங்கள்.</h2>
+            </div>
+            <div className="cta-band-actions">
+              <Button as="link" to="/join" variant="light">
+                இப்போதே பதிவு செய்யுங்கள் <FiArrowRight aria-hidden="true" />
+              </Button>
+              <Button as="link" to="/contact" variant="outline-light">
+                தொடர்பு
+              </Button>
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }
