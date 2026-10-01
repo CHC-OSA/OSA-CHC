@@ -95,10 +95,13 @@ function doPost(e) {
     const lock = LockService.getScriptLock();
     lock.waitLock(20000);
     try {
-      if (sentKey && cache.get(sentKey)) return json_({ ok: true });
-
       const sheet = getSheet_();
-      if (hasApplication_(sheet, values)) return reject_("duplicate", ["name", "nic"]);
+      if (hasApplication_(sheet, values)) {
+        // A resend of the submission that saved this row is a success; anyone else is told it's already there.
+        return sentKey && cache.get(sentKey) ? json_({ ok: true }) : reject_("duplicate", ["name", "nic"]);
+      }
+      // Remembered before the row is written, so a resend is recognised even when a step after the write fails.
+      if (sentKey) cache.put(sentKey, "1", CACHE_SECONDS);
 
       const row = [new Date()].concat(FIELDS.map((f) => asText_(choiceLabel_(f[0], values[f[0]]))));
       const range = sheet.getRange(sheet.getLastRow() + 1, 1, 1, row.length);
@@ -107,7 +110,6 @@ function doPost(e) {
       range.getCell(1, 1).setNumberFormat("dd/mm/yyyy hh:mm:ss");
       // Write the row before the lock is released, or the next submission would pick the same row number.
       SpreadsheetApp.flush();
-      if (sentKey) cache.put(sentKey, "1", CACHE_SECONDS);
     } finally {
       lock.releaseLock();
     }

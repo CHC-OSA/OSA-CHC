@@ -12,7 +12,7 @@ const SCRIPT_URL = import.meta.env.VITE_MEMBERSHIP_SCRIPT_URL;
 const scriptReady = Boolean(SCRIPT_URL) && !SCRIPT_URL.includes("REPLACE_ME");
 
 const SUBMIT_TIMEOUT_MS = 30000; // the script normally answers in 1–3 s
-const SUBMIT_ATTEMPTS = 2;
+const SUBMIT_ATTEMPTS = 3;
 
 // Identifies one application: the script saves it once, even when it's sent again after an answer got lost.
 const newSubmissionId = () => crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
