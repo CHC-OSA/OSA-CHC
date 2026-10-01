@@ -11,7 +11,8 @@ import "../styles/membership.css";
 const SCRIPT_URL = import.meta.env.VITE_MEMBERSHIP_SCRIPT_URL;
 const scriptReady = Boolean(SCRIPT_URL) && !SCRIPT_URL.includes("REPLACE_ME");
 
-const SUBMIT_TIMEOUT_MS = 30000; // the script normally answers in 1–3 s
+// The script answers in 1–4 s. An answer that hasn't come by now is stuck on the way back, so it's sent again.
+const SUBMIT_TIMEOUT_MS = 15000;
 const SUBMIT_ATTEMPTS = 3;
 
 // Identifies one application: the script saves it once, even when it's sent again after an answer got lost.
