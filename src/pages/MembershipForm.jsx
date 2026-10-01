@@ -11,6 +11,31 @@ import "../styles/membership.css";
 const SCRIPT_URL = import.meta.env.VITE_MEMBERSHIP_SCRIPT_URL;
 const scriptReady = Boolean(SCRIPT_URL) && !SCRIPT_URL.includes("REPLACE_ME");
 
+// The script answers in 1–4 s. An answer that hasn't come by now is stuck on the way back, so it's sent again.
+const SUBMIT_TIMEOUT_MS = 15000;
+const SUBMIT_ATTEMPTS = 3;
+
+// Identifies one application: the script saves it once, even when it's sent again after an answer got lost.
+const newSubmissionId = () => crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+// Posts the answers and returns the script's reply; throws when there is none (offline, timed out, Google error page).
+async function postApplication(body) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      // text/plain keeps this a "simple" request, so the browser skips the CORS preflight Apps Script can't answer.
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      body,
+      signal: controller.signal,
+    });
+    return await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 const LIFETIME_FEE = "ரூபா 1000.00";
 
 // The association's official registration process (பதிவு செய்யும் முறை).
@@ -81,6 +106,8 @@ const MESSAGES = {
   fixErrors: "பிழைகளைத் திருத்திய பின் மீண்டும் சமர்ப்பிக்கவும்.",
   unavailable: `விண்ணப்பப் படிவம் தற்போது கிடைக்கவில்லை`,
   failed: "விண்ணப்பத்தை அனுப்புவதில் பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.",
+  network: "இணைய இணைப்பில் சிக்கல் உள்ளது. இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
+  duplicate: "இந்த முழுப்பெயர் மற்றும் தேசிய அடையாள அட்டை இலக்கத்துடன் ஏற்கனவே ஒரு விண்ணப்பம் பெறப்பட்டுள்ளது. மீண்டும் சமர்ப்பிக்கத் தேவையில்லை.",
 };
 
 // Old NIC: YY + DDD + 4 digits + V/X (636835640V). New NIC: YYYY + DDD + 5 digits (200328805624).
@@ -157,6 +184,7 @@ export default function MembershipForm() {
   const [submitted, setSubmitted] = useState(false); // show field errors only after the first submit attempt
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
   const [errorMessage, setErrorMessage] = useState("");
+  const [submissionId, setSubmissionId] = useState(newSubmissionId); // stays the same until an application goes through
 
   const errors = submitted ? validate(form) : {};
   const hasErrors = Object.keys(errors).length > 0;
@@ -183,23 +211,33 @@ export default function MembershipForm() {
     if (!scriptReady) return fail(MESSAGES.unavailable);
 
     setStatus("sending");
-    try {
-      const res = await fetch(SCRIPT_URL, {
-        method: "POST",
-        // text/plain keeps this a "simple" request, so the browser skips the CORS preflight Apps Script can't answer.
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify(form),
-      });
-      const result = await res.json();
-      if (!result.ok) throw new Error(result.error);
-
-      setStatus("success");
-      setForm(initialState);
-      setSubmitted(false);
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    } catch {
-      fail(MESSAGES.failed);
+    const body = JSON.stringify({ ...form, submissionId });
+    let result;
+    for (let attempt = 1; attempt <= SUBMIT_ATTEMPTS; attempt++) {
+      try {
+        result = await postApplication(body);
+      } catch (err) {
+        result = undefined;
+        console.error("Membership form: no answer from the script.", err);
+      }
+      // Only a lost answer or a server error can go better on a second try; refused answers won't.
+      if (result && result.error !== "server_error") break;
     }
+
+    if (!result) return fail(MESSAGES.network);
+    if (!result.ok) {
+      console.error("Membership form: the script refused the application.", result);
+      if (result.error === "duplicate") return fail(MESSAGES.duplicate);
+      if (!result.fields?.length) return fail(MESSAGES.failed);
+      focusField(result.fields[0]);
+      return fail(MESSAGES.fixErrors);
+    }
+
+    setStatus("success");
+    setForm(initialState);
+    setSubmissionId(newSubmissionId());
+    setSubmitted(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const filled = REQUIRED.filter((key) => form[key].trim()).length;
