@@ -4,6 +4,15 @@ The `/join` page posts each application to a Google Apps Script web app ([Code.g
 The script checks the answers again and appends a row to a Google Sheet.
 There's no server to host and no public Google Form page that anyone can report.
 
+The page has one form for two kinds of applicant, and each gets its own tab in the sheet:
+
+| Applicant | Link | Sheet tab |
+| --- | --- | --- |
+| Old student | `/join` | `Applications` |
+| Teacher | `/join?type=teacher` | `Teacher Applications` |
+
+Teachers aren't asked for an occupation or the admission/grade details; they give their period of service instead.
+
 Do this with the association's Google account (e.g. chcostasecretary@gmail.com), not a personal one.
 That way the responses stay with the association.
 
@@ -14,8 +23,8 @@ That way the responses stay with the association.
    To get an email for each new application, set `NOTIFY_EMAIL` at the top. Then save.
 3. **Authorize.** Pick `setup` in the function dropdown and click **Run**. Google will ask for permissions.
    Click **Advanced → Go to … (unsafe)**; the warning appears because it's your own unverified script.
-   When `setup` finishes, the sheet has an `Applications` tab with a header row.
-   If you ran an older version of `setup` before, delete the old `Applications` tab first so the new columns are created.
+   When `setup` finishes, the sheet has an `Applications` tab and a `Teacher Applications` tab, each with a header row.
+   A tab that already has rows is left as it is, so if its columns changed, delete the old tab first so the new columns are created.
 4. **Deploy.** Click **Deploy → New deployment**, choose the gear icon, then **Web app**. Use these settings:
    - *Execute as:* **Me**
    - *Who has access:* **Anyone**
@@ -33,6 +42,10 @@ That way the responses stay with the association.
 After you edit `Code.gs`, go to **Deploy → Manage deployments**, click the pencil, set *Version* to **New version**, and click **Deploy**.
 The URL stays the same. **Deploy → New deployment** creates a *different* URL, and then you'd have to update the variable in Cloudflare too.
 
+When a change adds questions or an applicant type, deploy the script **before** the website. The new script still
+accepts submissions from the old site, but the old script rejects answers it doesn't know about
+(e.g. a teacher application, which has no occupation).
+
 ## If submissions fail
 
 Open the script (**Extensions → Apps Script**) and click **Executions** in the left sidebar. Each submission is a `doPost` row;
@@ -40,8 +53,8 @@ click a row to see what it logged.
 
 - **Completed, with a warning** such as `invalid_fields: phone`: the script refused the answers. Usually the deployed
   script is older than the website, so deploy a new version (see above).
-- **Completed, with the warning `duplicate: name, nic`**: the sheet already has an application with that full name and
-  NIC number, so the applicant was told it was received and no second row was added.
+- **Completed, with the warning `duplicate: name, nic`**: one of the tabs already has an application with that full
+  name and NIC number, so the applicant was told it was received and no second row was added.
 - **Completed, with an error**: something went wrong on Google's side. The website retries once by itself.
 - **A notification email didn't arrive** but the row is in the sheet: Google limits how many emails a script can send
   per day (100 for a free Gmail account). The application is still saved; the log says the email was skipped.
