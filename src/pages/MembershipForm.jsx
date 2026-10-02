@@ -89,7 +89,7 @@ const initialState = {
 
 const REQUIRED = [
   "name", "gender", "marital", "dob", "nic", "occupation", "homeAddress", "phone", "email",
-  "admitNo", "joinedYear", "joinedGrade", "leftYear", "leftGrade", "membershipType", "emailConsent",
+  "joinedYear", "joinedGrade", "leftYear", "leftGrade", "membershipType", "emailConsent",
 ];
 
 const MESSAGES = {
@@ -307,7 +307,7 @@ export default function MembershipForm() {
               </Section>
 
               <Section step={3} icon={FiBookOpen} title="கல்லூரி விபரங்கள்" subtitle="இக்கல்லூரியில் நீங்கள் கல்வி கற்ற விபரங்கள்">
-                <Field label="11. கல்லூரி சேர்விலக்கம் *" id="f-admitNo" inputMode="numeric" value={form.admitNo} onChange={setField("admitNo", digitsOnly(5))} error={errors.admitNo} required />
+                <Field label="11. கல்லூரி சேர்விலக்கம்" id="f-admitNo" inputMode="numeric" placeholder="(இருப்பின் மட்டும்)" value={form.admitNo} onChange={setField("admitNo", digitsOnly(5))} error={errors.admitNo} />
                 <Field label="12. கல்லூரியில் சேர்ந்த ஆண்டு *" id="f-joinedYear" className="apply-row-start" inputMode="numeric" value={form.joinedYear} onChange={setField("joinedYear", digitsOnly(4))} error={errors.joinedYear} required />
                 <Field label="13. கல்லூரியில் சேர்ந்த வகுப்பு *" id="f-joinedGrade" type="select" value={form.joinedGrade} onChange={setField("joinedGrade")} error={errors.joinedGrade} required>
                   <SelectOptions items={GRADES} placeholder="வகுப்பைத் தெரிவு செய்யவும்" />

@@ -27,7 +27,7 @@ const FIELDS = [
   ["officeAddress", "அலுவலக முகவரி", false],
   ["phone", "தொலைபேசி இல. (WhatsApp)", true],
   ["email", "மின்னஞ்சல் முகவரி", true],
-  ["admitNo", "கல்லூரி சேர்விலக்கம்", true],
+  ["admitNo", "கல்லூரி சேர்விலக்கம்", false],
   ["joinedYear", "சேர்ந்த ஆண்டு", true],
   ["joinedGrade", "சேர்ந்த வகுப்பு", true],
   ["leftYear", "கடைசியாகப் படித்த ஆண்டு", true],
@@ -165,7 +165,7 @@ function notify_(values) {
       NOTIFY_EMAIL,
       "New OSA membership application — " + values.name,
       "A new membership application was submitted.\n\nName: " + values.name +
-        "\nAdmission no.: " + values.admitNo +
+        "\nAdmission no.: " + (values.admitNo || "—") +
         "\n\nOpen the sheet: " + SpreadsheetApp.getActiveSpreadsheet().getUrl()
     );
   } catch (err) {
