@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { FiAlertCircle, FiArrowRight, FiAward, FiBookOpen, FiCheck, FiList, FiMail, FiPhone, FiUser } from "react-icons/fi";
+import { Fragment, useState } from "react";
+import { useSearchParams } from "react-router";
+import { FiAlertCircle, FiArrowRight, FiAward, FiBookOpen, FiBriefcase, FiCheck, FiList, FiMail, FiPhone, FiUser, FiUsers } from "react-icons/fi";
 import PageHero from "../components/layout/PageHero";
 import Field, { LabelText } from "../components/ui/Field";
 import SegmentedControl from "../components/ui/SegmentedControl";
@@ -63,6 +64,22 @@ const MARITAL_STATUSES = [
   { value: "unmarried", label: "மணமாகாதவர்" },
 ];
 
+// One form serves old students and teachers; /join?type=teacher opens it for teachers.
+const APPLICANT_TYPES = [
+  { value: "student", title: "பழைய மாணவர்", hint: "இக்கல்லூரியில் கல்வி கற்றவர்" },
+  { value: "teacher", title: "ஆசிரியர்", hint: "இக்கல்லூரியில் கற்பித்தவர்" },
+];
+
+// The fields each applicant type doesn't get: they're left out of the page, the validation, the question
+// numbering and the submitted data. Mirrored in apps-script/membership/Code.gs (FORMS).
+const HIDDEN = {
+  student: ["serviceFrom", "serviceTo"],
+  teacher: ["occupation", "admitNo", "joinedYear", "joinedGrade", "leftYear", "leftGrade", "proof"],
+};
+const visible = (keys, type) => keys.filter((key) => !HIDDEN[type].includes(key));
+// Answers typed under the other applicant type stay in state (so switching back keeps them) but are blanked here.
+const answersFor = (form, type) => ({ ...form, ...Object.fromEntries(HIDDEN[type].map((key) => [key, ""])) });
+
 // Keys are in page order, so the first invalid one is the first on screen.
 const initialState = {
   name: "",
@@ -82,6 +99,8 @@ const initialState = {
   leftYear: "",
   leftGrade: "",
   proof: "",
+  serviceFrom: "",
+  serviceTo: "",
   membershipType: "", // "lifetime" once the tick box is ticked
   emailConsent: "",
   website: "", // honeypot — hidden from people, bots fill it in
@@ -89,7 +108,20 @@ const initialState = {
 
 const REQUIRED = [
   "name", "gender", "marital", "dob", "nic", "occupation", "homeAddress", "phone", "email",
-  "joinedYear", "joinedGrade", "leftYear", "leftGrade", "membershipType", "emailConsent",
+  "joinedYear", "joinedGrade", "leftYear", "leftGrade", "serviceFrom", "serviceTo", "membershipType", "emailConsent",
+];
+
+// The numbered questions in page order; a question's number is its position among the ones its applicant type sees.
+// The teachers' service period is one question (serviceFrom) with two year boxes.
+const NUMBERED = [
+  "name", "gender", "marital", "dob", "nic", "occupation", "homeAddress", "officeAddress", "phone", "email",
+  "admitNo", "joinedYear", "joinedGrade", "leftYear", "leftGrade", "proof", "serviceFrom", "membershipType", "emailConsent",
+];
+
+// [start year, end year, message when the end is before the start]
+const PERIODS = [
+  ["joinedYear", "leftYear", "சேர்ந்த ஆண்டுக்கு முந்தைய ஆண்டாக இருக்க முடியாது."],
+  ["serviceFrom", "serviceTo", "இறுதி ஆண்டு தொடக்க ஆண்டுக்கு முந்தையதாக இருக்க முடியாது."],
 ];
 
 const MESSAGES = {
@@ -100,8 +132,7 @@ const MESSAGES = {
   phone: "சரியான இலங்கைத் தொலைபேசி இலக்கத்தை உள்ளிடவும் — 0765463456, 765463456 அல்லது +94 765463456.",
   admitNo: "சேர்விலக்கம் அதிகபட்சம் 5 இலக்கங்கள் மட்டுமே.",
   year: `${MIN_YEAR} – ${CURRENT_YEAR} இடையிலான ஆண்டை உள்ளிடவும்.`,
-  joinedAfterBirth: "பிறந்த ஆண்டுக்குப் பின்னரான ஆண்டாக இருக்க வேண்டும்.",
-  leftAfterJoined: "சேர்ந்த ஆண்டுக்கு முந்தைய ஆண்டாக இருக்க முடியாது.",
+  afterBirth: "பிறந்த ஆண்டுக்குப் பின்னரான ஆண்டாக இருக்க வேண்டும்.",
   leftGradeAfterJoined: "சேர்ந்த வகுப்பை விடக் குறைந்த வகுப்பாக இருக்க முடியாது.",
   fixErrors: "பிழைகளைத் திருத்திய பின் மீண்டும் சமர்ப்பிக்கவும்.",
   unavailable: `விண்ணப்பப் படிவம் தற்போது கிடைக்கவில்லை`,
@@ -126,9 +157,10 @@ const isValidPhone = (v) => /^(0[1-9]\d{8}|[1-9]\d{8}|\+94 ?[1-9]\d{8})$/.test(v
 const isValidEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
 const isValidYear = (v) => /^\d{4}$/.test(v) && Number(v) >= MIN_YEAR && Number(v) <= CURRENT_YEAR;
 
-function validate(form) {
+function validate(answers, type) {
+  const form = answersFor(answers, type);
   const errors = {};
-  for (const key of REQUIRED) if (!form[key].trim()) errors[key] = MESSAGES.required;
+  for (const key of visible(REQUIRED, type)) if (!form[key].trim()) errors[key] = MESSAGES.required;
 
   const birthYear = Number(form.dob.slice(0, 4));
   if (form.dob && (form.dob > TODAY || birthYear < MIN_YEAR)) errors.dob = MESSAGES.dob;
@@ -137,14 +169,16 @@ function validate(form) {
   if (form.phone.trim() && !isValidPhone(form.phone.trim())) errors.phone = MESSAGES.phone;
   if (form.admitNo && !/^\d{1,5}$/.test(form.admitNo)) errors.admitNo = MESSAGES.admitNo;
 
-  for (const key of ["joinedYear", "leftYear"]) {
-    if (form[key] && !isValidYear(form[key])) errors[key] = MESSAGES.year;
-  }
-  if (!errors.joinedYear && !errors.dob && form.dob && Number(form.joinedYear) <= birthYear) {
-    errors.joinedYear = MESSAGES.joinedAfterBirth;
-  }
-  if (!errors.joinedYear && !errors.leftYear && Number(form.leftYear) < Number(form.joinedYear)) {
-    errors.leftYear = MESSAGES.leftAfterJoined;
+  for (const [from, to, endBeforeStart] of PERIODS) {
+    for (const key of [from, to]) {
+      if (form[key] && !isValidYear(form[key])) errors[key] = MESSAGES.year;
+    }
+    if (form[from] && !errors[from] && !errors.dob && form.dob && Number(form[from]) <= birthYear) {
+      errors[from] = MESSAGES.afterBirth;
+    }
+    if (form[from] && form[to] && !errors[from] && !errors[to] && Number(form[to]) < Number(form[from])) {
+      errors[to] = endBeforeStart;
+    }
   }
   if (form.joinedGrade && form.leftGrade && Number(form.leftGrade) < Number(form.joinedGrade)) {
     errors.leftGrade = MESSAGES.leftGradeAfterJoined;
@@ -180,14 +214,25 @@ function focusField(key) {
 }
 
 export default function MembershipForm() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [form, setForm] = useState(initialState);
   const [submitted, setSubmitted] = useState(false); // show field errors only after the first submit attempt
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
   const [errorMessage, setErrorMessage] = useState("");
   const [submissionId, setSubmissionId] = useState(newSubmissionId); // stays the same until an application goes through
 
-  const errors = submitted ? validate(form) : {};
+  // The applicant type lives in the URL, so the association can share a direct link with teachers.
+  const type = searchParams.get("type") === "teacher" ? "teacher" : "student";
+  const isTeacher = type === "teacher";
+  const changeType = (next) => setSearchParams(next === "teacher" ? { type: next } : {}, { replace: true });
+
+  const required = visible(REQUIRED, type);
+  const questions = visible(NUMBERED, type);
+  const q = (key, text) => `${questions.indexOf(key) + 1}. ${text}`;
+
+  const errors = submitted ? validate(form, type) : {};
   const hasErrors = Object.keys(errors).length > 0;
+  const periodError = errors.serviceFrom || errors.serviceTo;
 
   const setField = (key, clean) => (e) => {
     const value = clean ? clean(e.target.value) : e.target.value;
@@ -205,13 +250,13 @@ export default function MembershipForm() {
     setSubmitted(true);
     setStatus("idle");
 
-    const found = validate(form);
+    const found = validate(form, type);
     const firstInvalid = Object.keys(initialState).find((key) => found[key]);
     if (firstInvalid) return focusField(firstInvalid);
     if (!scriptReady) return fail(MESSAGES.unavailable);
 
     setStatus("sending");
-    const body = JSON.stringify({ ...form, submissionId });
+    const body = JSON.stringify({ ...answersFor(form, type), applicantType: type, submissionId });
     let result;
     for (let attempt = 1; attempt <= SUBMIT_ATTEMPTS; attempt++) {
       try {
@@ -240,7 +285,7 @@ export default function MembershipForm() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const filled = REQUIRED.filter((key) => form[key].trim()).length;
+  const filled = required.filter((key) => form[key].trim()).length;
   const lifetimeChecked = form.membershipType === "lifetime";
   const invalidClass = (key) => `field apply-span-2${errors[key] ? " is-invalid" : ""}`;
 
@@ -249,7 +294,7 @@ export default function MembershipForm() {
       <PageHero eyebrow="உறுப்பினர் பதிவு" title="பழைய மாணவர் சங்க உறுப்புரிமை விண்ணப்பம்" lead="யா/சாவகச்சேரி இந்துக்கல்லூரி">
         <div className="page-hero-chips">
           <span className="chip">
-            <FiList aria-hidden="true" /> 4 பகுதிகள் · 18 வினாக்கள்
+            <FiList aria-hidden="true" /> 4 பகுதிகள் · {questions.length} வினாக்கள்
           </span>
           <span className="chip chip-gold">ஆயுட்சந்தா — {LIFETIME_FEE}</span>
         </div>
@@ -272,11 +317,37 @@ export default function MembershipForm() {
         ) : (
           <div className="apply-layout">
             <form className="apply-form" onSubmit={handleSubmit} noValidate>
+              <Section
+                step={0}
+                kicker="முதலில் தெரிவு செய்யவும்"
+                icon={FiUsers}
+                title="விண்ணப்பதாரர் வகை"
+                subtitle="உங்கள் தெரிவுக்கு ஏற்ப கீழுள்ள வினாக்கள் மாறும்"
+              >
+                <div className="field apply-span-2 apply-type">
+                  <SegmentedControl
+                    name="applicantType"
+                    labelId="apply-section-0"
+                    value={type}
+                    onChange={changeType}
+                    options={APPLICANT_TYPES.map(({ value, title, hint }) => ({
+                      value,
+                      label: (
+                        <span className="apply-type-text">
+                          <strong>{title}</strong>
+                          <small>{hint}</small>
+                        </span>
+                      ),
+                    }))}
+                  />
+                </div>
+              </Section>
+
               <Section step={1} icon={FiUser} title="தனிப்பட்ட விபரங்கள்" subtitle="உங்களைப் பற்றிய அடிப்படைத் தகவல்கள்">
-                <Field label="1. முழுப்பெயர் *" id="f-name" className="apply-span-2" value={form.name} onChange={setField("name")} error={errors.name} required />
+                <Field label={q("name", "முழுப்பெயர் *")} id="f-name" className="apply-span-2" value={form.name} onChange={setField("name")} error={errors.name} required />
 
                 <div className={`field${errors.gender ? " is-invalid" : ""}`}>
-                  <label id="gender-label"><LabelText text="2. பால் *" /></label>
+                  <label id="gender-label"><LabelText text={q("gender", "பால் *")} /></label>
                   <SegmentedControl
                     name="gender"
                     labelId="gender-label"
@@ -290,38 +361,76 @@ export default function MembershipForm() {
                   {errors.gender && <p className="field-error">{errors.gender}</p>}
                 </div>
 
-                <Field label="3. குடிசார்நிலை *" id="f-marital" type="select" value={form.marital} onChange={setField("marital")} error={errors.marital} required>
+                <Field label={q("marital", "குடிசார்நிலை *")} id="f-marital" type="select" value={form.marital} onChange={setField("marital")} error={errors.marital} required>
                   <SelectOptions items={MARITAL_STATUSES} placeholder="தெரிவு செய்யவும்" />
                 </Field>
-                <Field label="4. பிறந்த திகதி *" id="f-dob" type="date" max={TODAY} value={form.dob} onChange={setField("dob")} error={errors.dob} required />
-                <Field label="5. தேசிய அடையாள அட்டை இல. *" id="f-nic" autoCapitalize="characters" value={form.nic} onChange={setField("nic", nicInput)} error={errors.nic} required />
-                <Field label="6. தொழில் *" id="f-occupation" className="apply-span-2" value={form.occupation} onChange={setField("occupation")} error={errors.occupation} required />
+                <Field label={q("dob", "பிறந்த திகதி *")} id="f-dob" type="date" max={TODAY} value={form.dob} onChange={setField("dob")} error={errors.dob} required />
+                <Field label={q("nic", "தேசிய அடையாள அட்டை இல. *")} id="f-nic" autoCapitalize="characters" value={form.nic} onChange={setField("nic", nicInput)} error={errors.nic} required />
+                {!isTeacher && (
+                  <Field label={q("occupation", "தொழில் *")} id="f-occupation" className="apply-span-2" value={form.occupation} onChange={setField("occupation")} error={errors.occupation} required />
+                )}
               </Section>
 
               <Section step={2} icon={FiPhone} title="தொடர்பு விபரங்கள்" subtitle="உங்களைத் தொடர்பு கொள்வதற்கான விபரங்கள்">
-                <Field label="7. சொந்த முகவரி *" id="f-homeAddress" className="apply-span-2" type="textarea" rows={2} value={form.homeAddress} onChange={setField("homeAddress")} error={errors.homeAddress} required />
+                <Field label={q("homeAddress", "சொந்த முகவரி *")} id="f-homeAddress" className="apply-span-2" type="textarea" rows={2} value={form.homeAddress} onChange={setField("homeAddress")} error={errors.homeAddress} required />
                 <Field label="தற்காலிக முகவரி" id="f-tempAddress" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.tempAddress} onChange={setField("tempAddress")} />
-                <Field label="8. அலுவலக முகவரி" id="f-officeAddress" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.officeAddress} onChange={setField("officeAddress")} />
-                <Field label="9. தொலைபேசி இல. (WhatsApp இலக்கம் விரும்பத்தக்கது) *" id="f-phone" type="tel" value={form.phone} onChange={setField("phone", phoneInput)} error={errors.phone} required />
-                <Field label="10. மின்னஞ்சல் முகவரி *" id="f-email" type="email" value={form.email} onChange={setField("email")} error={errors.email} required />
+                <Field label={q("officeAddress", "அலுவலக முகவரி")} id="f-officeAddress" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.officeAddress} onChange={setField("officeAddress")} />
+                <Field label={q("phone", "தொலைபேசி இல. (WhatsApp இலக்கம் விரும்பத்தக்கது) *")} id="f-phone" type="tel" value={form.phone} onChange={setField("phone", phoneInput)} error={errors.phone} required />
+                <Field label={q("email", "மின்னஞ்சல் முகவரி *")} id="f-email" type="email" value={form.email} onChange={setField("email")} error={errors.email} required />
               </Section>
 
-              <Section step={3} icon={FiBookOpen} title="கல்லூரி விபரங்கள்" subtitle="இக்கல்லூரியில் நீங்கள் கல்வி கற்ற விபரங்கள்">
-                <Field label="11. கல்லூரி சேர்விலக்கம்" id="f-admitNo" inputMode="numeric" placeholder="(இருப்பின் மட்டும்)" value={form.admitNo} onChange={setField("admitNo", digitsOnly(5))} error={errors.admitNo} />
-                <Field label="12. கல்லூரியில் சேர்ந்த ஆண்டு *" id="f-joinedYear" className="apply-row-start" inputMode="numeric" value={form.joinedYear} onChange={setField("joinedYear", digitsOnly(4))} error={errors.joinedYear} required />
-                <Field label="13. கல்லூரியில் சேர்ந்த வகுப்பு *" id="f-joinedGrade" type="select" value={form.joinedGrade} onChange={setField("joinedGrade")} error={errors.joinedGrade} required>
-                  <SelectOptions items={GRADES} placeholder="வகுப்பைத் தெரிவு செய்யவும்" />
-                </Field>
-                <Field label="14. கல்லூரியில் கடைசியாகப் படித்த ஆண்டு *" id="f-leftYear" inputMode="numeric" value={form.leftYear} onChange={setField("leftYear", digitsOnly(4))} error={errors.leftYear} required />
-                <Field label="15. கல்லூரியில் கடைசியாகப் படித்த வகுப்பு *" id="f-leftGrade" type="select" value={form.leftGrade} onChange={setField("leftGrade")} error={errors.leftGrade} required>
-                  <SelectOptions items={GRADES} placeholder="வகுப்பைத் தெரிவு செய்யவும்" />
-                </Field>
-                <Field label="16. இக்கல்லூரியில் கல்வி கற்றதை உறுதி செய்யும் வேறு ஆதாரம்" id="f-proof" className="apply-span-2" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.proof} onChange={setField("proof")} />
-              </Section>
+              {isTeacher ? (
+                <Section step={3} icon={FiBriefcase} title="சேவை விபரங்கள்" subtitle="இக்கல்லூரியில் நீங்கள் ஆசிரியராகச் சேவையாற்றிய காலம்">
+                  <div className={`field apply-span-2${periodError ? " is-invalid" : ""}`} role="group" aria-labelledby="period-label">
+                    <label id="period-label" htmlFor="f-serviceFrom"><LabelText text={q("serviceFrom", "இக்கல்லூரியில் சேவையாற்றிய காலம் *")} /></label>
+                    {/* Reads as a sentence: "[year] முதல் [year] வரை" (from … to …). */}
+                    <div className="apply-period">
+                      {[
+                        ["serviceFrom", "சேவை தொடங்கிய ஆண்டு", "முதல்"],
+                        ["serviceTo", "சேவை முடிவடைந்த ஆண்டு", "வரை"],
+                      ].map(([key, name, suffix]) => (
+                        <Fragment key={key}>
+                          <input
+                            className="input"
+                            id={`f-${key}`}
+                            inputMode="numeric"
+                            placeholder="ஆண்டு"
+                            aria-label={name}
+                            aria-invalid={errors[key] ? true : undefined}
+                            aria-describedby={periodError ? "f-servicePeriod-error" : undefined}
+                            value={form[key]}
+                            onChange={setField(key, digitsOnly(4))}
+                            required
+                          />
+                          <span aria-hidden="true">{suffix}</span>
+                        </Fragment>
+                      ))}
+                    </div>
+                    {periodError && (
+                      <p className="field-error" id="f-servicePeriod-error">
+                        {periodError}
+                      </p>
+                    )}
+                  </div>
+                </Section>
+              ) : (
+                <Section step={3} icon={FiBookOpen} title="கல்லூரி விபரங்கள்" subtitle="இக்கல்லூரியில் நீங்கள் கல்வி கற்ற விபரங்கள்">
+                  <Field label={q("admitNo", "கல்லூரி சேர்விலக்கம்")} id="f-admitNo" inputMode="numeric" placeholder="(இருப்பின் மட்டும்)" value={form.admitNo} onChange={setField("admitNo", digitsOnly(5))} error={errors.admitNo} />
+                  <Field label={q("joinedYear", "கல்லூரியில் சேர்ந்த ஆண்டு *")} id="f-joinedYear" className="apply-row-start" inputMode="numeric" value={form.joinedYear} onChange={setField("joinedYear", digitsOnly(4))} error={errors.joinedYear} required />
+                  <Field label={q("joinedGrade", "கல்லூரியில் சேர்ந்த வகுப்பு *")} id="f-joinedGrade" type="select" value={form.joinedGrade} onChange={setField("joinedGrade")} error={errors.joinedGrade} required>
+                    <SelectOptions items={GRADES} placeholder="வகுப்பைத் தெரிவு செய்யவும்" />
+                  </Field>
+                  <Field label={q("leftYear", "கல்லூரியில் கடைசியாகப் படித்த ஆண்டு *")} id="f-leftYear" inputMode="numeric" value={form.leftYear} onChange={setField("leftYear", digitsOnly(4))} error={errors.leftYear} required />
+                  <Field label={q("leftGrade", "கல்லூரியில் கடைசியாகப் படித்த வகுப்பு *")} id="f-leftGrade" type="select" value={form.leftGrade} onChange={setField("leftGrade")} error={errors.leftGrade} required>
+                    <SelectOptions items={GRADES} placeholder="வகுப்பைத் தெரிவு செய்யவும்" />
+                  </Field>
+                  <Field label={q("proof", "இக்கல்லூரியில் கல்வி கற்றதை உறுதி செய்யும் வேறு ஆதாரம்")} id="f-proof" className="apply-span-2" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.proof} onChange={setField("proof")} />
+                </Section>
+              )}
 
               <Section step={4} icon={FiAward} title="அங்கத்துவம்" subtitle="அங்கத்துவ வகையும் தொடர்பாடல் விருப்பமும்">
                 <div className={invalidClass("membershipType")}>
-                  <label htmlFor="f-membershipType"><LabelText text="17. அங்கத்துவ வகை *" /></label>
+                  <label htmlFor="f-membershipType"><LabelText text={q("membershipType", "அங்கத்துவ வகை *")} /></label>
                   <label className={`apply-option${lifetimeChecked ? " is-checked" : ""}${errors.membershipType ? " is-invalid" : ""}`}>
                     <input
                       type="checkbox"
@@ -350,7 +459,7 @@ export default function MembershipForm() {
                 </div>
 
                 <div className={invalidClass("emailConsent")}>
-                  <label id="consent-label"><LabelText text="18. அதிகாரப்பூர்வத் தொடர்பாடலுக்கான ஊடகமாக மின்னஞ்சலைப் பயன்படுத்துவதை ஏற்றுக்கொள்ளுகிறேன். *" /></label>
+                  <label id="consent-label"><LabelText text={q("emailConsent", "அதிகாரப்பூர்வத் தொடர்பாடலுக்கான ஊடகமாக மின்னஞ்சலைப் பயன்படுத்துவதை ஏற்றுக்கொள்ளுகிறேன். *")} /></label>
                   <SegmentedControl
                     name="emailConsent"
                     labelId="consent-label"
@@ -409,7 +518,7 @@ export default function MembershipForm() {
                   <div className="apply-progress-head">
                     <span>கட்டாய வினாக்கள்</span>
                     <span>
-                      {filled} / {REQUIRED.length}
+                      {filled} / {required.length}
                     </span>
                   </div>
                   <div
@@ -417,10 +526,10 @@ export default function MembershipForm() {
                     role="progressbar"
                     aria-label="கட்டாய வினாக்கள்"
                     aria-valuemin={0}
-                    aria-valuemax={REQUIRED.length}
+                    aria-valuemax={required.length}
                     aria-valuenow={filled}
                   >
-                    <div className="apply-progress-bar" style={{ width: `${(filled / REQUIRED.length) * 100}%` }} />
+                    <div className="apply-progress-bar" style={{ width: `${(filled / required.length) * 100}%` }} />
                   </div>
                 </div>
 
@@ -446,7 +555,7 @@ export default function MembershipForm() {
   );
 }
 
-function Section({ step, icon: Icon, title, subtitle, children }) {
+function Section({ step, kicker = `பகுதி ${step} / 4`, icon: Icon, title, subtitle, children }) {
   const headingId = `apply-section-${step}`;
   return (
     <section className="panel apply-section" aria-labelledby={headingId}>
@@ -455,7 +564,7 @@ function Section({ step, icon: Icon, title, subtitle, children }) {
           <Icon />
         </span>
         <div>
-          <span className="apply-section-step">பகுதி {step} / 4</span>
+          <span className="apply-section-step">{kicker}</span>
           <h2 id={headingId}>{title}</h2>
           <p>{subtitle}</p>
         </div>
