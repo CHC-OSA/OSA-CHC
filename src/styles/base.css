@@ -83,7 +83,6 @@ figcaption {
   margin: 0;
 }
 .prose {
-  max-width: 72ch;
   font-size: 16px;
   line-height: 1.85;
   color: color-mix(in srgb, var(--color-text) 84%, transparent);

@@ -42,7 +42,7 @@
   padding-top: 72px;
 }
 .home-intro h1 { margin: 0 0 18px; font-size: clamp(30px, 3.8vw, 46px); line-height: 1.25; }
-.home-intro .lead { max-width: 58ch; margin-bottom: 28px; }
+.home-intro .lead { margin-bottom: 28px; }
 .home { padding-bottom: 96px; }
 
 @media (max-width: 960px) {

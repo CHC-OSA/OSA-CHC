@@ -35,9 +35,7 @@ export default function DevelopmentDetail() {
             </span>
             அபிவிருத்தி காலவரைவு
           </h2>
-          <div style={{ maxWidth: "72ch" }}>
-            <DevelopmentTimeline entries={development.timeline} />
-          </div>
+          <DevelopmentTimeline entries={development.timeline} />
         </section>
       </div>
     </>
