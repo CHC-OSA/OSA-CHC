@@ -38,6 +38,7 @@ Open `src/data/events.js`. It exports one array called `EVENTS`. Each event is a
 | `long` | Yes | The full paragraph shown on the event's own detail page. |
 | `image` | No | Cover photo for the card — see §2. |
 | `gallery` | No | Up to 3 photos for the detail page — see §2. |
+| `album` | No | The `id` of a Gallery album (§5), e.g. `"sangamam-2026"`. Adds a "see all photos" link on the event's detail page. |
 
 **Where in the array to add it:** the array order controls what shows first. The homepage "recent" strip always shows the **first 3 entries** in the array, and the `/events` listing page shows them in the same order. So **add new events at the very top of the array** (right after `export const EVENTS = [`) to keep the newest content first.
 
@@ -218,58 +219,59 @@ You can list 1 photo, 5 photos, or leave `photos` out entirely — whatever's th
 
 ## 5. Adding to the Gallery
 
-The Gallery (`/gallery`) shows **albums**: a cover photo + title card that links to the album's own page (`/gallery/<id>`) showing every photo in that album. Same idea as Events, but without dates or write-ups.
+The Gallery (`/gallery`) shows **albums**: a card with a cover photo, title and date that links to the album's own page (`/gallery/<id>`) showing every photo in that album. Same idea as Events, but without write-ups.
 
-Open `src/data/gallery.js`. It exports one array called `GALLERY_PHOTOS`:
+Unlike Events, gallery photos need **no `import` lines**. Every picture inside an album's folder is picked up automatically.
 
-| Field | Required | Description |
-|---|---|---|
-| `id` | Yes | A short, unique, lowercase-hyphenated identifier. Becomes the album page URL (`/gallery/<id>`) and the name of the photo folder (see below). |
-| `caption` | Yes | The album title, shown on the album card and its detail page. |
-| `cover` | No | The cover photo shown on the album card — omit it and a gray placeholder box shows instead. |
-| `photos` | No | An array of every photo in the album, shown on the album's own page — omit it (or leave it `[]`) and a 3-box "photos coming soon" placeholder grid shows instead. |
-
-There's no "recent" slicing here — every album always shows, in array order. Add new albums wherever you like; putting them at the top keeps the newest ones first.
-
-**Step 1 — create a folder for this album's photos**, named exactly after the album's `id`:
+**Step 1 — create a folder for the album**, named exactly after the album's `id` (lowercase English letters, numbers and hyphens only), and put the photos in it:
 
 ```
 src/assets/gallery/<album-id>/cover.jpg
-src/assets/gallery/<album-id>/photo-1.jpg
-src/assets/gallery/<album-id>/photo-2.jpg
+src/assets/gallery/<album-id>/photo-01.jpg
+src/assets/gallery/<album-id>/photo-02.jpg
+src/assets/gallery/<album-id>/photo-03.jpg
 ```
 
-Example, for `id: "founders-day-2027"`:
+`sangamam-2026` in the current project is a real, working example.
 
-```
-src/assets/gallery/founders-day-2027/cover.jpg
-src/assets/gallery/founders-day-2027/photo-1.jpg
-src/assets/gallery/founders-day-2027/photo-2.jpg
-```
+- The folder must be inside `src/assets/gallery/` — all lowercase. `Gallery` with a capital G works on a Windows PC but breaks on the live site.
+- Photos appear in **file-name order**, so number them (`photo-01`, `photo-02`, ...) in the order you want. The file names themselves are never shown.
+- Use `.jpg`, `.jpeg`, `.png` or `.webp`, with the extension in lowercase.
+- **Cover:** any file whose name starts with `cover` (e.g. `cover.jpg`) is the picture on the album card. It is used on the card only and is not repeated inside the album. With no cover file, the first photo is used. The card frame is wide (16:10), so a square or tall cover such as a poster gets cropped — see `coverFit` below.
+- Windows hides file extensions, so renaming a file to `cover.jpg` in File Explorer can really produce `cover.jpg.jpg`. It still works, but turn on **View → Show → File name extensions** to see the real name.
+- Keep photos small: **about 300 KB each is ideal, 1 MB at most**. Photos forwarded through WhatsApp are already this size; photos straight from a camera or phone are 20–50 times bigger and must be compressed first. Every photo is stored in the project forever, so size matters more here than anywhere else.
 
-`cover.jpg` is used on the album card in the `/gallery` grid (16:10 ratio looks best). `photo-1.jpg`, `photo-2.jpg`, ... are used on the album's own page (roughly 4:3 looks best) — list any number, however many you have. Use `.jpg`, `.png`, or `.webp`, under ~1MB each.
-
-**Step 2 — import the photos at the top of `src/data/gallery.js`:**
+**Step 2 — add an entry to `ALBUMS` in `src/data/gallery.js`:**
 
 ```js
-import foundersDayCover from "../assets/gallery/founders-day-2027/cover.jpg";
-import foundersDayPhoto1 from "../assets/gallery/founders-day-2027/photo-1.jpg";
-import foundersDayPhoto2 from "../assets/gallery/founders-day-2027/photo-2.jpg";
-```
-
-**Step 3 — add an entry:**
-
-```js
-export const GALLERY_PHOTOS = [
-  {
-    id: "founders-day-2027",
-    caption: "நிறுவனர் தினம் 2027",
-    cover: foundersDayCover,
-    photos: [foundersDayPhoto1, foundersDayPhoto2],
-  },
+const ALBUMS = [
+  { id: "founders-day-2027", caption: "நிறுவனர் தினம் 2027", date: "2027 ஆனி 12" },
   // ...existing albums
 ];
 ```
+
+| Field | Required | Description |
+|---|---|---|
+| `id` | Yes | Must match the folder name exactly. Becomes the album page URL (`/gallery/<id>`). |
+| `caption` | Yes | The album title, shown on the album card and its own page. |
+| `date` | No | When it happened, shown on the album card and its own page. Free text, written the same way as an event's `meta` (e.g. `"2026 ஐப்பசி 03"`). Leave it out and the card shows the number of photos instead. |
+| `coverFit` | No | Set to `"contain"` to show the **whole** cover on the card, with a blurred copy of it filling the sides. Use it for posters and other covers that aren't wide; leave it out for ordinary landscape photos, which fill the frame. |
+
+Every album always shows, in array order — put new albums at the top to keep the newest first. An album whose folder is missing or empty shows a gray "photos coming soon" placeholder.
+
+**Photos hosted somewhere else (advanced).** If the gallery ever outgrows the project (roughly 300 MB of photos), an album can load its photos from an image host instead of a folder by listing full web addresses:
+
+```js
+{
+  id: "founders-day-2027",
+  caption: "நிறுவனர் தினம் 2027",
+  date: "2027 ஆனி 12",
+  cover: "https://example.com/founders-day-2027/cover.jpg",
+  photos: ["https://example.com/founders-day-2027/photo-01.jpg", "https://example.com/founders-day-2027/photo-02.jpg"],
+},
+```
+
+Use a real image host for this (e.g. Cloudinary or Cloudflare R2). Google Drive links are not reliable for showing photos on a website.
 
 ---
 

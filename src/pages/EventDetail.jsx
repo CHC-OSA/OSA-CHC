@@ -1,5 +1,5 @@
-import { useParams } from "react-router";
-import { FiCalendar } from "react-icons/fi";
+import { Link, useParams } from "react-router";
+import { FiArrowRight, FiCalendar } from "react-icons/fi";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import { getEventById } from "../data/events";
@@ -31,6 +31,13 @@ export default function EventDetail() {
               <PlaceholderImage key={i} aspectRatio="4/3" caption="நிகழ்வுப் புகைப்படம்" src={photo} alt={event.title} />
             ))}
           </div>
+          {event.album && (
+            <div>
+              <Link to={`/gallery/${event.album}`} className="link-arrow">
+                அனைத்துப் புகைப்படங்களையும் காண <FiArrowRight aria-hidden="true" />
+              </Link>
+            </div>
+          )}
           <p className="prose">{event.long}</p>
         </article>
       </div>
