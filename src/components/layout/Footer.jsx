@@ -10,7 +10,7 @@ const QUICK_LINKS = [
   { to: "/developments", label: "அபிவிருத்திகள்" },
   // { to: "/join", label: "உறுப்பினராகுங்கள்" },
   { to: "/directory", label: "உறுப்பினர் பட்டியல்" },
-  // { to: "/gallery", label: "படத்தொகுப்பு" },
+  { to: "/gallery", label: "படத்தொகுப்பு" },
 ];
 
 const SOCIALS = [

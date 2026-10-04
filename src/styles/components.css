@@ -265,6 +265,16 @@ a.card:hover, .card-hover:hover {
 .card-photo-media { display: block; overflow: hidden; background: var(--color-muted-bg); }
 .card-photo-media > * { transition: transform 0.5s ease; }
 .card-photo:hover .card-photo-media > * { transform: scale(1.04); }
+/* Whole cover over a blurred copy of itself (gallery covers that aren't the frame's shape, e.g. posters). */
+.card-photo-media-contain { position: relative; }
+.card-photo-media-contain::before {
+  content: "";
+  position: absolute;
+  inset: -24px;
+  background: var(--cover) center / cover;
+  filter: blur(20px) brightness(0.85);
+}
+.card-photo-media-contain > img { position: relative; }
 .card-photo-body { display: flex; flex: 1; flex-direction: column; gap: 10px; padding: 20px 22px 22px; }
 
 .elev-sm { box-shadow: var(--shadow-sm); }
@@ -669,6 +679,38 @@ a.card:hover, .card-hover:hover {
 .media-grid > * { border-radius: var(--radius-md); }
 @media (max-width: 860px) { .media-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 480px) { .media-grid { grid-template-columns: minmax(0, 1fr); } }
+.media-tile { display: block; padding: 0; overflow: hidden; cursor: zoom-in; background: var(--color-muted-bg); border: 0; }
+.media-tile img { transition: transform 0.5s ease; }
+.media-tile:hover img { transform: scale(1.04); }
+
+/* Full-screen photo viewer (gallery albums); its buttons reuse .slider-arrow. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  grid-template: minmax(0, 1fr) / minmax(0, 1fr);
+  place-items: center;
+  padding: 64px 84px;
+  background: rgb(10 24 54 / 0.95);
+}
+.lightbox-image { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: var(--radius-sm); }
+.lightbox-close { top: 20px; right: 20px; transform: none; }
+.lightbox-count {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-align: center;
+  color: #fff;
+  pointer-events: none;
+}
+@media (max-width: 640px) {
+  .lightbox { padding: 60px 12px; }
+  .lightbox-close { top: 12px; right: 12px; }
+}
 
 .placeholder-image {
   display: flex;
@@ -760,6 +802,11 @@ a.card:hover, .card-hover:hover {
 .nav-toggle { display: none; width: 40px; min-height: 40px; margin-left: 8px; padding: 0; border-radius: 999px; }
 .nav-cta { min-height: 40px; padding: 8px 16px; font-size: 13.5px; }
 .nav-cta-menu { display: none; }
+/* Desktop bar: six links plus the CTA only fit on one row at this size. */
+@media (min-width: 1301px) {
+  .nav-link { padding: 8px 10px; font-size: 13px; }
+  .nav-cta { padding: 8px 14px; font-size: 13px; }
+}
 @media (max-width: 640px) {
   .nav-cta { display: none; }
   .nav-cta-menu { display: flex; margin-top: 8px; }

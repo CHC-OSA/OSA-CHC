@@ -7,8 +7,25 @@ import bookDonationPhoto1 from "../assets/events/book-donation-2026/1.jpg";
 import bookDonationPhoto2 from "../assets/events/book-donation-2026/3.jpg";
 import bookDonationPhoto3 from "../assets/events/book-donation-2026/4.jpg";
 import photocopyDonationCover from "../assets/events/photocopy-machine-donation-2025/1.jpg";
+import sangamamPhoto1 from "../assets/gallery/sangamam-2026/photo-07.jpeg";
+import sangamamPhoto2 from "../assets/gallery/sangamam-2026/photo-31.jpeg";
+import sangamamPhoto3 from "../assets/gallery/sangamam-2026/photo-39.jpeg";
+import sangamamCover from "../assets/gallery/sangamam-2026/photo-49.jpeg";
+import sangamamPhoto4 from "../assets/gallery/sangamam-2026/photo-63.jpeg";
+import sangamamPhoto5 from "../assets/gallery/sangamam-2026/photo-52.jpeg";
 
 export const EVENTS = [
+  {
+    id: "sangamam-2026",
+    kicker: "நிகழ்வு",
+    title: "இந்துவின் சங்கமம் 2026",
+    body: "சாவகச்சேரி இந்துக் கல்லூரி பழைய மாணவர்கள் பெருமையுடன் இணைந்த “இந்துவின் சங்கமம் 2026”, நேரடி இசை நிகழ்ச்சி, நகைச்சுவை மற்றும் பாரம்பரிய உணவுகளுடன் கல்லூரித் திறந்தவெளி அரங்கில் சிறப்பாக நடைபெற்றது.",
+    meta: "2026 ஐப்பசி 03",
+    long: "சாவகச்சேரி இந்துக் கல்லூரி பழைய மாணவர்கள் பெருமையுடன் இணைந்த “இந்துவின் சங்கமம் 2026” நிகழ்வு, 03.10.2026 சனிக்கிழமை மாலை 6.30 மணி முதல் இந்துக்கல்லூரி திறந்தவெளி அரங்கில் மிகச் சிறப்பாக நடைபெற்றது. “யாழ் டியூன்ஸ்” (Yarl Tunes Live Music Band) இசைக்குழுவினரின் நேரடி இசை நிகழ்ச்சியும், “அக்குட்டியும் பிச்சுமணியும்” நகைச்சுவை நிகழ்ச்சியும் இந்நிகழ்வில் இடம்பெற்றன. அனைவருக்கும் அனுமதி இலவசமாக அமைந்த இந்நிகழ்வில் பழைய மாணவர்களும் ஆர்வலர்களும் பெருமளவில் கலந்துகொண்டனர்.",
+    image: sangamamCover,
+    gallery: [sangamamPhoto1, sangamamPhoto2, sangamamPhoto3, sangamamCover, sangamamPhoto4, sangamamPhoto5],
+    album: "sangamam-2026",
+  },
   {
     id: "foundation-stone-2026",
     kicker: "நிகழ்வு",
