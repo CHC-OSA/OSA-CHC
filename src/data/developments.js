@@ -4,6 +4,11 @@ import drinkingWaterPhoto1 from "../assets/developments/drinking-water-renovatio
 import drinkingWaterPhoto2 from "../assets/developments/drinking-water-renovation/3.jpg";
 import drinkingWaterPhoto3 from "../assets/developments/drinking-water-renovation/4.jpg";
 import drinkingWaterPhoto4 from "../assets/developments/drinking-water-renovation/5.jpg";
+import computerDonationCover from "../assets/developments/computer-donation/1.jpg";
+import computerDonationPhoto1 from "../assets/developments/computer-donation/2.jpg";
+import computerDonationPhoto2 from "../assets/developments/computer-donation/3.jpg";
+import groundRenovationCover from "../assets/developments/ground-renovation/1.jpg";
+import groundRenovationPhoto1 from "../assets/developments/ground-renovation/2.jpg";
 
 
 export const STATUS_LABELS = {
@@ -49,7 +54,39 @@ export const DEVELOPMENTS = [
         photos: [ drinkingWaterPhoto1, drinkingWaterPhoto2, drinkingWaterPhoto3, drinkingWaterPhoto4],
       },
     ],
-  }
+  },
+  {
+    id: "computer-donation",
+    kicker: "அபிவிருத்தி",
+    title: "கணனிக் கூடங்களுக்கு கணனிகள் மற்றும் தகவல் தொடர்பாடல் தொழில்நுட்ப சாதனங்கள் வழங்கல்",
+    status: "completed",
+    summary: "எமது கல்லூரியின் கணனிக் கூடங்களுக்குரிய 35 முழுமையான கணனிகள், 45 கணனி மத்திய செயலாக்க அலகுகள், 10 மடிக்கணனிகள் உள்ளிட்ட தகவல் தொடர்பாடல் தொழில்நுட்ப சாதனங்களை (12.5 மில்லியன் LKR பெறுமதியில்) எமது சுவிஸ் பழைய மாணவர் சங்கம் வழங்கியுள்ளது.",
+    image: computerDonationCover,
+    timeline: [
+      {
+        date: "2024 புரட்டாதி 02",
+        label: "சாதனங்கள் நிறுவப்பட்டு செயற்பாடு ஆரம்பம்",
+        description: "சுவிஸ் பழைய மாணவர் சங்கத்தினால் வழங்கப்பட்ட கணனிகளும் ஏனைய சாதனங்களும் கணனிக் கூடங்களில் முழுமையாக நிறுவப்பெற்று செயலாற்ற ஆரம்பித்துள்ளன.",
+        photos: [computerDonationCover, computerDonationPhoto1, computerDonationPhoto2],
+      },
+    ],
+  },
+  {
+    id: "ground-renovation",
+    kicker: "அபிவிருத்தி",
+    title: "விளையாட்டு மைதானத்திற்கு உயர் அழுத்த நீர் விசிறித் தொகுதி நிர்மாணம்",
+    status: "completed",
+    summary: "தன்னார்வமான பழைய மாணவர் நியூசிலாந்து வாழ் பொறியியலாளர் றமணன் ஜெயவீரசிங்கம் - உயர்தரம் 2006 அவர்களது அனுசரணையிலும், பங்கேற்பிலும் எமது கல்லூரி விளையாட்டு மைதானத்திற்குரிய உயர் அழுத்த நீர் விசிறித் தொகுதி நிர்மாணிக்கப்பெற்று 08.08.2024 கல்லூரிக்கு கையளிக்கப்பெற்றுள்ளது.",
+    image: groundRenovationCover,
+    timeline: [
+      {
+        date: "2024 ஆவணி 08",
+        label: "நிர்மாணப் பணி நிறைவும் கல்லூரியிடம் கையளிப்பும்",
+        description: "பொறியியலாளர் றமணன் ஜெயவீரசிங்கம் அவர்களது அனுசரணையிலும் பங்கேற்பிலும் நிர்மாணிக்கப்பெற்ற உயர் அழுத்த நீர் விசிறித் தொகுதி கல்லூரிக்கு கையளிக்கப்பெற்றது.",
+        photos: [groundRenovationCover, groundRenovationPhoto1],
+      },
+    ],
+  },
   // {
   //   id: "science-lab",
   //   kicker: "கல்வி உட்கட்டமைப்பு",
