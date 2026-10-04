@@ -87,6 +87,7 @@ figcaption {
   line-height: 1.85;
   color: color-mix(in srgb, var(--color-text) 84%, transparent);
   margin: 0;
+  white-space: pre-line;
 }
 
 @media (prefers-reduced-motion: reduce) {
