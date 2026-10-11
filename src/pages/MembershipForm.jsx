@@ -38,14 +38,14 @@ async function postApplication(body) {
   }
 }
 
-const LIFETIME_FEE = "ரூபா 1000.00";
+const LIFETIME_FEE = "ரூபா 1,000";
 
 // The association's official registration process (பதிவு செய்யும் முறை).
 const PROCESS_STEPS = [
   "இப்பக்கத்திலுள்ள விண்ணப்பப் படிவத்தைப் பூர்த்தி செய்து சமர்ப்பிக்கவும்.",
-  "உங்கள் உறுப்பினர் விண்ணப்பம் OSTA மூலம் சரிபார்க்கப்படும்.",
-  "சரிபார்ப்பு நிறைவடைந்த பின்னர் மட்டுமே கட்டணம் செலுத்துவதற்கான தகவல்கள் வழங்கப்படும்.",
-  "அதன் பின்னர் ரூ. 1,000/- உறுப்பினர் கட்டணத்தை செலுத்தலாம்.",
+  "உங்கள் உறுப்புரிமை விண்ணப்பம் பழைய மாணவர் ஆசிரியர் சங்கத்தினால் சரிபார்க்கப்படும்.",
+  "சரிபார்ப்பு நிறைவடைந்த பின்னரே கட்டணம் செலுத்துவதற்கான விபரங்கள் வழங்கப்படும்.",
+  "அதன் பின்னர் ரூபா 1,000 உறுப்புரிமைக் கட்டணத்தைச் செலுத்தலாம்.",
 ];
 const MIN_YEAR = 1900;
 const CURRENT_YEAR = new Date().getFullYear();
@@ -121,25 +121,25 @@ const NUMBERED = [
 
 // [start year, end year, message when the end is before the start]
 const PERIODS = [
-  ["joinedYear", "leftYear", "சேர்ந்த ஆண்டுக்கு முந்தைய ஆண்டாக இருக்க முடியாது."],
+  ["joinedYear", "leftYear", "கல்லூரியில் சேர்ந்த ஆண்டுக்கு முந்தைய ஆண்டாக இருக்க முடியாது."],
   ["serviceFrom", "serviceTo", "இறுதி ஆண்டு தொடக்க ஆண்டுக்கு முந்தையதாக இருக்க முடியாது."],
 ];
 
 const MESSAGES = {
-  required: "இந்த வினா கட்டாயமானது.",
+  required: "இவ்விபரம் கட்டாயமானது.",
   dob: "சரியான பிறந்த திகதியை உள்ளிடவும்.",
-  nic: "சரியான அடையாள அட்டை இலக்கத்தை உள்ளிடவும் — எ.கா. 736835640V அல்லது 200328805624.",
+  nic: "சரியான தேசிய அடையாள அட்டை இலக்கத்தை உள்ளிடவும் — எ.கா. 736835640V அல்லது 200328805624.",
   email: "சரியான மின்னஞ்சல் முகவரியை உள்ளிடவும் — எ.கா. name@email.com.",
   phone: "சரியான இலங்கைத் தொலைபேசி இலக்கத்தை உள்ளிடவும் — 0765463456, 765463456 அல்லது +94 765463456.",
-  admitNo: "சேர்விலக்கம் அதிகபட்சம் 5 இலக்கங்கள் மட்டுமே.",
-  year: `${MIN_YEAR} – ${CURRENT_YEAR} இடையிலான ஆண்டை உள்ளிடவும்.`,
+  admitNo: "சேர்விலக்கம் ஆகக்கூடியது 5 இலக்கங்களையே கொண்டிருக்கலாம்.",
+  year: `${MIN_YEAR} – ${CURRENT_YEAR} ஆகியவற்றுக்கு இடைப்பட்ட ஆண்டை உள்ளிடவும்.`,
   afterBirth: "பிறந்த ஆண்டுக்குப் பின்னரான ஆண்டாக இருக்க வேண்டும்.",
   leftGradeAfterJoined: "சேர்ந்த வகுப்பை விடக் குறைந்த வகுப்பாக இருக்க முடியாது.",
-  fixErrors: "பிழைகளைத் திருத்திய பின் மீண்டும் சமர்ப்பிக்கவும்.",
-  unavailable: `விண்ணப்பப் படிவம் தற்போது கிடைக்கவில்லை`,
-  failed: "விண்ணப்பத்தை அனுப்புவதில் பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.",
+  fixErrors: "தவறுகளைத் திருத்திய பின்னர் மீண்டும் சமர்ப்பிக்கவும்.",
+  unavailable: `விண்ணப்பப் படிவம் தற்போது செயற்பாட்டில் இல்லை.`,
+  failed: "விண்ணப்பத்தைச் சமர்ப்பிப்பதில் தவறு ஏற்பட்டுள்ளது. மீண்டும் முயற்சிக்கவும்.",
   network: "இணைய இணைப்பில் சிக்கல் உள்ளது. இணைப்பைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.",
-  duplicate: "இந்த முழுப்பெயர் மற்றும் தேசிய அடையாள அட்டை இலக்கத்துடன் ஏற்கனவே ஒரு விண்ணப்பம் பெறப்பட்டுள்ளது. மீண்டும் சமர்ப்பிக்கத் தேவையில்லை.",
+  duplicate: "இம்முழுப்பெயருடனும் தேசிய அடையாள அட்டை இலக்கத்துடனும் ஏற்கனவே ஒரு விண்ணப்பம் கிடைக்கப்பெற்றுள்ளது. மீண்டும் சமர்ப்பிக்க வேண்டியதில்லை.",
 };
 
 // Old NIC: YY + DDD + 4 digits + V/X (636835640V). New NIC: YYYY + DDD + 5 digits (200328805624).
@@ -292,12 +292,12 @@ export default function MembershipForm() {
 
   return (
     <div className="apply">
-      <PageHero eyebrow="உறுப்பினர் பதிவு" title="பழைய மாணவர் சங்க உறுப்புரிமை விண்ணப்பம்" lead="யா/சாவகச்சேரி இந்துக்கல்லூரி">
+      <PageHero eyebrow="உறுப்பினர் பதிவு" title="பழைய மாணவர் ஆசிரியர் சங்க உறுப்புரிமை விண்ணப்பம்" lead="யா/சாவகச்சேரி இந்துக் கல்லூரி">
         <div className="page-hero-chips">
           <span className="chip">
-            <Icon icon={LeftToRightListBulletIcon} /> 4 பகுதிகள் · {questions.length} வினாக்கள்
+            <Icon icon={LeftToRightListBulletIcon} /> 4 பகுதிகள் · {questions.length} விபரங்கள்
           </span>
-          <span className="chip chip-gold">ஆயுட்சந்தா — {LIFETIME_FEE}</span>
+          <span className="chip chip-gold">ஆயுட்கால உறுப்புரிமை — {LIFETIME_FEE}</span>
         </div>
       </PageHero>
 
@@ -307,12 +307,12 @@ export default function MembershipForm() {
             <span className="apply-success-icon" aria-hidden="true">
               <Icon icon={Tick02Icon} />
             </span>
-            <h2>நன்றி! உங்கள் விண்ணப்பம் பெறப்பட்டது.</h2>
+            <h2>நன்றி. உங்கள் விண்ணப்பம் கிடைக்கப்பெற்றுள்ளது.</h2>
             <p>
-              உங்கள் உறுப்பினர் விண்ணப்பம் OSTA மூலம் சரிபார்க்கப்படும். சரிபார்ப்பு நிறைவடைந்த பின்னர் கட்டணம் செலுத்துவதற்கான தகவல்கள் வழங்கப்படும்.
+              உங்கள் உறுப்புரிமை விண்ணப்பம் பழைய மாணவர் ஆசிரியர் சங்கத்தினால் சரிபார்க்கப்படும். சரிபார்ப்பு நிறைவடைந்த பின்னர் கட்டணம் செலுத்துவதற்கான விபரங்கள் வழங்கப்படும்.
             </p>
             <Button as="link" to="/" variant="secondary" className="apply-success-btn">
-              முகப்புக்குத் திரும்பு
+              முகப்புக்குத் திரும்பவும்
             </Button>
           </div>
         ) : (
@@ -323,7 +323,7 @@ export default function MembershipForm() {
                 kicker="முதலில் தெரிவு செய்யவும்"
                 icon={UserGroupIcon}
                 title="விண்ணப்பதாரர் வகை"
-                subtitle="உங்கள் தெரிவுக்கு ஏற்ப கீழுள்ள வினாக்கள் மாறும்"
+                subtitle="உங்கள் தெரிவுக்கு ஏற்பக் கீழுள்ள விபரங்கள் மாறுபடும்"
               >
                 <div className="field apply-span-2 apply-type">
                   <SegmentedControl
@@ -344,7 +344,7 @@ export default function MembershipForm() {
                 </div>
               </Section>
 
-              <Section step={1} icon={UserIcon} title="தனிப்பட்ட விபரங்கள்" subtitle="உங்களைப் பற்றிய அடிப்படைத் தகவல்கள்">
+              <Section step={1} icon={UserIcon} title="தனிப்பட்ட விபரங்கள்" subtitle="உங்களைப் பற்றிய அடிப்படை விபரங்கள்">
                 <Field label={q("name", "முழுப்பெயர் *")} id="f-name" className="apply-span-2" value={form.name} onChange={setField("name")} error={errors.name} required />
 
                 <div className={`field${errors.gender ? " is-invalid" : ""}`}>
@@ -366,7 +366,7 @@ export default function MembershipForm() {
                   <SelectOptions items={MARITAL_STATUSES} placeholder="தெரிவு செய்யவும்" />
                 </Field>
                 <Field label={q("dob", "பிறந்த திகதி *")} id="f-dob" type="date" max={TODAY} value={form.dob} onChange={setField("dob")} error={errors.dob} required />
-                <Field label={q("nic", "தேசிய அடையாள அட்டை இல. *")} id="f-nic" autoCapitalize="characters" value={form.nic} onChange={setField("nic", nicInput)} error={errors.nic} required />
+                <Field label={q("nic", "தேசிய அடையாள அட்டை இலக்கம் *")} id="f-nic" autoCapitalize="characters" value={form.nic} onChange={setField("nic", nicInput)} error={errors.nic} required />
                 {!isTeacher && (
                   <Field label={q("occupation", "தொழில் *")} id="f-occupation" className="apply-span-2" value={form.occupation} onChange={setField("occupation")} error={errors.occupation} required />
                 )}
@@ -374,9 +374,9 @@ export default function MembershipForm() {
 
               <Section step={2} icon={Call02Icon} title="தொடர்பு விபரங்கள்" subtitle="உங்களைத் தொடர்பு கொள்வதற்கான விபரங்கள்">
                 <Field label={q("homeAddress", "சொந்த முகவரி *")} id="f-homeAddress" className="apply-span-2" type="textarea" rows={2} value={form.homeAddress} onChange={setField("homeAddress")} error={errors.homeAddress} required />
-                <Field label="தற்காலிக முகவரி" id="f-tempAddress" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.tempAddress} onChange={setField("tempAddress")} />
-                <Field label={q("officeAddress", "அலுவலக முகவரி")} id="f-officeAddress" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.officeAddress} onChange={setField("officeAddress")} />
-                <Field label={q("phone", "தொலைபேசி இல. (WhatsApp இலக்கம் விரும்பத்தக்கது) *")} id="f-phone" type="tel" value={form.phone} onChange={setField("phone", phoneInput)} error={errors.phone} required />
+                <Field label="தற்காலிக முகவரி" id="f-tempAddress" type="textarea" rows={2} placeholder="(இருப்பின் மாத்திரம்)" value={form.tempAddress} onChange={setField("tempAddress")} />
+                <Field label={q("officeAddress", "அலுவலக முகவரி")} id="f-officeAddress" type="textarea" rows={2} placeholder="(இருப்பின் மாத்திரம்)" value={form.officeAddress} onChange={setField("officeAddress")} />
+                <Field label={q("phone", "தொலைபேசி இலக்கம் (WhatsApp இலக்கம் விரும்பத்தக்கது) *")} id="f-phone" type="tel" value={form.phone} onChange={setField("phone", phoneInput)} error={errors.phone} required />
                 <Field label={q("email", "மின்னஞ்சல் முகவரி *")} id="f-email" type="email" value={form.email} onChange={setField("email")} error={errors.email} required />
               </Section>
 
@@ -416,22 +416,22 @@ export default function MembershipForm() {
                 </Section>
               ) : (
                 <Section step={3} icon={BookOpen01Icon} title="கல்லூரி விபரங்கள்" subtitle="இக்கல்லூரியில் நீங்கள் கல்வி கற்ற விபரங்கள்">
-                  <Field label={q("admitNo", "கல்லூரி சேர்விலக்கம்")} id="f-admitNo" inputMode="numeric" placeholder="(இருப்பின் மட்டும்)" value={form.admitNo} onChange={setField("admitNo", digitsOnly(5))} error={errors.admitNo} />
+                  <Field label={q("admitNo", "கல்லூரிச் சேர்விலக்கம்")} id="f-admitNo" inputMode="numeric" placeholder="(இருப்பின் மாத்திரம்)" value={form.admitNo} onChange={setField("admitNo", digitsOnly(5))} error={errors.admitNo} />
                   <Field label={q("joinedYear", "கல்லூரியில் சேர்ந்த ஆண்டு *")} id="f-joinedYear" className="apply-row-start" inputMode="numeric" value={form.joinedYear} onChange={setField("joinedYear", digitsOnly(4))} error={errors.joinedYear} required />
                   <Field label={q("joinedGrade", "கல்லூரியில் சேர்ந்த வகுப்பு *")} id="f-joinedGrade" type="select" value={form.joinedGrade} onChange={setField("joinedGrade")} error={errors.joinedGrade} required>
                     <SelectOptions items={GRADES} placeholder="வகுப்பைத் தெரிவு செய்யவும்" />
                   </Field>
-                  <Field label={q("leftYear", "கல்லூரியில் கடைசியாகப் படித்த ஆண்டு *")} id="f-leftYear" inputMode="numeric" value={form.leftYear} onChange={setField("leftYear", digitsOnly(4))} error={errors.leftYear} required />
-                  <Field label={q("leftGrade", "கல்லூரியில் கடைசியாகப் படித்த வகுப்பு *")} id="f-leftGrade" type="select" value={form.leftGrade} onChange={setField("leftGrade")} error={errors.leftGrade} required>
+                  <Field label={q("leftYear", "கல்லூரியில் இறுதியாகக் கல்வி கற்ற ஆண்டு *")} id="f-leftYear" inputMode="numeric" value={form.leftYear} onChange={setField("leftYear", digitsOnly(4))} error={errors.leftYear} required />
+                  <Field label={q("leftGrade", "கல்லூரியில் இறுதியாகக் கல்வி கற்ற வகுப்பு *")} id="f-leftGrade" type="select" value={form.leftGrade} onChange={setField("leftGrade")} error={errors.leftGrade} required>
                     <SelectOptions items={GRADES} placeholder="வகுப்பைத் தெரிவு செய்யவும்" />
                   </Field>
-                  <Field label={q("proof", "இக்கல்லூரியில் கல்வி கற்றதை உறுதி செய்யும் வேறு ஆதாரம்")} id="f-proof" className="apply-span-2" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.proof} onChange={setField("proof")} />
+                  <Field label={q("proof", "இக்கல்லூரியில் கல்வி கற்றதை உறுதிப்படுத்தும் வேறு ஆதாரம்")} id="f-proof" className="apply-span-2" type="textarea" rows={2} placeholder="(இருப்பின் மாத்திரம்)" value={form.proof} onChange={setField("proof")} />
                 </Section>
               )}
 
-              <Section step={4} icon={Award01Icon} title="அங்கத்துவம்" subtitle="அங்கத்துவ வகையும் தொடர்பாடல் விருப்பமும்">
+              <Section step={4} icon={Award01Icon} title="உறுப்புரிமை" subtitle="உறுப்புரிமை வகையும் தொடர்பாடல் விருப்பமும்">
                 <div className={invalidClass("membershipType")}>
-                  <label htmlFor="f-membershipType"><LabelText text={q("membershipType", "அங்கத்துவ வகை *")} /></label>
+                  <label htmlFor="f-membershipType"><LabelText text={q("membershipType", "உறுப்புரிமை வகை *")} /></label>
                   <label className={`apply-option${lifetimeChecked ? " is-checked" : ""}${errors.membershipType ? " is-invalid" : ""}`}>
                     <input
                       type="checkbox"
@@ -460,7 +460,7 @@ export default function MembershipForm() {
                 </div>
 
                 <div className={invalidClass("emailConsent")}>
-                  <label id="consent-label"><LabelText text={q("emailConsent", "அதிகாரப்பூர்வத் தொடர்பாடலுக்கான ஊடகமாக மின்னஞ்சலைப் பயன்படுத்துவதை ஏற்றுக்கொள்ளுகிறேன். *")} /></label>
+                  <label id="consent-label"><LabelText text={q("emailConsent", "உத்தியோகபூர்வத் தொடர்பாடலுக்கான ஊடகமாக மின்னஞ்சலைப் பயன்படுத்துவதை ஏற்றுக்கொள்கிறேன். *")} /></label>
                   <SegmentedControl
                     name="emailConsent"
                     labelId="consent-label"
@@ -488,16 +488,16 @@ export default function MembershipForm() {
 
               <div className="apply-submit">
                 <p className="apply-required-note">
-                  <span className="req">*</span> குறியிடப்பட்டவை கட்டாயமான வினாக்கள்
+                  <span className="req">*</span> குறியிடப்பட்டவை கட்டாயமான விபரங்கள்
                 </p>
                 <Button type="submit" variant="primary" className="apply-submit-btn" disabled={status === "sending"}>
                   {status === "sending" ? (
                     <>
-                      <span className="apply-spinner" aria-hidden="true" /> சமர்ப்பிக்கிறது…
+                      <span className="apply-spinner" aria-hidden="true" /> சமர்ப்பிக்கப்படுகிறது…
                     </>
                   ) : (
                     <>
-                      விண்ணப்பத்தைச் சமர்ப்பி <Icon icon={ArrowRight02Icon} />
+                      விண்ணப்பத்தைச் சமர்ப்பிக்கவும் <Icon icon={ArrowRight02Icon} />
                     </>
                   )}
                 </Button>
@@ -512,12 +512,12 @@ export default function MembershipForm() {
 
             <aside className="apply-aside">
               <div className="panel apply-summary">
-                <p className="apply-summary-label">ஆயுட்கால அங்கத்துவக் கட்டணம்</p>
+                <p className="apply-summary-label">ஆயுட்கால உறுப்புரிமைக் கட்டணம்</p>
                 <p className="apply-summary-price">{LIFETIME_FEE}</p>
 
                 <div className="apply-progress">
                   <div className="apply-progress-head">
-                    <span>கட்டாய வினாக்கள்</span>
+                    <span>கட்டாய விபரங்கள்</span>
                     <span>
                       {filled} / {required.length}
                     </span>
@@ -525,7 +525,7 @@ export default function MembershipForm() {
                   <div
                     className="apply-progress-track"
                     role="progressbar"
-                    aria-label="கட்டாய வினாக்கள்"
+                    aria-label="கட்டாய விபரங்கள்"
                     aria-valuemin={0}
                     aria-valuemax={required.length}
                     aria-valuenow={filled}
@@ -545,7 +545,7 @@ export default function MembershipForm() {
               <p className="apply-help">
                 <Icon icon={Mail01Icon} />
                 <span>
-                  மேலதிக தொடர்புகளுக்கு <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
+                  மேலதிக விபரங்களுக்கு <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
                 </span>
               </p>
             </aside>

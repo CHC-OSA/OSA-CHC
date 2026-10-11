@@ -11,11 +11,11 @@ import schoolFrontageDusk from "../../assets/school-frontage-dusk.jpg";
 
 const SLIDES = [
   { id: "slide-school-frontage-dusk", caption: "பாடசாலை முகப்பு", image: schoolFrontageDusk },
-  { id: "slide-founder-statue", caption: "ஸ்தாபகரின் சிலை", image: founderStatue, objectPosition: "center top" },
+  { id: "slide-founder-statue", caption: "நிறுவுநரின் திருவுருவச் சிலை", image: founderStatue, objectPosition: "center top" },
   { id: "slide-entrance-gate", caption: "பாடசாலை நுழைவாயில்", image: entranceGate },
-  { id: "slide-technological-faculty", caption: "தொழில்நுட்பபீடக் கட்டிடம்", image: technologicalFaculty },
-  { id: "slide-school-roadside", caption: "பாடசாலை முகப்பு - வீதி நோக்கு", image: schoolRoadside },
-  { id: "slide-faculty-block-row", caption: "தொழில்நுட்பபீடம் மற்றும் அருகாமைக் கட்டிடங்கள்", image: facultyBlockRow },
+  { id: "slide-technological-faculty", caption: "தொழில்நுட்பப் பீடக் கட்டடம்", image: technologicalFaculty },
+  { id: "slide-school-roadside", caption: "பாடசாலை முகப்பு – வீதிப் பக்கத் தோற்றம்", image: schoolRoadside },
+  { id: "slide-faculty-block-row", caption: "தொழில்நுட்பப் பீடமும் அருகிலுள்ள கட்டடங்களும்", image: facultyBlockRow },
 ];
 
 const AUTOPLAY_MS = 4500;
@@ -34,7 +34,7 @@ export default function ImageSlider() {
   const goNext = () => setIndex((current) => (current + 1) % SLIDES.length);
 
   return (
-    <section className="slider" aria-label="பாடசாலைப் புகைப்பட ஸ்லைடர்">
+    <section className="slider" aria-label="பாடசாலைப் புகைப்படங்களின் படவரிசை">
       {SLIDES.map((slide, i) => (
         <PlaceholderImage
           key={slide.id}
@@ -52,10 +52,10 @@ export default function ImageSlider() {
           }}
         />
       ))}
-      <button type="button" className="slider-arrow slider-prev" aria-label="முந்தையது" onClick={goPrev}>
+      <button type="button" className="slider-arrow slider-prev" aria-label="முந்தைய புகைப்படம்" onClick={goPrev}>
         <Icon icon={ArrowLeft01Icon} />
       </button>
-      <button type="button" className="slider-arrow slider-next" aria-label="அடுத்தது" onClick={goNext}>
+      <button type="button" className="slider-arrow slider-next" aria-label="அடுத்த புகைப்படம்" onClick={goNext}>
         <Icon icon={ArrowRight01Icon} />
       </button>
       <div className="slider-footer">

@@ -5,14 +5,14 @@ import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import { getEventById } from "../data/events";
 
-const BACK = { to: "/events", label: "நிகழ்வுகளுக்குத் திரும்பு" };
+const BACK = { to: "/events", label: "நிகழ்வுகளுக்குத் திரும்பவும்" };
 
 export default function EventDetail() {
   const { id } = useParams();
   const event = getEventById(id);
 
   if (!event) {
-    return <PageHero back={BACK} title="இந்த நிகழ்வு கிடைக்கவில்லை." compact />;
+    return <PageHero back={BACK} title="இந்நிகழ்வைக் காண முடியவில்லை." compact />;
   }
 
   return (
@@ -35,7 +35,7 @@ export default function EventDetail() {
           {event.album && (
             <div>
               <Link to={`/gallery/${event.album}`} className="link-arrow">
-                அனைத்துப் புகைப்படங்களையும் காண <Icon icon={ArrowRight02Icon} />
+                அனைத்துப் புகைப்படங்கள் <Icon icon={ArrowRight02Icon} />
               </Link>
             </div>
           )}

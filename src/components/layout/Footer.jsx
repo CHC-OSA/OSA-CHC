@@ -5,10 +5,10 @@ import crest from "../../assets/chc-crest.jpg";
 import { CONTACT_INFO } from "../../data/constants";
 
 const QUICK_LINKS = [
-  { to: "/about", label: "எங்களைப் பற்றி" },
+  { to: "/about", label: "எம்மைப் பற்றி" },
   { to: "/events", label: "நிகழ்வுகள்" },
   { to: "/developments", label: "அபிவிருத்திகள்" },
-  // { to: "/join", label: "உறுப்பினராகுங்கள்" },
+  // { to: "/join", label: "உறுப்பினர் பதிவு" },
   { to: "/directory", label: "உறுப்பினர் பட்டியல்" },
   { to: "/gallery", label: "படத்தொகுப்பு" },
 ];
@@ -27,8 +27,8 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <span className="footer-brand">
-              <img src={crest} alt="CHC crest" />
-              சாவகச்சேரி இந்துக் கல்லூரி OSA
+              <img src={crest} alt="சாவகச்சேரி இந்துக் கல்லூரி இலச்சினை" />
+              சாவகச்சேரி இந்துக் கல்லூரி பழைய மாணவர் ஆசிரியர் சங்கம்
             </span>
             <p className="footer-motto">&ldquo;நலமே நாடுக, நலமே புரிக, நலமே ஒளிர்க&rdquo;</p>
           </div>
@@ -60,7 +60,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="footer-title">பின்தொடருங்கள்</p>
+            <p className="footer-title">சமூக ஊடகங்கள்</p>
             <div className="footer-socials">
               {SOCIALS.map((social) => (
                 <a key={social.label} href={social.url} aria-label={social.label} className="social-icon" target="_blank" rel="noopener noreferrer">
@@ -71,7 +71,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="footer-bottom">© 2026 பழைய மாணவர் சங்கம். அனைத்து உரிமைகளும் காக்கப்பட்டவை.</div>
+        <div className="footer-bottom">© 2026 பழைய மாணவர் ஆசிரியர் சங்கம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</div>
       </div>
     </footer>
   );

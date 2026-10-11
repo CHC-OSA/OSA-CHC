@@ -21,7 +21,7 @@ export function EventCardWithPhoto({ event }) {
             <Icon icon={Calendar03Icon} /> {event.meta}
           </span>
           <Link to={to} className="link-arrow">
-            முழு விபரம் காண <Icon icon={ArrowRight02Icon} />
+            முழு விபரம் <Icon icon={ArrowRight02Icon} />
           </Link>
         </div>
       </div>

@@ -14,7 +14,7 @@ export function DevelopmentCardWithPhoto({ development }) {
   return (
     <article className="card card-photo card-hover">
       <Link to={to} className="card-photo-media" tabIndex={-1} aria-hidden="true">
-        <PlaceholderImage shape="rect" aspectRatio="16/10" caption="அபிவிருத்தி இடப் புகைப்படம்" src={development.image} alt="" />
+        <PlaceholderImage shape="rect" aspectRatio="16/10" caption="அபிவிருத்திப் பணியிடப் புகைப்படம்" src={development.image} alt="" />
       </Link>
       <div className="card-photo-body">
         <div className="card-row">
@@ -30,7 +30,7 @@ export function DevelopmentCardWithPhoto({ development }) {
         </p>
         <div className="card-footer">
           <Link to={to} className="link-arrow">
-            முழு காலவரிசையைக் காண <Icon icon={ArrowRight02Icon} />
+            முழுக் காலவரிசை <Icon icon={ArrowRight02Icon} />
           </Link>
         </div>
       </div>

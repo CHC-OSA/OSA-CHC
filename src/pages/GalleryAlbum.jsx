@@ -7,7 +7,7 @@ import PlaceholderImage from "../components/ui/PlaceholderImage";
 import Lightbox from "../components/ui/Lightbox";
 import { getGalleryAlbumById } from "../data/gallery";
 
-const BACK = { to: "/gallery", label: "படத்தொகுப்புக்குத் திரும்பு" };
+const BACK = { to: "/gallery", label: "படத்தொகுப்புக்குத் திரும்பவும்" };
 
 export default function GalleryAlbum() {
   const { id } = useParams();
@@ -15,7 +15,7 @@ export default function GalleryAlbum() {
   const [openIndex, setOpenIndex] = useState(null);
 
   if (!album) {
-    return <PageHero back={BACK} title="இந்தத் தொகுப்பு கிடைக்கவில்லை." compact />;
+    return <PageHero back={BACK} title="இத்தொகுப்பைக் காண முடியவில்லை." compact />;
   }
 
   const photos = album.photos ?? [];

@@ -52,15 +52,15 @@ export default function Lightbox({ photos, index, alt, onChange, onClose }) {
       onTouchEnd={handleTouchEnd}
     >
       <img key={photos[index]} src={photos[index]} alt={`${alt} — ${index + 1}`} className="lightbox-image" />
-      <button type="button" className="slider-arrow lightbox-close" aria-label="மூடு" ref={closeRef} onClick={onClose}>
+      <button type="button" className="slider-arrow lightbox-close" aria-label="மூடவும்" ref={closeRef} onClick={onClose}>
         <Icon icon={Cancel01Icon} />
       </button>
       {count > 1 && (
         <>
-          <button type="button" className="slider-arrow slider-prev" aria-label="முந்தையது" onClick={() => go(-1)}>
+          <button type="button" className="slider-arrow slider-prev" aria-label="முந்தைய புகைப்படம்" onClick={() => go(-1)}>
             <Icon icon={ArrowLeft01Icon} />
           </button>
-          <button type="button" className="slider-arrow slider-next" aria-label="அடுத்தது" onClick={() => go(1)}>
+          <button type="button" className="slider-arrow slider-next" aria-label="அடுத்த புகைப்படம்" onClick={() => go(1)}>
             <Icon icon={ArrowRight01Icon} />
           </button>
         </>

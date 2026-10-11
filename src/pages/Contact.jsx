@@ -9,7 +9,7 @@ import Entrance from "../assets/entrance-gate.jpg";
 export default function Contact() {
   return (
     <>
-      <PageHero eyebrow="தொடர்பு" title="எங்களைத் தொடர்பு கொள்ளுங்கள்" />
+      <PageHero eyebrow="தொடர்பு" title="எம்மைத் தொடர்பு கொள்ளவும்" />
 
       <div className="container page-body">
         <div className="grid-2" style={{ alignItems: "start" }}>
@@ -48,12 +48,12 @@ export default function Contact() {
               </li>
             </ul>
             <figure className="media-rounded">
-              <PlaceholderImage shape="rect" aspectRatio="16/10" caption="இருப்பிட வரைபடம்" src={Entrance} alt="Entrance" />
+              <PlaceholderImage shape="rect" aspectRatio="16/10" caption="கல்லூரி நுழைவாயில்" src={Entrance} alt="கல்லூரி நுழைவாயில்" />
             </figure>
           </section>
 
           <section className="panel">
-            <h2 className="panel-title">செய்தி அனுப்புங்கள்</h2>
+            <h2 className="panel-title">செய்தி அனுப்பவும்</h2>
             <ContactForm />
           </section>
         </div>

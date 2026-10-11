@@ -20,17 +20,17 @@ const PERSONAL_FIELDS = [
   ["gender", "பால்", true],
   ["marital", "குடிசார்நிலை", true],
   ["dob", "பிறந்த திகதி", true],
-  ["nic", "தேசிய அடையாள அட்டை இல.", true],
+  ["nic", "தேசிய அடையாள அட்டை இலக்கம்", true],
 ];
 const CONTACT_FIELDS = [
   ["homeAddress", "சொந்த முகவரி", true],
   ["tempAddress", "தற்காலிக முகவரி", false],
   ["officeAddress", "அலுவலக முகவரி", false],
-  ["phone", "தொலைபேசி இல. (WhatsApp)", true],
+  ["phone", "தொலைபேசி இலக்கம் (WhatsApp)", true],
   ["email", "மின்னஞ்சல் முகவரி", true],
 ];
 const MEMBERSHIP_FIELDS = [
-  ["membershipType", "அங்கத்துவ வகை", true],
+  ["membershipType", "உறுப்புரிமை வகை", true],
   ["emailConsent", "மின்னஞ்சல் தொடர்பாடலுக்கு ஒப்புதல்", true],
 ];
 
@@ -46,11 +46,11 @@ const FORMS = {
       [["occupation", "தொழில்", true]],
       CONTACT_FIELDS,
       [
-        ["admitNo", "கல்லூரி சேர்விலக்கம்", false],
+        ["admitNo", "கல்லூரிச் சேர்விலக்கம்", false],
         ["joinedYear", "சேர்ந்த ஆண்டு", true],
         ["joinedGrade", "சேர்ந்த வகுப்பு", true],
-        ["leftYear", "கடைசியாகப் படித்த ஆண்டு", true],
-        ["leftGrade", "கடைசியாகப் படித்த வகுப்பு", true],
+        ["leftYear", "இறுதியாகக் கல்வி கற்ற ஆண்டு", true],
+        ["leftGrade", "இறுதியாகக் கல்வி கற்ற வகுப்பு", true],
         ["proof", "கல்வி கற்றதற்கான வேறு ஆதாரம்", false],
       ],
       MEMBERSHIP_FIELDS
