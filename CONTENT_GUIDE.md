@@ -32,8 +32,8 @@ Open `src/data/events.js`. It exports one array called `EVENTS`. Each event is a
 |---|---|---|
 | `id` | Yes | A short, unique, URL-safe identifier — **lowercase English letters, numbers, and hyphens only, no spaces**. This becomes the page URL (`/events/<id>`) and, if you add photos, the name of the photo folder (see §2). Example: `"annual-sports-day-2027"`. |
 | `kicker` | Yes | A short label shown above the title (e.g. `"நிகழ்வு"`, `"சாதனை"`, `"அறிவிப்பு"`, `"செய்தி"`, `"நன்கொடை"`). Free text — pick whatever best describes the entry. |
-| `title` | Yes | The headline, shown on the card and detail page. |
-| `body` | Yes | A 1–2 sentence summary, shown on the card. |
+| `title` | Yes | The headline, shown on the card and detail page. **At most 45 characters.** |
+| `body` | Yes | One sentence shown on the card, written from `long`. **90–110 characters** — see "Card text lengths" in §6. |
 | `meta` | Yes | A short date or status line shown on the card (e.g. `"2026 மார்கழி 06"` or `"விண்ணப்பம் திறந்துள்ளது"`). Free text, not a strict date field. |
 | `long` | Yes | The full paragraph shown on the event's own detail page. |
 | `image` | No | Cover photo for the card — see §2. |
@@ -113,9 +113,10 @@ Open `src/data/developments.js`. It exports one array called `DEVELOPMENTS`. Eac
 |---|---|---|
 | `id` | Yes | Same rules as Events — short, unique, lowercase-hyphenated, English only. Becomes `/developments/<id>` and the photo folder name. |
 | `kicker` | Yes | A short category label (e.g. `"கல்வி உட்கட்டமைப்பு"`, `"நலவாழ்வு"`). |
-| `title` | Yes | The project name. |
+| `title` | Yes | The project name. **At most 45 characters.** |
 | `status` | Yes | **Must be exactly one of:** `"ongoing"`, `"completed"`, or `"planned"` (these three values only — anything else will show a broken badge). |
-| `summary` | Yes | A 1–2 sentence description shown on the card and detail page. |
+| `summary` | Yes | One sentence shown on the card. **90–110 characters** — see "Card text lengths" in §6. Also the detail page intro when there is no `long`. |
+| `long` | No | The full description shown as the detail page intro. Add it when the project needs more than the card summary can hold. |
 | `timeline` | Yes | An array of progress updates, oldest first (see below). |
 | `image` | No | Cover/banner photo — see §4. |
 
@@ -130,6 +131,8 @@ Each entry in `timeline` is an object:
 }
 ```
 
+Keep `label` to **at most 40 characters**: the newest one is shown on the card as the "latest update".
+
 Add new timeline entries to the **end** of a development's `timeline` array (oldest → newest), since the detail page shows them in that order and the card shows the *last* entry as the "latest update."
 
 **Where in the `DEVELOPMENTS` array to add a brand-new project:** same rule as Events — add it at the top so it appears first in the homepage "recent" strip and the `/developments` listing.
@@ -142,7 +145,8 @@ Add new timeline entries to the **end** of a development's `timeline` array (old
   kicker: "வகைப்பாடு இங்கே",
   title: "திட்டத்தின் பெயர்",
   status: "planned",
-  summary: "ஓரிரு வாக்கியச் சுருக்கம் இங்கே.",
+  summary: "அட்டையில் காட்டப்படும் ஒரு வாக்கியச் சுருக்கம் (90–110 எழுத்துகள்).",
+  long: "விபரப் பக்கத்தில் காட்டப்படும் முழு விளக்கம் (விரும்பினால்).",
   timeline: [
     {
       date: "2026 மார்கழி 01",
@@ -296,6 +300,21 @@ The site uses one register throughout: formal Sri Lankan Tamil. Keep new entries
 | Exam year groups | க.பொ.த (சா/த) 1997, க.பொ.த (உ/த) 2000 அணி | O/L, A/L |
 | Currency | ரூபா 250,000 | ரூ., LKR, `/-`, 2,50,000 |
 | Photo / gallery | புகைப்படம் / படத்தொகுப்பு | போட்டோ |
+
+**Card text lengths**
+
+Cards sit side by side and stretch to the tallest one, so the text on them has fixed limits. `npm run lint` fails when one is broken.
+
+| Field | Limit |
+|---|---|
+| `title` (events, developments) | at most 45 characters |
+| `body` (events), `summary` (developments) | 90–110 characters |
+| timeline `label` (developments) | at most 40 characters |
+
+- Every character counts, including spaces and punctuation.
+- Write `long` first, then write the card sentence from it: who did what for whom, plus the one detail that matters most (the amount, the number, or the donor).
+- It must be a complete sentence, not the first part of `long` cut short.
+- Leave full name lists, dates, venues and thanks in `long`.
 
 **Rules**
 

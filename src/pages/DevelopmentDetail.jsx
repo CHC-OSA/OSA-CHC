@@ -18,7 +18,7 @@ export default function DevelopmentDetail() {
 
   return (
     <>
-      <PageHero back={BACK} eyebrow={development.kicker} title={development.title} lead={development.summary}>
+      <PageHero back={BACK} eyebrow={development.kicker} title={development.title} lead={development.long ?? development.summary}>
         <div className="page-hero-chips">
           <span className={development.status === "ongoing" ? "chip chip-gold" : "chip"}>{STATUS_LABELS[development.status]}</span>
         </div>
