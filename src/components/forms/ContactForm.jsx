@@ -1,6 +1,7 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
-import { FiAlertCircle, FiCheckCircle, FiSend } from "react-icons/fi";
+import { AlertCircleIcon, CheckmarkCircle02Icon, SentIcon } from "@hugeicons/core-free-icons";
+import Icon from "../ui/Icon";
 import Field from "../ui/Field";
 import Button from "../ui/Button";
 
@@ -27,7 +28,7 @@ export default function ContactForm() {
 
     if (!emailjsReady) {
       setStatus("error");
-      setErrorMessage("தொடர்பு படிவம் தற்போது கிடைக்கவில்லை — நேரடியாக chcostasecretary@gmail.com முகவரிக்கு மின்னஞ்சல் அனுப்பவும்.");
+      setErrorMessage("தொடர்புப் படிவம் தற்போது செயற்பாட்டில் இல்லை. chcostasecretary@gmail.com என்ற முகவரிக்கு நேரடியாக மின்னஞ்சல் அனுப்பவும்.");
       return;
     }
 
@@ -43,7 +44,7 @@ export default function ContactForm() {
       setForm({ name: "", email: "", message: "" });
     } catch (err) {
       setStatus("error");
-      setErrorMessage("செய்தி அனுப்புவதில் பிழை ஏற்பட்டது. மீண்டும் முயற்சிக்கவும்.");
+      setErrorMessage("செய்தியை அனுப்புவதில் தவறு ஏற்பட்டுள்ளது. மீண்டும் முயற்சிக்கவும்.");
     }
   };
 
@@ -51,7 +52,7 @@ export default function ContactForm() {
     <form onSubmit={handleSubmit} style={{ display: "grid", gap: 18 }}>
       <Field label="பெயர்" id="ct-name" placeholder="உங்கள் பெயர்" value={form.name} onChange={setField("name")} required />
       <Field
-        label="மின்னஞ்சல்"
+        label="மின்னஞ்சல் முகவரி"
         id="ct-email"
         type="email"
         placeholder="name@email.com"
@@ -71,18 +72,18 @@ export default function ContactForm() {
       />
 
       <Button type="submit" variant="primary" block disabled={status === "sending"}>
-        {status === "sending" ? "அனுப்புகிறது…" : "அனுப்பு"}
-        {status !== "sending" && <FiSend aria-hidden="true" />}
+        {status === "sending" ? "அனுப்பப்படுகிறது…" : "அனுப்பவும்"}
+        {status !== "sending" && <Icon icon={SentIcon} />}
       </Button>
 
       {status === "success" && (
         <p className="alert alert-success" role="status">
-          <FiCheckCircle aria-hidden="true" /> நன்றி! உங்கள் செய்தி அனுப்பப்பட்டது.
+          <Icon icon={CheckmarkCircle02Icon} /> நன்றி. உங்கள் செய்தி வெற்றிகரமாக அனுப்பப்பட்டுள்ளது.
         </p>
       )}
       {status === "error" && (
         <p className="alert alert-error" role="alert">
-          <FiAlertCircle aria-hidden="true" /> {errorMessage}
+          <Icon icon={AlertCircleIcon} /> {errorMessage}
         </p>
       )}
     </form>

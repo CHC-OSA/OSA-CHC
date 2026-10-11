@@ -34,7 +34,7 @@ Open `src/data/events.js`. It exports one array called `EVENTS`. Each event is a
 | `kicker` | Yes | A short label shown above the title (e.g. `"நிகழ்வு"`, `"சாதனை"`, `"அறிவிப்பு"`, `"செய்தி"`, `"நன்கொடை"`). Free text — pick whatever best describes the entry. |
 | `title` | Yes | The headline, shown on the card and detail page. |
 | `body` | Yes | A 1–2 sentence summary, shown on the card. |
-| `meta` | Yes | A short date or status line shown on the card (e.g. `"2026 டிசம்பர் 06"` or `"விண்ணப்பம் திறந்துள்ளது"`). Free text, not a strict date field. |
+| `meta` | Yes | A short date or status line shown on the card (e.g. `"2026 மார்கழி 06"` or `"விண்ணப்பம் திறந்துள்ளது"`). Free text, not a strict date field. |
 | `long` | Yes | The full paragraph shown on the event's own detail page. |
 | `image` | No | Cover photo for the card — see §2. |
 | `gallery` | No | Up to 3 photos for the detail page — see §2. |
@@ -50,7 +50,7 @@ Open `src/data/events.js`. It exports one array called `EVENTS`. Each event is a
   kicker: "நிகழ்வு",
   title: "தலைப்பு இங்கே",
   body: "ஓரிரு வாக்கியச் சுருக்கம் இங்கே.",
-  meta: "2026 டிசம்பர் 25",
+  meta: "2026 மார்கழி 25",
   long: "முழு விபரம் இங்கே — ஒரு பத்தி அளவு.",
 },
 ```
@@ -96,7 +96,7 @@ import sportsPhoto2 from "../assets/events/annual-sports-day-2027/photo-2.jpg";
   kicker: "நிகழ்வு",
   title: "விளையாட்டு விழா 2027",
   body: "...",
-  meta: "2027 அக்டோபர் 20",
+  meta: "2027 ஐப்பசி 20",
   long: "...",
   image: sportsCover,
   gallery: [sportsPhoto1, sportsPhoto2],
@@ -123,8 +123,8 @@ Each entry in `timeline` is an object:
 
 ```js
 {
-  date: "2026 சனவரி 20",
-  label: "அடிக்கல் நாட்டல் விழா",
+  date: "2026 தை 20",
+  label: "அடிக்கல் நாட்டு விழா",
   description: "ஒரு வாக்கிய விளக்கம் இங்கே.",
   photos: [],  // optional — see "Adding photos to a timeline stage" below
 }
@@ -145,7 +145,7 @@ Add new timeline entries to the **end** of a development's `timeline` array (old
   summary: "ஓரிரு வாக்கியச் சுருக்கம் இங்கே.",
   timeline: [
     {
-      date: "2026 டிசம்பர் 01",
+      date: "2026 மார்கழி 01",
       label: "திட்டம் அறிமுகப்படுத்தப்பட்டது",
       description: "ஒரு வாக்கிய விளக்கம் இங்கே.",
     },
@@ -206,7 +206,7 @@ import stage1Photo2 from "../assets/developments/science-lab/stage-1/2.jpg";
 
 ```js
 {
-  date: "2025 நவம்பர் 10",
+  date: "2025 கார்த்திகை 10",
   label: "திட்டம் அங்கீகரிக்கப்பட்டது",
   description: "...",
   photos: [stage1Photo1, stage1Photo2],
@@ -245,7 +245,7 @@ src/assets/gallery/<album-id>/photo-03.jpg
 
 ```js
 const ALBUMS = [
-  { id: "founders-day-2027", caption: "நிறுவனர் தினம் 2027", date: "2027 ஆனி 12" },
+  { id: "founders-day-2027", caption: "நிறுவுநர் தினம் 2027", date: "2027 ஆனி 12" },
   // ...existing albums
 ];
 ```
@@ -264,7 +264,7 @@ Every album always shows, in array order — put new albums at the top to keep t
 ```js
 {
   id: "founders-day-2027",
-  caption: "நிறுவனர் தினம் 2027",
+  caption: "நிறுவுநர் தினம் 2027",
   date: "2027 ஆனி 12",
   cover: "https://example.com/founders-day-2027/cover.jpg",
   photos: ["https://example.com/founders-day-2027/photo-01.jpg", "https://example.com/founders-day-2027/photo-02.jpg"],
@@ -275,7 +275,42 @@ Use a real image host for this (e.g. Cloudinary or Cloudflare R2). Google Drive 
 
 ---
 
-## 6. Before you're done
+## 6. Writing style for Tamil text
+
+The site uses one register throughout: formal Sri Lankan Tamil. Keep new entries consistent with it.
+
+**Fixed terms**
+
+| Concept | Use | Avoid |
+|---|---|---|
+| School name | சாவகச்சேரி இந்துக் கல்லூரி | இந்துக்கல்லூரி |
+| Association | பழைய மாணவர் ஆசிரியர் சங்கம் | பழைய மாணவர் சங்கம், OSA, OSTA |
+| Membership / fee | உறுப்புரிமை / உறுப்புரிமைக் கட்டணம் | அங்கத்துவம், சந்தா |
+| Founded / founder | நிறுவப்பட்டது / நிறுவுநர் | ஸ்தாபிக்கப்பட்டது, ஸ்தாபகர் |
+| Expanded | விரிவாக்கப்பட்ட | விஸ்தரிக்கப்பட்ட |
+| Timeline | காலவரிசை | காலவரைவு |
+| Recent | அண்மைய | சமீபத்திய |
+| Official | உத்தியோகபூர்வ | அதிகாரப்பூர்வ |
+| Building / computer | கட்டடம் / கணினி | கட்டிடம் / கணனி |
+| Handover | கையளிப்பு | ஒப்படைப்பு |
+| Exam year groups | க.பொ.த (சா/த) 1997, க.பொ.த (உ/த) 2000 அணி | O/L, A/L |
+| Currency | ரூபா 250,000 | ரூ., LKR, `/-`, 2,50,000 |
+| Photo / gallery | புகைப்படம் / படத்தொகுப்பு | போட்டோ |
+
+**Rules**
+
+- Instructions and buttons end in `-வும்` (உள்ளிடவும், அனுப்பவும்), or use a noun label (உறுப்பினர் பதிவு).
+- First person is எமது / எம்மை, not எங்கள் / எங்களை.
+- Passive verbs use `-ப்பட்டது`; plural subjects take `-ப்பட்டன`.
+- Join list items with `-உம் … -உம்` or `ஆகிய`, not `மற்றும்`.
+- Write about donors and guests in the third person. Leave out "இன்று", "கடந்த" and other wording that only made sense on the day.
+- Names: `திரு. ந. சர்வேஸ்வரன்` — a space after `திரு.` and after each initial.
+- Dates: Tamil month names, year first — `2026 ஐப்பசி 03`. (தை = January, மாசி = February, பங்குனி = March, சித்திரை = April, வைகாசி = May, ஆனி = June, ஆடி = July, ஆவணி = August, புரட்டாதி = September, ஐப்பசி = October, கார்த்திகை = November, மார்கழி = December.)
+- Keep Latin script for proper names only (e.g. WhatsApp, SK Construction).
+
+---
+
+## 7. Before you're done
 
 - Run `npm run dev` and check:
   - The new entry shows up correctly on `/events`, `/developments`, or `/gallery`.

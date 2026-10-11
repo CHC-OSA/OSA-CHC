@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useParams } from "react-router";
-import { FiCalendar, FiImage } from "react-icons/fi";
+import { Calendar03Icon, Image01Icon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import Lightbox from "../components/ui/Lightbox";
 import { getGalleryAlbumById } from "../data/gallery";
 
-const BACK = { to: "/gallery", label: "படத்தொகுப்புக்குத் திரும்பு" };
+const BACK = { to: "/gallery", label: "படத்தொகுப்புக்குத் திரும்பவும்" };
 
 export default function GalleryAlbum() {
   const { id } = useParams();
@@ -14,7 +15,7 @@ export default function GalleryAlbum() {
   const [openIndex, setOpenIndex] = useState(null);
 
   if (!album) {
-    return <PageHero back={BACK} title="இந்தத் தொகுப்பு கிடைக்கவில்லை." compact />;
+    return <PageHero back={BACK} title="இத்தொகுப்பைக் காண முடியவில்லை." compact />;
   }
 
   const photos = album.photos ?? [];
@@ -26,12 +27,12 @@ export default function GalleryAlbum() {
           <div className="page-hero-chips">
             {album.date && (
               <span className="chip">
-                <FiCalendar aria-hidden="true" /> {album.date}
+                <Icon icon={Calendar03Icon} /> {album.date}
               </span>
             )}
             {photos.length > 0 && (
               <span className="chip">
-                <FiImage aria-hidden="true" /> {photos.length} புகைப்படங்கள்
+                <Icon icon={Image01Icon} /> {photos.length} புகைப்படங்கள்
               </span>
             )}
           </div>

@@ -1,22 +1,22 @@
 import { Link } from "react-router";
-import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa6";
-import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { Call02Icon, Facebook01Icon, InstagramIcon, Location01Icon, Mail01Icon, YoutubeIcon } from "@hugeicons/core-free-icons";
+import Icon from "../ui/Icon";
 import crest from "../../assets/chc-crest.jpg";
 import { CONTACT_INFO } from "../../data/constants";
 
 const QUICK_LINKS = [
-  { to: "/about", label: "எங்களைப் பற்றி" },
+  { to: "/about", label: "எம்மைப் பற்றி" },
   { to: "/events", label: "நிகழ்வுகள்" },
   { to: "/developments", label: "அபிவிருத்திகள்" },
-  // { to: "/join", label: "உறுப்பினராகுங்கள்" },
+  // { to: "/join", label: "உறுப்பினர் பதிவு" },
   { to: "/directory", label: "உறுப்பினர் பட்டியல்" },
   { to: "/gallery", label: "படத்தொகுப்பு" },
 ];
 
 const SOCIALS = [
-  { label: "Facebook", icon: <FaFacebookF />, url: "https://www.facebook.com/share/1YDNMVwJH9/?mibextid=wwXIfr" },
-  { label: "YouTube", icon: <FaYoutube />, url: "https://www.youtube.com/@CHCOSAOfficial" },
-  { label: "Instagram", icon: <FaInstagram />, url: "https://www.instagram.com/chcosaofficial/" },
+  { label: "Facebook", icon: <Icon icon={Facebook01Icon} />, url: "https://www.facebook.com/share/1YDNMVwJH9/?mibextid=wwXIfr" },
+  { label: "YouTube", icon: <Icon icon={YoutubeIcon} />, url: "https://www.youtube.com/@CHCOSAOfficial" },
+  { label: "Instagram", icon: <Icon icon={InstagramIcon} />, url: "https://www.instagram.com/chcosaofficial/" },
 ];
 
 export default function Footer() {
@@ -27,10 +27,13 @@ export default function Footer() {
         <div className="footer-grid">
           <div>
             <span className="footer-brand">
-              <img src={crest} alt="CHC crest" />
-              சாவகச்சேரி இந்துக் கல்லூரி OSA
+              <img src={crest} alt="சாவகச்சேரி இந்துக் கல்லூரி இலச்சினை" />
+              <span className="footer-brand-text">
+                <span>பழைய மாணவர் ஆசிரியர் சங்கம்</span>
+                <small>சாவகச்சேரி இந்துக் கல்லூரி</small>
+              </span>
             </span>
-            <p className="footer-motto">&ldquo;நலமே நாடுக, நலமே புரிக, நலமே ஒளிர்க&rdquo;</p>
+            <p className="footer-motto">&ldquo;அதி சிறந்த பாடசாலையாக உயர்த்துவதற்கான உச்சமான ஒத்துழைப்பு&rdquo;</p>
           </div>
 
           <div>
@@ -48,19 +51,19 @@ export default function Footer() {
             <p className="footer-title">தொடர்பு</p>
             <ul className="footer-contact">
               <li>
-                <FiMapPin aria-hidden="true" /> <span>{CONTACT_INFO.address}</span>
+                <Icon icon={Location01Icon} /> <span>{CONTACT_INFO.address}</span>
               </li>
               <li>
-                <FiPhone aria-hidden="true" /> <a href={`tel:${CONTACT_INFO.phone.replace(/\s/g, "")}`}>{CONTACT_INFO.phone}</a>
+                <Icon icon={Call02Icon} /> <a href={`tel:${CONTACT_INFO.phone.replace(/\s/g, "")}`}>{CONTACT_INFO.phone}</a>
               </li>
               <li>
-                <FiMail aria-hidden="true" /> <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
+                <Icon icon={Mail01Icon} /> <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
               </li>
             </ul>
           </div>
 
           <div>
-            <p className="footer-title">பின்தொடருங்கள்</p>
+            <p className="footer-title">சமூக ஊடகங்கள்</p>
             <div className="footer-socials">
               {SOCIALS.map((social) => (
                 <a key={social.label} href={social.url} aria-label={social.label} className="social-icon" target="_blank" rel="noopener noreferrer">
@@ -71,7 +74,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="footer-bottom">© 2026 பழைய மாணவர் சங்கம். அனைத்து உரிமைகளும் காக்கப்பட்டவை.</div>
+        <div className="footer-bottom">© 2026 பழைய மாணவர் ஆசிரியர் சங்கம். அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டவை.</div>
       </div>
     </footer>
   );

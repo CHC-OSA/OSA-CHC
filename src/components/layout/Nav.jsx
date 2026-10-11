@@ -6,7 +6,7 @@ import Button from "../ui/Button";
 const LINKS = [
   { to: "/", label: "முகப்பு", end: true },
   {
-    label: "எங்களைப் பற்றி",
+    label: "எம்மைப் பற்றி",
     children: [
       { to: "/about", label: "வரலாறும் நோக்கமும்" },
       { to: "/directory", label: "உறுப்பினர் பட்டியல்" },
@@ -72,17 +72,17 @@ export default function Nav() {
   return (
     <nav className={`nav${open ? " is-menu-open" : ""}`}>
       <Link to="/" className="nav-brand" onClick={() => setOpen(false)}>
-        <img src={crest} alt="CHC crest" className="nav-brand-crest" />
+        <img src={crest} alt="சாவகச்சேரி இந்துக் கல்லூரி இலச்சினை" className="nav-brand-crest" />
         <span className="nav-brand-text">
-          <span>சாவகச்சேரி இந்துக் கல்லூரி</span>
-          <small>பழைய மாணவர் சங்கம்</small>
+          <span>பழைய மாணவர் ஆசிரியர் சங்கம்</span>
+          <small>சாவகச்சேரி இந்துக் கல்லூரி</small>
         </span>
       </Link>
 
       <button
         type="button"
         className="btn btn-secondary nav-toggle"
-        aria-label="பட்டியலைத் திற"
+        aria-label="வழிசெலுத்தல் பட்டியலைத் திறக்கவும்"
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
@@ -107,12 +107,12 @@ export default function Nav() {
         )}
         {/* Phones: the bar has no room for the CTA, so it moves into the menu (see .nav-cta-menu). */}
         <Button as="link" to="/join" pill className="nav-cta-menu" onClick={() => setOpen(false)}>
-          உறுப்பினராகுங்கள்
+          உறுப்பினர் பதிவு
         </Button>
       </div>
 
       <Button as="link" to="/join" pill className="nav-cta" onClick={() => setOpen(false)}>
-        உறுப்பினராகுங்கள்
+        உறுப்பினர் பதிவு
       </Button>
     </nav>
   );
