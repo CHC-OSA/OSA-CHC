@@ -28,9 +28,12 @@ export default function Footer() {
           <div>
             <span className="footer-brand">
               <img src={crest} alt="சாவகச்சேரி இந்துக் கல்லூரி இலச்சினை" />
-              சாவகச்சேரி இந்துக் கல்லூரி பழைய மாணவர் ஆசிரியர் சங்கம்
+              <span className="footer-brand-text">
+                <span>பழைய மாணவர் ஆசிரியர் சங்கம்</span>
+                <small>சாவகச்சேரி இந்துக் கல்லூரி</small>
+              </span>
             </span>
-            <p className="footer-motto">&ldquo;நலமே நாடுக, நலமே புரிக, நலமே ஒளிர்க&rdquo;</p>
+            <p className="footer-motto">&ldquo;அதி சிறந்த பாடசாலையாக உயர்த்துவதற்கான உச்சமான ஒத்துழைப்பு&rdquo;</p>
           </div>
 
           <div>

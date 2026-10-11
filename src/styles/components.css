@@ -781,7 +781,7 @@ a.card:hover, .card-hover:hover {
 /* Small phones: shrink the brand so it fits on one line beside the menu button. */
 @media (max-width: 420px) {
   .nav { padding-left: 10px; }
-  .nav-brand { gap: 8px; font-size: 12px; }
+  .nav-brand { gap: 8px; font-size: min(12px, 2.7vw); }
   .nav-brand-crest { width: 34px; height: 34px; }
   .nav-brand-text small { font-size: 10px; }
 }
@@ -876,7 +876,7 @@ a.card:hover, .card-hover:hover {
 .footer a:hover { color: var(--color-accent-2); }
 .footer-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1.3fr 1fr;
+  grid-template-columns: 1.9fr 1fr 1.3fr 1fr;
   gap: 40px;
   padding-top: 64px;
   padding-bottom: 44px;
@@ -888,7 +888,7 @@ a.card:hover, .card-hover:hover {
   margin-bottom: 14px;
   font-family: var(--font-heading);
   font-weight: 700;
-  font-size: 17px;
+  font-size: 15px;
   line-height: 1.4;
 }
 .footer-brand img {
@@ -899,6 +899,8 @@ a.card:hover, .card-hover:hover {
   border-radius: 50%;
   box-shadow: 0 0 0 2px var(--color-accent-900), 0 0 0 3px var(--color-accent-2);
 }
+.footer-brand-text { display: flex; flex-direction: column; }
+.footer-brand-text small { font-size: 13px; font-weight: 600; color: var(--color-accent-2); }
 .footer-motto { max-width: 32ch; margin: 0; font-size: 14px; font-style: italic; line-height: 1.7; color: rgb(255 255 255 / 0.7); }
 .footer-title { margin: 0 0 18px; font-size: 14px; font-weight: 700; color: var(--color-accent-2); }
 .footer-title::after {
@@ -938,7 +940,10 @@ a.card:hover, .card-hover:hover {
   border-top: 1px solid rgb(255 255 255 / 0.12);
 }
 @media (max-width: 960px) { .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (max-width: 560px) { .footer-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-top: 48px; } }
+@media (max-width: 560px) {
+  .footer-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; padding-top: 48px; }
+  .footer-brand { font-size: min(15px, 3.6vw); }
+}
 
 /* — development timeline — */
 .timeline { position: relative; padding-left: 34px; }

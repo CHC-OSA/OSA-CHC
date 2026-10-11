@@ -74,8 +74,8 @@ export default function Nav() {
       <Link to="/" className="nav-brand" onClick={() => setOpen(false)}>
         <img src={crest} alt="சாவகச்சேரி இந்துக் கல்லூரி இலச்சினை" className="nav-brand-crest" />
         <span className="nav-brand-text">
-          <span>சாவகச்சேரி இந்துக் கல்லூரி</span>
-          <small>பழைய மாணவர் ஆசிரியர் சங்கம்</small>
+          <span>பழைய மாணவர் ஆசிரியர் சங்கம்</span>
+          <small>சாவகச்சேரி இந்துக் கல்லூரி</small>
         </span>
       </Link>
 
