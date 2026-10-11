@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FiFileText } from "react-icons/fi";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { ReceiptTextIcon } from "@hugeicons/core-free-icons";
 import Lightbox from "../ui/Lightbox";
 import { formatRupees } from "../../data/building";
 
@@ -30,7 +31,7 @@ export default function DonorList({ donors }) {
                 <td className="donor-receipt-cell">
                   {donor.receipt ? (
                     <button type="button" className="link-arrow donor-receipt" onClick={() => setOpenReceipt(receipts.indexOf(donor.receipt))}>
-                      <FiFileText aria-hidden="true" /> பார்வையிட
+                      <HugeiconsIcon icon={ReceiptTextIcon} size={18} strokeWidth={1.8} aria-hidden="true" /> பார்வையிட
                     </button>
                   ) : (
                     "—"

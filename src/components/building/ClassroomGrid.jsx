@@ -1,4 +1,5 @@
-import { FiCheck } from "react-icons/fi";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Tick02Icon } from "@hugeicons/core-free-icons";
 import { CONSTRUCTION_LABELS, FLOOR_LABELS, PHASES } from "../../data/building";
 
 const FLOORS_TOP_DOWN = [2, 1, 0];
@@ -32,7 +33,7 @@ export default function ClassroomGrid({ classrooms }) {
                           {room.number}
                           {room.booked && (
                             <span className="room-booked" aria-hidden="true">
-                              <FiCheck />
+                              <HugeiconsIcon icon={Tick02Icon} size={13} strokeWidth={3} />
                             </span>
                           )}
                         </div>
@@ -57,7 +58,7 @@ export default function ClassroomGrid({ classrooms }) {
         </li>
         <li>
           <span className="room-booked" aria-hidden="true">
-            <FiCheck />
+            <HugeiconsIcon icon={Tick02Icon} size={13} strokeWidth={3} />
           </span>{" "}
           நிதி திரட்டப்பட்டுள்ளது
         </li>

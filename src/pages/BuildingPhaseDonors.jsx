@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
-import { FiHeart } from "react-icons/fi";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { CharityIcon } from "@hugeicons/core-free-icons";
 import PageHero from "../components/layout/PageHero";
 import DonorList from "../components/building/DonorList";
 import { getDonorsByPhase, getPhaseById } from "../data/building";
@@ -28,7 +29,7 @@ export default function BuildingPhaseDonors() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiHeart />
+              <HugeiconsIcon icon={CharityIcon} size={22} strokeWidth={1.8} />
             </span>
             {phase.title} — நன்கொடையாளர் பட்டியல்
           </h2>

@@ -1,5 +1,7 @@
 import { useParams } from "react-router";
-import { FiArrowRight, FiCamera, FiGrid, FiHeart, FiLayers } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Camera01Icon, CharityIcon, CraneIcon, DashboardSquare01Icon } from "@hugeicons/core-free-icons";
 import PageHero from "../components/layout/PageHero";
 import Button from "../components/ui/Button";
 import ClassroomGrid from "../components/building/ClassroomGrid";
@@ -39,7 +41,7 @@ export default function BuildingPhase() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiLayers />
+              <HugeiconsIcon icon={CraneIcon} size={22} strokeWidth={1.8} />
             </span>
             இக்கட்டத்தில் அமைக்கப்படுபவை
           </h2>
@@ -55,7 +57,7 @@ export default function BuildingPhase() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiGrid />
+              <HugeiconsIcon icon={DashboardSquare01Icon} size={22} strokeWidth={1.8} />
             </span>
             வகுப்பறைகளின் தற்போதைய நிலை
           </h2>
@@ -69,7 +71,7 @@ export default function BuildingPhase() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiCamera />
+              <HugeiconsIcon icon={Camera01Icon} size={22} strokeWidth={1.8} />
             </span>
             கட்டுமானப் பணிகளின் புகைப்படங்கள்
           </h2>
@@ -79,7 +81,7 @@ export default function BuildingPhase() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiHeart />
+              <HugeiconsIcon icon={CharityIcon} size={22} strokeWidth={1.8} />
             </span>
             நன்கொடைகள்
           </h2>

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { FiCalendar } from "react-icons/fi";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { Calendar03Icon } from "@hugeicons/core-free-icons";
 import PlaceholderImage from "../ui/PlaceholderImage";
 import Lightbox from "../ui/Lightbox";
 
@@ -16,7 +17,7 @@ export default function SiteUpdates({ updates }) {
       {updates.map((update, u) => (
         <div key={update.date}>
           <p className="site-update-head">
-            <FiCalendar aria-hidden="true" /> {update.label}
+            <HugeiconsIcon icon={Calendar03Icon} size={18} strokeWidth={1.8} aria-hidden="true" /> {update.label}
             {update.caption && <span> — {update.caption}</span>}
           </p>
           <div className="media-grid">

@@ -1,5 +1,7 @@
 import { Link } from "react-router";
-import { FiArrowRight, FiDollarSign, FiGrid, FiInfo } from "react-icons/fi";
+import { FiArrowRight } from "react-icons/fi";
+import { HugeiconsIcon } from "@hugeicons/react";
+import { DashboardSquare01Icon, MoneyBag02Icon, School01Icon } from "@hugeicons/core-free-icons";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import FundSummary from "../components/building/FundSummary";
@@ -30,7 +32,7 @@ export default function Building() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiInfo />
+              <HugeiconsIcon icon={School01Icon} size={22} strokeWidth={1.8} />
             </span>
             திட்டம் பற்றிய அறிமுகம்
           </h2>
@@ -47,7 +49,7 @@ export default function Building() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiDollarSign />
+              <HugeiconsIcon icon={MoneyBag02Icon} size={22} strokeWidth={1.8} />
             </span>
             நிதி நிலைமை
           </h2>
@@ -57,7 +59,7 @@ export default function Building() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiGrid />
+              <HugeiconsIcon icon={DashboardSquare01Icon} size={22} strokeWidth={1.8} />
             </span>
             வகுப்பறைகளின் தற்போதைய நிலை
           </h2>
