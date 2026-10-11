@@ -277,6 +277,15 @@ a.card:hover, .card-hover:hover {
 }
 .card-photo-media-contain > img { position: relative; }
 .card-photo-body { display: flex; flex: 1; flex-direction: column; gap: 10px; padding: 20px 22px 22px; }
+/* Safety net for the card text limits (CONTENT_GUIDE.md): over-long text is cut so cards in a row stay the same height. */
+.card-photo .card-title, .card-photo .card-body, .card-photo .card-meta > span {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card-photo .card-title { -webkit-line-clamp: 3; line-clamp: 3; }
+.card-photo .card-body { -webkit-line-clamp: 5; line-clamp: 5; }
+.card-photo .card-meta > span { -webkit-line-clamp: 3; line-clamp: 3; }
 
 .elev-sm { box-shadow: var(--shadow-sm); }
 .elev-md { box-shadow: var(--shadow-md); }

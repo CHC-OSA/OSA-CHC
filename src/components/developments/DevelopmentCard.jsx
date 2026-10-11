@@ -26,7 +26,10 @@ export function DevelopmentCardWithPhoto({ development }) {
         </h3>
         <p className="card-body">{development.summary}</p>
         <p className="card-meta">
-          <Icon icon={Clock01Icon} /> இறுதி இற்றைப்படுத்தல்: {latest.date} — {latest.label}
+          <Icon icon={Clock01Icon} />
+          <span>
+            இறுதி இற்றைப்படுத்தல்: {latest.date} — {latest.label}
+          </span>
         </p>
         <div className="card-footer">
           <Link to={to} className="link-arrow">
