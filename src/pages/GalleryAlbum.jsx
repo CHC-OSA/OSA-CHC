@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router";
-import { FiCalendar, FiImage } from "react-icons/fi";
+import { Calendar03Icon, Image01Icon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import Lightbox from "../components/ui/Lightbox";
@@ -26,12 +27,12 @@ export default function GalleryAlbum() {
           <div className="page-hero-chips">
             {album.date && (
               <span className="chip">
-                <FiCalendar aria-hidden="true" /> {album.date}
+                <Icon icon={Calendar03Icon} /> {album.date}
               </span>
             )}
             {photos.length > 0 && (
               <span className="chip">
-                <FiImage aria-hidden="true" /> {photos.length} புகைப்படங்கள்
+                <Icon icon={Image01Icon} /> {photos.length} புகைப்படங்கள்
               </span>
             )}
           </div>

@@ -1,6 +1,7 @@
 import { Fragment, useState } from "react";
 import { useSearchParams } from "react-router";
-import { FiAlertCircle, FiArrowRight, FiAward, FiBookOpen, FiBriefcase, FiCheck, FiList, FiMail, FiPhone, FiUser, FiUsers } from "react-icons/fi";
+import { AlertCircleIcon, ArrowRight02Icon, Award01Icon, BookOpen01Icon, Briefcase01Icon, Call02Icon, LeftToRightListBulletIcon, Mail01Icon, Tick02Icon, UserGroupIcon, UserIcon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import Field, { LabelText } from "../components/ui/Field";
 import SegmentedControl from "../components/ui/SegmentedControl";
@@ -294,7 +295,7 @@ export default function MembershipForm() {
       <PageHero eyebrow="உறுப்பினர் பதிவு" title="பழைய மாணவர் சங்க உறுப்புரிமை விண்ணப்பம்" lead="யா/சாவகச்சேரி இந்துக்கல்லூரி">
         <div className="page-hero-chips">
           <span className="chip">
-            <FiList aria-hidden="true" /> 4 பகுதிகள் · {questions.length} வினாக்கள்
+            <Icon icon={LeftToRightListBulletIcon} /> 4 பகுதிகள் · {questions.length} வினாக்கள்
           </span>
           <span className="chip chip-gold">ஆயுட்சந்தா — {LIFETIME_FEE}</span>
         </div>
@@ -304,7 +305,7 @@ export default function MembershipForm() {
         {status === "success" ? (
           <div className="panel apply-success" role="status">
             <span className="apply-success-icon" aria-hidden="true">
-              <FiCheck />
+              <Icon icon={Tick02Icon} />
             </span>
             <h2>நன்றி! உங்கள் விண்ணப்பம் பெறப்பட்டது.</h2>
             <p>
@@ -320,7 +321,7 @@ export default function MembershipForm() {
               <Section
                 step={0}
                 kicker="முதலில் தெரிவு செய்யவும்"
-                icon={FiUsers}
+                icon={UserGroupIcon}
                 title="விண்ணப்பதாரர் வகை"
                 subtitle="உங்கள் தெரிவுக்கு ஏற்ப கீழுள்ள வினாக்கள் மாறும்"
               >
@@ -343,7 +344,7 @@ export default function MembershipForm() {
                 </div>
               </Section>
 
-              <Section step={1} icon={FiUser} title="தனிப்பட்ட விபரங்கள்" subtitle="உங்களைப் பற்றிய அடிப்படைத் தகவல்கள்">
+              <Section step={1} icon={UserIcon} title="தனிப்பட்ட விபரங்கள்" subtitle="உங்களைப் பற்றிய அடிப்படைத் தகவல்கள்">
                 <Field label={q("name", "முழுப்பெயர் *")} id="f-name" className="apply-span-2" value={form.name} onChange={setField("name")} error={errors.name} required />
 
                 <div className={`field${errors.gender ? " is-invalid" : ""}`}>
@@ -371,7 +372,7 @@ export default function MembershipForm() {
                 )}
               </Section>
 
-              <Section step={2} icon={FiPhone} title="தொடர்பு விபரங்கள்" subtitle="உங்களைத் தொடர்பு கொள்வதற்கான விபரங்கள்">
+              <Section step={2} icon={Call02Icon} title="தொடர்பு விபரங்கள்" subtitle="உங்களைத் தொடர்பு கொள்வதற்கான விபரங்கள்">
                 <Field label={q("homeAddress", "சொந்த முகவரி *")} id="f-homeAddress" className="apply-span-2" type="textarea" rows={2} value={form.homeAddress} onChange={setField("homeAddress")} error={errors.homeAddress} required />
                 <Field label="தற்காலிக முகவரி" id="f-tempAddress" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.tempAddress} onChange={setField("tempAddress")} />
                 <Field label={q("officeAddress", "அலுவலக முகவரி")} id="f-officeAddress" type="textarea" rows={2} placeholder="(இருப்பின் மட்டும்)" value={form.officeAddress} onChange={setField("officeAddress")} />
@@ -380,7 +381,7 @@ export default function MembershipForm() {
               </Section>
 
               {isTeacher ? (
-                <Section step={3} icon={FiBriefcase} title="சேவை விபரங்கள்" subtitle="இக்கல்லூரியில் நீங்கள் ஆசிரியராகச் சேவையாற்றிய காலம்">
+                <Section step={3} icon={Briefcase01Icon} title="சேவை விபரங்கள்" subtitle="இக்கல்லூரியில் நீங்கள் ஆசிரியராகச் சேவையாற்றிய காலம்">
                   <div className={`field apply-span-2${periodError ? " is-invalid" : ""}`} role="group" aria-labelledby="period-label">
                     <label id="period-label" htmlFor="f-serviceFrom"><LabelText text={q("serviceFrom", "இக்கல்லூரியில் சேவையாற்றிய காலம் *")} /></label>
                     {/* Reads as a sentence: "[year] முதல் [year] வரை" (from … to …). */}
@@ -414,7 +415,7 @@ export default function MembershipForm() {
                   </div>
                 </Section>
               ) : (
-                <Section step={3} icon={FiBookOpen} title="கல்லூரி விபரங்கள்" subtitle="இக்கல்லூரியில் நீங்கள் கல்வி கற்ற விபரங்கள்">
+                <Section step={3} icon={BookOpen01Icon} title="கல்லூரி விபரங்கள்" subtitle="இக்கல்லூரியில் நீங்கள் கல்வி கற்ற விபரங்கள்">
                   <Field label={q("admitNo", "கல்லூரி சேர்விலக்கம்")} id="f-admitNo" inputMode="numeric" placeholder="(இருப்பின் மட்டும்)" value={form.admitNo} onChange={setField("admitNo", digitsOnly(5))} error={errors.admitNo} />
                   <Field label={q("joinedYear", "கல்லூரியில் சேர்ந்த ஆண்டு *")} id="f-joinedYear" className="apply-row-start" inputMode="numeric" value={form.joinedYear} onChange={setField("joinedYear", digitsOnly(4))} error={errors.joinedYear} required />
                   <Field label={q("joinedGrade", "கல்லூரியில் சேர்ந்த வகுப்பு *")} id="f-joinedGrade" type="select" value={form.joinedGrade} onChange={setField("joinedGrade")} error={errors.joinedGrade} required>
@@ -428,7 +429,7 @@ export default function MembershipForm() {
                 </Section>
               )}
 
-              <Section step={4} icon={FiAward} title="அங்கத்துவம்" subtitle="அங்கத்துவ வகையும் தொடர்பாடல் விருப்பமும்">
+              <Section step={4} icon={Award01Icon} title="அங்கத்துவம்" subtitle="அங்கத்துவ வகையும் தொடர்பாடல் விருப்பமும்">
                 <div className={invalidClass("membershipType")}>
                   <label htmlFor="f-membershipType"><LabelText text={q("membershipType", "அங்கத்துவ வகை *")} /></label>
                   <label className={`apply-option${lifetimeChecked ? " is-checked" : ""}${errors.membershipType ? " is-invalid" : ""}`}>
@@ -441,7 +442,7 @@ export default function MembershipForm() {
                       aria-describedby={errors.membershipType ? "f-membershipType-error" : undefined}
                     />
                     <span className="apply-option-box" aria-hidden="true">
-                      <FiCheck />
+                      <Icon icon={Tick02Icon} />
                     </span>
                     <span className="apply-option-text">
                       <span className="apply-option-title">
@@ -496,13 +497,13 @@ export default function MembershipForm() {
                     </>
                   ) : (
                     <>
-                      விண்ணப்பத்தைச் சமர்ப்பி <FiArrowRight aria-hidden="true" />
+                      விண்ணப்பத்தைச் சமர்ப்பி <Icon icon={ArrowRight02Icon} />
                     </>
                   )}
                 </Button>
                 {(hasErrors || status === "error") && (
                   <p role="alert" className="alert alert-error">
-                    <FiAlertCircle aria-hidden="true" />
+                    <Icon icon={AlertCircleIcon} />
                     <span>{hasErrors ? MESSAGES.fixErrors : errorMessage}</span>
                   </p>
                 )}
@@ -542,7 +543,7 @@ export default function MembershipForm() {
               </div>
 
               <p className="apply-help">
-                <FiMail aria-hidden="true" />
+                <Icon icon={Mail01Icon} />
                 <span>
                   மேலதிக தொடர்புகளுக்கு <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
                 </span>
@@ -555,13 +556,13 @@ export default function MembershipForm() {
   );
 }
 
-function Section({ step, kicker = `பகுதி ${step} / 4`, icon: Icon, title, subtitle, children }) {
+function Section({ step, kicker = `பகுதி ${step} / 4`, icon, title, subtitle, children }) {
   const headingId = `apply-section-${step}`;
   return (
     <section className="panel apply-section" aria-labelledby={headingId}>
       <header className="apply-section-head">
         <span className="icon-badge" aria-hidden="true">
-          <Icon />
+          <Icon icon={icon} />
         </span>
         <div>
           <span className="apply-section-step">{kicker}</span>

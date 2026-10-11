@@ -1,4 +1,5 @@
-import { FiUser, FiUsers } from "react-icons/fi";
+import { UserGroupIcon, UserIcon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import Card from "../components/ui/Card";
 import Button from "../components/ui/Button";
@@ -47,7 +48,7 @@ export default function Directory() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiUsers />
+              <Icon icon={UserGroupIcon} />
             </span>
             நிர்வாகக் குழு
           </h2>
@@ -55,7 +56,7 @@ export default function Directory() {
             {COMMITTEE.map((member) => (
               <div key={member.id} className="person">
                 <div className="person-avatar">
-                  {member.photo ? <img src={member.photo} alt={member.name} /> : <FiUser aria-hidden="true" />}
+                  {member.photo ? <img src={member.photo} alt={member.name} /> : <Icon icon={UserIcon} />}
                 </div>
                 <p className="person-name">{member.name}</p>
                 <span className="tag tag-accent">{member.role}</span>
@@ -67,7 +68,7 @@ export default function Directory() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiUser />
+              <Icon icon={UserIcon} />
             </span>
             உறுப்பினர்கள்
           </h2>

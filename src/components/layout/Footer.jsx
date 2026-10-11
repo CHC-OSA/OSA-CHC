@@ -1,6 +1,6 @@
 import { Link } from "react-router";
-import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa6";
-import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { Call02Icon, Facebook01Icon, InstagramIcon, Location01Icon, Mail01Icon, YoutubeIcon } from "@hugeicons/core-free-icons";
+import Icon from "../ui/Icon";
 import crest from "../../assets/chc-crest.jpg";
 import { CONTACT_INFO } from "../../data/constants";
 
@@ -14,9 +14,9 @@ const QUICK_LINKS = [
 ];
 
 const SOCIALS = [
-  { label: "Facebook", icon: <FaFacebookF />, url: "https://www.facebook.com/share/1YDNMVwJH9/?mibextid=wwXIfr" },
-  { label: "YouTube", icon: <FaYoutube />, url: "https://www.youtube.com/@CHCOSAOfficial" },
-  { label: "Instagram", icon: <FaInstagram />, url: "https://www.instagram.com/chcosaofficial/" },
+  { label: "Facebook", icon: <Icon icon={Facebook01Icon} />, url: "https://www.facebook.com/share/1YDNMVwJH9/?mibextid=wwXIfr" },
+  { label: "YouTube", icon: <Icon icon={YoutubeIcon} />, url: "https://www.youtube.com/@CHCOSAOfficial" },
+  { label: "Instagram", icon: <Icon icon={InstagramIcon} />, url: "https://www.instagram.com/chcosaofficial/" },
 ];
 
 export default function Footer() {
@@ -48,13 +48,13 @@ export default function Footer() {
             <p className="footer-title">தொடர்பு</p>
             <ul className="footer-contact">
               <li>
-                <FiMapPin aria-hidden="true" /> <span>{CONTACT_INFO.address}</span>
+                <Icon icon={Location01Icon} /> <span>{CONTACT_INFO.address}</span>
               </li>
               <li>
-                <FiPhone aria-hidden="true" /> <a href={`tel:${CONTACT_INFO.phone.replace(/\s/g, "")}`}>{CONTACT_INFO.phone}</a>
+                <Icon icon={Call02Icon} /> <a href={`tel:${CONTACT_INFO.phone.replace(/\s/g, "")}`}>{CONTACT_INFO.phone}</a>
               </li>
               <li>
-                <FiMail aria-hidden="true" /> <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
+                <Icon icon={Mail01Icon} /> <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
               </li>
             </ul>
           </div>

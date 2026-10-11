@@ -1,5 +1,6 @@
 import { useParams } from "react-router";
-import { FiClock } from "react-icons/fi";
+import { Clock01Icon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import DevelopmentTimeline from "../components/developments/DevelopmentTimeline";
@@ -31,7 +32,7 @@ export default function DevelopmentDetail() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiClock />
+              <Icon icon={Clock01Icon} />
             </span>
             அபிவிருத்தி காலவரைவு
           </h2>

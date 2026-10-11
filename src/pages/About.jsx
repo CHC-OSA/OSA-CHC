@@ -1,4 +1,5 @@
-import { FiClock, FiEye, FiFlag, FiTarget } from "react-icons/fi";
+import { Clock01Icon, Flag02Icon, Target02Icon, ViewIcon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import TimelineRow from "../components/ui/TimelineRow";
@@ -44,7 +45,7 @@ export default function About() {
           <section className="panel">
             <h2 className="panel-title">
               <span className="icon-badge" aria-hidden="true">
-                <FiEye />
+                <Icon icon={ViewIcon} />
               </span>
               தூரநோக்கு
             </h2>
@@ -53,7 +54,7 @@ export default function About() {
           <section className="panel">
             <h2 className="panel-title">
               <span className="icon-badge" aria-hidden="true">
-                <FiTarget />
+                <Icon icon={Target02Icon} />
               </span>
               பணிக்கூற்று
             </h2>
@@ -66,7 +67,7 @@ export default function About() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiFlag />
+              <Icon icon={Flag02Icon} />
             </span>
             நோக்கங்கள்
           </h2>
@@ -83,7 +84,7 @@ export default function About() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <FiClock />
+              <Icon icon={Clock01Icon} />
             </span>
             முக்கிய கால கட்டங்கள்
           </h2>

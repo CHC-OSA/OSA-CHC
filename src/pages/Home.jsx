@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import { FiArrowRight } from "react-icons/fi";
+import { ArrowRight02Icon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import ImageSlider from "../components/ui/ImageSlider";
 import StatStrip from "../components/ui/StatStrip";
 import Button from "../components/ui/Button";
@@ -49,7 +50,7 @@ export default function Home() {
             <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
               {/* <Button as="link" to="/join" variant="primary">உறுப்பினராகுங்கள்</Button> */}
               <Button as="link" to="/about" variant="secondary">
-                எமது வரலாறு <FiArrowRight aria-hidden="true" />
+                எமது வரலாறு <Icon icon={ArrowRight02Icon} />
               </Button>
             </div>
           </div>
@@ -77,7 +78,7 @@ export default function Home() {
           <div className="section-head">
             <h2 className="section-title">சமீபத்திய செய்திகள்</h2>
             <Link to="/events" className="link-arrow">
-              அனைத்தையும் காண <FiArrowRight aria-hidden="true" />
+              அனைத்தையும் காண <Icon icon={ArrowRight02Icon} />
             </Link>
           </div>
           <div className="grid-3">
@@ -91,7 +92,7 @@ export default function Home() {
           <div className="section-head">
             <h2 className="section-title">சமீபத்திய அபிவிருத்திகள்</h2>
             <Link to="/developments" className="link-arrow">
-              அனைத்தையும் காண <FiArrowRight aria-hidden="true" />
+              அனைத்தையும் காண <Icon icon={ArrowRight02Icon} />
             </Link>
           </div>
           <div className="grid-3">
@@ -124,7 +125,7 @@ export default function Home() {
             </div>
             <div className="cta-band-actions">
               <Button as="link" to="/join" variant="light">
-                இப்போதே பதிவு செய்யுங்கள் <FiArrowRight aria-hidden="true" />
+                இப்போதே பதிவு செய்யுங்கள் <Icon icon={ArrowRight02Icon} />
               </Button>
               <Button as="link" to="/contact" variant="outline-light">
                 தொடர்பு

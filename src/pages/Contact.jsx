@@ -1,4 +1,5 @@
-import { FiMail, FiMapPin, FiPhone } from "react-icons/fi";
+import { Call02Icon, Location01Icon, Mail01Icon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import ContactForm from "../components/forms/ContactForm";
@@ -16,7 +17,7 @@ export default function Contact() {
             <ul className="info-list">
               <li>
                 <span className="icon-badge" aria-hidden="true">
-                  <FiMapPin />
+                  <Icon icon={Location01Icon} />
                 </span>
                 <div>
                   <h3>முகவரி</h3>
@@ -25,7 +26,7 @@ export default function Contact() {
               </li>
               <li>
                 <span className="icon-badge" aria-hidden="true">
-                  <FiPhone />
+                  <Icon icon={Call02Icon} />
                 </span>
                 <div>
                   <h3>தொலைபேசி</h3>
@@ -36,7 +37,7 @@ export default function Contact() {
               </li>
               <li>
                 <span className="icon-badge" aria-hidden="true">
-                  <FiMail />
+                  <Icon icon={Mail01Icon} />
                 </span>
                 <div>
                   <h3>மின்னஞ்சல்</h3>

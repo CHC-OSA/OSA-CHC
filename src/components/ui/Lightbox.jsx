@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
-import { FiChevronLeft, FiChevronRight, FiX } from "react-icons/fi";
+import { ArrowLeft01Icon, ArrowRight01Icon, Cancel01Icon } from "@hugeicons/core-free-icons";
+import Icon from "./Icon";
 
 const SWIPE_PX = 50;
 
@@ -52,15 +53,15 @@ export default function Lightbox({ photos, index, alt, onChange, onClose }) {
     >
       <img key={photos[index]} src={photos[index]} alt={`${alt} — ${index + 1}`} className="lightbox-image" />
       <button type="button" className="slider-arrow lightbox-close" aria-label="மூடு" ref={closeRef} onClick={onClose}>
-        <FiX aria-hidden="true" />
+        <Icon icon={Cancel01Icon} />
       </button>
       {count > 1 && (
         <>
           <button type="button" className="slider-arrow slider-prev" aria-label="முந்தையது" onClick={() => go(-1)}>
-            <FiChevronLeft aria-hidden="true" />
+            <Icon icon={ArrowLeft01Icon} />
           </button>
           <button type="button" className="slider-arrow slider-next" aria-label="அடுத்தது" onClick={() => go(1)}>
-            <FiChevronRight aria-hidden="true" />
+            <Icon icon={ArrowRight01Icon} />
           </button>
         </>
       )}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { ArrowLeft01Icon, ArrowRight01Icon } from "@hugeicons/core-free-icons";
+import Icon from "./Icon";
 import PlaceholderImage from "./PlaceholderImage";
 import entranceGate from "../../assets/entrance-gate.jpg";
 import technologicalFaculty from "../../assets/technological-faculty.jpg";
@@ -52,10 +53,10 @@ export default function ImageSlider() {
         />
       ))}
       <button type="button" className="slider-arrow slider-prev" aria-label="முந்தையது" onClick={goPrev}>
-        <FiChevronLeft aria-hidden="true" />
+        <Icon icon={ArrowLeft01Icon} />
       </button>
       <button type="button" className="slider-arrow slider-next" aria-label="அடுத்தது" onClick={goNext}>
-        <FiChevronRight aria-hidden="true" />
+        <Icon icon={ArrowRight01Icon} />
       </button>
       <div className="slider-footer">
         <div className="slider-dots">

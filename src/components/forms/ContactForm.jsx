@@ -1,6 +1,7 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
-import { FiAlertCircle, FiCheckCircle, FiSend } from "react-icons/fi";
+import { AlertCircleIcon, CheckmarkCircle02Icon, SentIcon } from "@hugeicons/core-free-icons";
+import Icon from "../ui/Icon";
 import Field from "../ui/Field";
 import Button from "../ui/Button";
 
@@ -72,17 +73,17 @@ export default function ContactForm() {
 
       <Button type="submit" variant="primary" block disabled={status === "sending"}>
         {status === "sending" ? "அனுப்புகிறது…" : "அனுப்பு"}
-        {status !== "sending" && <FiSend aria-hidden="true" />}
+        {status !== "sending" && <Icon icon={SentIcon} />}
       </Button>
 
       {status === "success" && (
         <p className="alert alert-success" role="status">
-          <FiCheckCircle aria-hidden="true" /> நன்றி! உங்கள் செய்தி அனுப்பப்பட்டது.
+          <Icon icon={CheckmarkCircle02Icon} /> நன்றி! உங்கள் செய்தி அனுப்பப்பட்டது.
         </p>
       )}
       {status === "error" && (
         <p className="alert alert-error" role="alert">
-          <FiAlertCircle aria-hidden="true" /> {errorMessage}
+          <Icon icon={AlertCircleIcon} /> {errorMessage}
         </p>
       )}
     </form>

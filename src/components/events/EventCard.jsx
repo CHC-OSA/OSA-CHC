@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import { FiArrowRight, FiCalendar } from "react-icons/fi";
+import { ArrowRight02Icon, Calendar03Icon } from "@hugeicons/core-free-icons";
+import Icon from "../ui/Icon";
 import PlaceholderImage from "../ui/PlaceholderImage";
 
 export function EventCardWithPhoto({ event }) {
@@ -17,10 +18,10 @@ export function EventCardWithPhoto({ event }) {
         <p className="card-body">{event.body}</p>
         <div className="card-footer">
           <span className="card-meta">
-            <FiCalendar aria-hidden="true" /> {event.meta}
+            <Icon icon={Calendar03Icon} /> {event.meta}
           </span>
           <Link to={to} className="link-arrow">
-            முழு விபரம் காண <FiArrowRight aria-hidden="true" />
+            முழு விபரம் காண <Icon icon={ArrowRight02Icon} />
           </Link>
         </div>
       </div>

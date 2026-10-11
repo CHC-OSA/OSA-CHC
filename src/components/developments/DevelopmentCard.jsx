@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import { FiArrowRight, FiClock } from "react-icons/fi";
+import { ArrowRight02Icon, Clock01Icon } from "@hugeicons/core-free-icons";
+import Icon from "../ui/Icon";
 import PlaceholderImage from "../ui/PlaceholderImage";
 import { STATUS_LABELS, STATUS_TAG_CLASS, getLatestEntry } from "../../data/developments";
 
@@ -25,11 +26,11 @@ export function DevelopmentCardWithPhoto({ development }) {
         </h3>
         <p className="card-body">{development.summary}</p>
         <p className="card-meta">
-          <FiClock aria-hidden="true" /> இறுதி இற்றைப்படுத்தல்: {latest.date} — {latest.label}
+          <Icon icon={Clock01Icon} /> இறுதி இற்றைப்படுத்தல்: {latest.date} — {latest.label}
         </p>
         <div className="card-footer">
           <Link to={to} className="link-arrow">
-            முழு காலவரிசையைக் காண <FiArrowRight aria-hidden="true" />
+            முழு காலவரிசையைக் காண <Icon icon={ArrowRight02Icon} />
           </Link>
         </div>
       </div>
