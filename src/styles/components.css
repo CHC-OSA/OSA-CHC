@@ -50,6 +50,7 @@
 
 /* — forms — */
 .field > label {
+  text-wrap: balance;
   display: block;
   margin: 0 0 8px;
   font-size: 13.5px;
@@ -901,7 +902,7 @@ a.card:hover, .card-hover:hover {
 }
 .footer-brand-text { display: flex; flex-direction: column; }
 .footer-brand-text small { font-size: 13px; font-weight: 600; color: var(--color-accent-2); }
-.footer-motto { max-width: 32ch; margin: 0; font-size: 14px; font-style: italic; line-height: 1.7; color: rgb(255 255 255 / 0.7); }
+.footer-motto { margin: 0; text-wrap: balance; font-size: 14px; font-style: italic; line-height: 1.7; color: rgb(255 255 255 / 0.7); }
 .footer-title { margin: 0 0 18px; font-size: 14px; font-weight: 700; color: var(--color-accent-2); }
 .footer-title::after {
   content: "";
@@ -915,7 +916,7 @@ a.card:hover, .card-hover:hover {
 .footer-links a { display: inline-block; transition: color 0.15s ease, transform 0.15s ease; }
 .footer-links a:hover { transform: translateX(3px); }
 .footer-links, .footer-contact { display: flex; flex-direction: column; gap: 11px; margin: 0; padding: 0; list-style: none; font-size: 14px; }
-.footer-contact li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.55; color: rgb(255 255 255 / 0.85); }
+.footer-contact li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.55; text-wrap: balance; color: rgb(255 255 255 / 0.85); }
 .footer-contact svg { flex: none; margin-top: 4px; color: var(--color-accent-2); }
 .footer-contact a { overflow-wrap: anywhere; }
 .footer-socials { display: flex; gap: 10px; }
