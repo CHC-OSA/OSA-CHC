@@ -22,30 +22,24 @@
 .build-summary { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-bottom: 24px; }
 
 /* — fund summary — */
-.fund-figures { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.fund-figures { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
 .fund-figure { padding: 18px 20px; border-radius: var(--radius-md); background: var(--color-muted-bg); }
 .fund-label { margin: 0 0 6px; font-size: 13.5px; font-weight: 600; line-height: 1.5; color: var(--color-text-muted); }
 .fund-value {
   margin: 0;
   font-family: var(--font-heading);
   font-weight: 800;
-  font-size: clamp(24px, 3vw, 34px);
+  font-size: clamp(24px, 2.6vw, 30px);
   line-height: 1.15;
+  white-space: nowrap;
   color: var(--color-accent);
 }
 .fund-value-spent { color: var(--color-success); }
+.fund-value-balance { color: var(--color-accent-2-700); }
+.fund-share { margin: 6px 0 0; font-size: 13px; font-weight: 600; color: var(--color-text-muted); }
 .fund-track { height: 10px; margin-top: 18px; overflow: hidden; border-radius: 999px; background: var(--color-accent-200); }
 .fund-bar { height: 100%; border-radius: inherit; background: var(--color-success); transition: width 0.35s ease; }
-.fund-foot {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 6px 16px;
-  margin-top: 10px;
-  font-size: 13.5px;
-  font-weight: 600;
-}
-.fund-updated { font-size: 12px; font-weight: 400; color: var(--color-text-muted); }
+.fund-updated { margin: 10px 0 0; font-size: 12px; text-align: right; color: var(--color-text-muted); }
 
 /* — classroom grid: the building's front, one row per floor — */
 .room-grid-scroll { overflow-x: auto; padding: 8px 8px 4px 0; }
@@ -132,7 +126,34 @@
 .build-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .build-note { margin: 0 0 18px; font-size: 15px; line-height: 1.8; color: color-mix(in srgb, var(--color-text) 84%, transparent); }
 
+@media (max-width: 900px) {
+  .fund-figures { grid-template-columns: 1fr; }
+}
+/* Phones: the donor table becomes a stack of cards, so nothing scrolls sideways. */
 @media (max-width: 640px) {
-  .build-summary, .fund-figures { grid-template-columns: 1fr; }
+  .donor-table { min-width: 0; }
+  .donor-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .donor-table, .donor-table tbody { display: block; }
+  .donor-table tr {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px 10px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background: var(--color-muted-bg);
+  }
+  .donor-table tr:last-child { margin-bottom: 0; }
+  .donor-table td { grid-column: 2; padding: 0; border: 0; }
+  .donor-table .donor-num { grid-column: 1; grid-row: 1; font-weight: 700; color: var(--color-text-muted); }
+  .donor-table .donor-num::after { content: "."; }
+  .donor-table .donor-name { grid-row: 1; font-size: 15px; font-weight: 700; line-height: 1.5; }
+  .donor-table td[data-label] { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+  .donor-table td[data-label]::before { content: attr(data-label); color: var(--color-text-muted); }
+  .donor-table .donor-receipt-cell { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--color-border); }
+}
+@media (max-width: 640px) {
+  .build-summary { grid-template-columns: 1fr; }
   .room-floors { width: 84px; }
 }

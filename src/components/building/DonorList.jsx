@@ -23,11 +23,11 @@ export default function DonorList({ donors }) {
           <tbody>
             {donors.map((donor, i) => (
               <tr key={`${donor.name}-${i}`}>
-                <td>{i + 1}</td>
-                <td>{donor.name}</td>
-                <td>{donor.date ?? "—"}</td>
-                <td>{donor.amount ? formatRupees(donor.amount) : "—"}</td>
-                <td>
+                <td className="donor-num">{i + 1}</td>
+                <td className="donor-name">{donor.name}</td>
+                <td data-label="திகதி">{donor.date ?? "—"}</td>
+                <td data-label="தொகை">{donor.amount ? formatRupees(donor.amount) : "—"}</td>
+                <td className="donor-receipt-cell">
                   {donor.receipt ? (
                     <button type="button" className="link-arrow donor-receipt" onClick={() => setOpenReceipt(receipts.indexOf(donor.receipt))}>
                       <FiFileText aria-hidden="true" /> பார்வையிட

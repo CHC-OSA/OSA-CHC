@@ -1,6 +1,6 @@
 import { formatDate, formatRupees } from "../../data/building";
 
-// Collected vs. spent at a glance; the bar is the share of collected funds already put to use.
+// Collected, spent and balance at a glance; the bar is the share of collected funds already put to use.
 export default function FundSummary({ funds }) {
   const balance = funds.collected - funds.spent;
   const percent = funds.collected ? Math.min(100, Math.round((funds.spent / funds.collected) * 100)) : 0;
@@ -15,6 +15,12 @@ export default function FundSummary({ funds }) {
         <div className="fund-figure">
           <p className="fund-label">கட்டுமானப் பணிகளுக்காகச் செலவிடப்பட்டுள்ள நிதி</p>
           <p className="fund-value fund-value-spent">{formatRupees(funds.spent)}</p>
+          <p className="fund-share">திரட்டப்பட்ட நிதியில் {percent}%</p>
+        </div>
+        <div className="fund-figure">
+          <p className="fund-label">கையிருப்பிலுள்ள நிதி</p>
+          <p className="fund-value fund-value-balance">{formatRupees(balance)}</p>
+          <p className="fund-share">திரட்டப்பட்ட நிதியில் {100 - percent}%</p>
         </div>
       </div>
       <div
@@ -27,12 +33,7 @@ export default function FundSummary({ funds }) {
       >
         <div className="fund-bar" style={{ width: `${percent}%` }} />
       </div>
-      <div className="fund-foot">
-        <span>
-          திரட்டப்பட்ட நிதியில் {percent}% பயன்படுத்தப்பட்டுள்ளது · கையிருப்பிலுள்ள நிதி {formatRupees(balance)}
-        </span>
-        <span className="fund-updated">இறுதியாக இற்றைப்படுத்தப்பட்ட திகதி: {formatDate(funds.updatedOn)}</span>
-      </div>
+      <p className="fund-updated">இறுதியாக இற்றைப்படுத்தப்பட்ட திகதி: {formatDate(funds.updatedOn)}</p>
     </div>
   );
 }
