@@ -58,7 +58,7 @@
   .home { padding-bottom: 72px; }
 }
 
-@media (max-width: 1300px) {
+@media (max-width: 1440px) {
   .nav-links {
     display: none;
     order: 3;

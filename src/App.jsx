@@ -7,6 +7,9 @@ import Events from "./pages/Events";
 import EventDetail from "./pages/EventDetail";
 import Developments from "./pages/Developments";
 import DevelopmentDetail from "./pages/DevelopmentDetail";
+import Building from "./pages/Building";
+import BuildingPhase from "./pages/BuildingPhase";
+import BuildingPhaseDonors from "./pages/BuildingPhaseDonors";
 import Directory from "./pages/Directory";
 import Gallery from "./pages/Gallery";
 import GalleryAlbum from "./pages/GalleryAlbum";
@@ -25,6 +28,9 @@ export default function App() {
           <Route path="events/:id" element={<EventDetail />} />
           <Route path="developments" element={<Developments />} />
           <Route path="developments/:id" element={<DevelopmentDetail />} />
+          <Route path="building" element={<Building />} />
+          <Route path="building/phase/:phaseId" element={<BuildingPhase />} />
+          <Route path="building/phase/:phaseId/donors" element={<BuildingPhaseDonors />} />
           <Route path="directory" element={<Directory />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="gallery/:id" element={<GalleryAlbum />} />

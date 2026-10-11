@@ -275,7 +275,56 @@ Use a real image host for this (e.g. Cloudinary or Cloudflare R2). Google Drive 
 
 ---
 
-## 6. Before you're done
+## 6. Updating the new building page (`/building`)
+
+Everything on the building pages comes from **`src/data/building.js`** plus two photo folders. Nothing else needs touching.
+
+**Mark a classroom as booked or completed.** Find `CLASSROOM_OVERRIDES` and add a line. The key is the classroom number shown on the site (Phase 1 = 1–9, Phase 2 = 10–21, Phase 3 = 22–30).
+
+```js
+const CLASSROOM_OVERRIDES = {
+  10: { booked: true },
+  1: { construction: "completed" },
+  5: { booked: true, construction: "completed" },
+};
+```
+
+The site only shows *booked / not booked*. **Do not add the name of whoever booked a classroom** — that is handled internally and is not published.
+
+**Change a phase's status.** In `PHASES`, change the phase's `status` when its construction starts or finishes (`"planned"` → `"ongoing"` → `"completed"`); its classrooms follow automatically. Set `donationsOpen` to `true` / `false` to show or hide the "bookings open" notice.
+
+**Add construction site photos (monthly / biweekly).** Create a folder named with the date the photos were taken and drop the photos in:
+
+```
+src/assets/building/updates/phase-1/2026-10-15/1.jpg
+src/assets/building/updates/phase-1/2026-10-15/2.jpg
+```
+
+The folder name must be `YYYY-MM-DD`. The newest date shows first automatically. To add a one-line description, add it to that phase's `updateCaptions`: `{ "2026-10-15": "முதலாம் மாடித் தளம் இடப்பட்டது" }`.
+
+**Update the money collected and spent.** Change the three values in `FUNDS`: `collected` and `spent` are whole rupees with no commas, and `updatedOn` is the date of the figures as `YYYY-MM-DD` (it is shown in small print under the totals).
+
+```js
+export const FUNDS = {
+  collected: 12500000,
+  spent: 8750000,
+  updatedOn: "2026-10-11",
+};
+```
+
+**Add a donor and receipt.** Save the receipt as an image in `src/assets/building/receipts/phase-<n>/`, then add the donor to that phase's list in `DONORS` (newest first). `amount`, `date` and `receipt` are optional.
+
+```js
+2: [
+  { name: "திரு. க. பெயர்", date: "2026 ஐப்பசி 10", amount: 500000, receipt: "001.jpg" },
+],
+```
+
+> Receipt images become **publicly viewable and downloadable** once the site is published. Only add a receipt with the donor's consent, and cover any personal details (NIC, address, account numbers) before saving the image.
+
+---
+
+## 7. Before you're done
 
 - Run `npm run dev` and check:
   - The new entry shows up correctly on `/events`, `/developments`, or `/gallery`.

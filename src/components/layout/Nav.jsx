@@ -18,6 +18,9 @@ const LINKS = [
   { to: "/contact", label: "தொடர்பு" },
 ];
 
+// Promoted like the CTA: shown as its own gold pill in the bar instead of among the plain links.
+const PROMO = { to: "/building", label: "புதிய கட்டடத் தொகுதி" };
+
 function NavDropdown({ item, onNavigate }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
@@ -105,11 +108,19 @@ export default function Nav() {
             </NavLink>
           )
         )}
+        {/* Narrow screens: the bar has no room for the promoted link, so it moves into the menu (see .nav-promo-menu). */}
+        <NavLink to={PROMO.to} onClick={() => setOpen(false)} className={({ isActive }) => `nav-link nav-promo nav-promo-menu${isActive ? " is-active" : ""}`}>
+          {PROMO.label}
+        </NavLink>
         {/* Phones: the bar has no room for the CTA, so it moves into the menu (see .nav-cta-menu). */}
         <Button as="link" to="/join" pill className="nav-cta-menu" onClick={() => setOpen(false)}>
           உறுப்பினராகுங்கள்
         </Button>
       </div>
+
+      <NavLink to={PROMO.to} onClick={() => setOpen(false)} className={({ isActive }) => `nav-link nav-promo nav-promo-bar${isActive ? " is-active" : ""}`}>
+        {PROMO.label}
+      </NavLink>
 
       <Button as="link" to="/join" pill className="nav-cta" onClick={() => setOpen(false)}>
         உறுப்பினராகுங்கள்
