@@ -752,7 +752,7 @@ a.card:hover, .card-hover:hover {
     backdrop-filter: blur(16px) saturate(160%);
   }
 }
-@media (max-width: 1300px) {
+@media (max-width: 1440px) {
   .nav.is-menu-open { border-radius: 24px; }
 }
 .nav-brand {
@@ -802,10 +802,21 @@ a.card:hover, .card-hover:hover {
 .nav-toggle { display: none; width: 40px; min-height: 40px; margin-left: 8px; padding: 0; border-radius: 999px; }
 .nav-cta { min-height: 40px; padding: 8px 16px; font-size: 13.5px; }
 .nav-cta-menu { display: none; }
-/* Desktop bar: six links plus the CTA only fit on one row at this size. */
-@media (min-width: 1301px) {
-  .nav-link { padding: 8px 10px; font-size: 13px; }
-  .nav-cta { padding: 8px 14px; font-size: 13px; }
+/* Desktop bar: six links, the promoted link and the CTA only fit on one row at this size, in a bar a little wider than the page container. */
+@media (min-width: 1441px) {
+  .nav { width: min(calc(100% - 96px), 1340px); }
+  .nav-links { gap: 0; }
+  .nav-link { padding: 8px 8px; font-size: 13px; }
+  .nav-cta { padding: 8px 12px; font-size: 13px; }
+}
+/* Promoted link (the new building project): a gold pill beside the CTA, so it stands apart from the plain links. */
+.nav-promo { padding: 8px 16px; font-weight: 700; color: var(--color-accent-900); background: var(--color-accent-2); }
+.nav-promo:hover { color: var(--color-accent-900); background: var(--color-accent-2-400); }
+.nav-promo-bar { min-height: 40px; display: inline-flex; align-items: center; border-radius: 999px; }
+.nav-promo-menu { display: none; }
+@media (max-width: 860px) {
+  .nav-promo-bar { display: none; }
+  .nav-promo-menu { display: block; margin-top: 6px; text-align: center; }
 }
 @media (max-width: 640px) {
   .nav-cta { display: none; }

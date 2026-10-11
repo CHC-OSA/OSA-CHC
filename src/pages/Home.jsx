@@ -59,6 +59,20 @@ export default function Home() {
         </section>
 
         <section className="page-section">
+          <div className="cta-band">
+            <div>
+              <span className="eyebrow">புதிய கட்டுமானத் திட்டம்</span>
+              <h2>30 வகுப்பறைகளை உள்ளடக்கிய மூன்று மாடிக் கட்டடம் உருவாகி வருகின்றது.</h2>
+            </div>
+            <div className="cta-band-actions">
+              <Button as="link" to="/building" variant="light">
+                தற்போதைய நிலையை அறிய <FiArrowRight aria-hidden="true" />
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <section className="page-section">
           <div className="section-head">
             <h2 className="section-title">ஏன் உறுப்பினராக வேண்டும்?</h2>
           </div>
@@ -70,6 +84,23 @@ export default function Home() {
                 <p className="card-body">{item.text}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="page-section">
+          <div className="cta-band">
+            <div>
+              <span className="eyebrow">உறுப்பினர் பதிவு</span>
+              <h2>எங்கள் பாரம்பரியத்தில் பங்கு கொள்ளுங்கள்.</h2>
+            </div>
+            <div className="cta-band-actions">
+              <Button as="link" to="/join" variant="light">
+                இப்போதே பதிவு செய்யுங்கள் <FiArrowRight aria-hidden="true" />
+              </Button>
+              <Button as="link" to="/contact" variant="outline-light">
+                தொடர்பு
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -98,38 +129,6 @@ export default function Home() {
             {getRecentDevelopments(3).map((development) => (
               <DevelopmentCardWithPhoto key={development.id} development={development} />
             ))}
-          </div>
-        </section>
-
-        {/* <section className="grid-2" style={{ alignItems: "center", padding: "56px 0 64px" }}>
-          <div>
-            <span style={{ display: "block", fontSize: 13, letterSpacing: "0.08em", textTransform: "uppercase", color: "var(--color-accent-700)", marginBottom: 14 }}>
-              எமது பாரம்பரியம்
-            </span>
-            <h2 style={{ fontSize: 30, lineHeight: 1.2, margin: "0 0 14px" }}>1904 முதல் இன்று வரை</h2>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: "color-mix(in srgb, var(--color-text) 78%, transparent)", maxWidth: "48ch", margin: 0 }}>
-              இலங்கையின் வடபகுதியின் முன்னணிப் பாடசாலைகளில் ஒன்றான சாவகச்சேரி இந்துக் கல்லூரி, தலைமுறை தலைமுறையாக தலைவர்களையும் சிந்தனையாளர்களையும் உருவாக்கி வருகிறது.
-            </p>
-          </div>
-          <figure className="grayscale" style={{ margin: 0 }}>
-            <PlaceholderImage aspectRatio="16/10" caption="பாடசாலைக் கட்டிடப் புகைப்படம்" />
-          </figure>
-        </section> */}
-
-        <section className="page-section">
-          <div className="cta-band">
-            <div>
-              <span className="eyebrow">உறுப்பினர் பதிவு</span>
-              <h2>எங்கள் பாரம்பரியத்தில் பங்கு கொள்ளுங்கள்.</h2>
-            </div>
-            <div className="cta-band-actions">
-              <Button as="link" to="/join" variant="light">
-                இப்போதே பதிவு செய்யுங்கள் <FiArrowRight aria-hidden="true" />
-              </Button>
-              <Button as="link" to="/contact" variant="outline-light">
-                தொடர்பு
-              </Button>
-            </div>
           </div>
         </section>
       </div>
