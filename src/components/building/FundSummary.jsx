@@ -12,7 +12,9 @@ function Amount({ value, className }) {
 export default function FundSummary({ funds }) {
   const total = addRupees(funds.donations, funds.interest);
   const balance = addRupees(total, -funds.spent);
-  const percent = total ? Math.min(100, Math.round((funds.spent / total) * 100)) : 0;
+  // One decimal place, so the two shares always add up to exactly 100.
+  const spentShare = total ? Math.min(100, Math.round((funds.spent / total) * 1000) / 10) : 0;
+  const balanceShare = Math.round((100 - spentShare) * 10) / 10;
 
   return (
     <div className="fund">
@@ -29,17 +31,18 @@ export default function FundSummary({ funds }) {
         <div className="fund-figure">
           <p className="fund-label">கட்டுமானப் பணிகளுக்காகச் செலவிடப்பட்டுள்ள நிதி</p>
           <Amount value={funds.spent} className="fund-value-spent" />
-          <p className="fund-share">மொத்த நிதியில் {percent}%</p>
+          <p className="fund-share">மொத்த நிதியில் {spentShare}%</p>
         </div>
         <div className="fund-figure">
           <p className="fund-label">கையிருப்பிலுள்ள நிதி</p>
           <Amount value={balance} className="fund-value-balance" />
-          <p className="fund-share">மொத்த நிதியில் {100 - percent}%</p>
+          <p className="fund-share">மொத்த நிதியில் {balanceShare}%</p>
         </div>
       </div>
+      <p className="fund-track-title">மொத்த நிதியின் பயன்பாடு</p>
       <div className="fund-track-head">
-        <span>மொத்த நிதியின் பயன்பாடு</span>
-        <span className="fund-track-percent">{percent}% செலவிடப்பட்டுள்ளது</span>
+        <span>{spentShare}% பயன்படுத்தப்பட்டுள்ளது</span>
+        <span className="fund-track-available">{balanceShare}% கையிருப்பில்</span>
       </div>
       <div
         className="fund-track"
@@ -47,16 +50,16 @@ export default function FundSummary({ funds }) {
         aria-label="மொத்த நிதியில் செலவிடப்பட்டுள்ள பங்கு"
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-valuenow={percent}
+        aria-valuenow={spentShare}
       >
-        <div className="fund-bar" style={{ width: `${percent}%` }} />
+        <div className="fund-bar" style={{ width: `${spentShare}%` }} />
       </div>
       <div className="fund-track-legend">
         <span>
-          <i className="fund-dot fund-dot-spent" aria-hidden="true" /> செலவிடப்பட்டது {percent}%
+          <i className="fund-dot fund-dot-spent" aria-hidden="true" /> செலவிடப்பட்டது
         </span>
         <span>
-          <i className="fund-dot fund-dot-balance" aria-hidden="true" /> கையிருப்பு {100 - percent}%
+          <i className="fund-dot fund-dot-balance" aria-hidden="true" /> கையிருப்பு
         </span>
       </div>
       <p className="fund-updated">இறுதியாக இற்றைப்படுத்தப்பட்ட திகதி: {formatDate(funds.updatedOn)}</p>

@@ -795,6 +795,13 @@ a.card:hover, .card-hover:hover {
   .nav-brand-crest { width: 34px; height: 34px; }
   .nav-brand-text small { font-size: 10px; }
 }
+/* Smallest phones (320px): keep the menu button on the same row as the name. */
+@media (max-width: 340px) {
+  .nav { padding-right: 8px; }
+  .nav-brand { gap: 6px; }
+  .nav-brand-crest { width: 30px; height: 30px; }
+  .nav-toggle { margin-left: 4px; }
+}
 .nav-links { display: flex; align-items: center; flex-wrap: wrap; gap: 2px; }
 .nav-link {
   padding: 8px 14px;
