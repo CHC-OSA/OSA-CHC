@@ -58,6 +58,7 @@ export const CONSTRUCTION_LABELS = {
 
 // `bays` is the phase's slice of the 10 classrooms on each floor, left to right as in the model picture.
 // `funded` is how many of the phase's classrooms have their funds raised; they are ticked in number order.
+// `floorConstruction` (optional) overrides the phase status for a whole floor: { 0: ground, 1: first, 2: second }.
 // `updateCaptions` is optional: { "2026-10-01": "ஒரு வரி விளக்கம்" }.
 export const PHASES = [
   {
@@ -69,6 +70,8 @@ export const PHASES = [
     scope: { classrooms: 9, staircases: 1, washrooms: 3 },
     bays: [1, 2, 3],
     funded: 9,
+    // The second floor (இரண்டாம் மாடி) has not been started yet; the first floor is under construction.
+    floorConstruction: { 2: "pending" },
     updateCaptions: {},
   },
   {
@@ -115,7 +118,7 @@ export const CLASSROOMS = PHASES.flatMap((phase, p) => {
         bay,
         number,
         phase: phase.id,
-        construction: phase.status === "planned" ? "pending" : phase.status,
+        construction: phase.floorConstruction?.[floor] ?? (phase.status === "planned" ? "pending" : phase.status),
         booked: number - firstNumber < (phase.funded ?? 0),
         ...CLASSROOM_OVERRIDES[number],
       };
