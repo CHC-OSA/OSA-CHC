@@ -60,6 +60,20 @@ export default function Home() {
         </section>
 
         <section className="page-section">
+          <div className="cta-band">
+            <div>
+              <span className="eyebrow">புதிய கட்டுமானத் திட்டம்</span>
+              <h2>30 வகுப்பறைகளை உள்ளடக்கிய மூன்று மாடிக் கட்டடம் உருவாகி வருகின்றது.</h2>
+            </div>
+            <div className="cta-band-actions">
+              <Button as="link" to="/building" variant="light">
+                தற்போதைய நிலையை அறிய <Icon icon={ArrowRight02Icon} />
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <section className="page-section">
           <div className="section-head">
             <h2 className="section-title">ஏன் உறுப்பினராக வேண்டும்?</h2>
           </div>

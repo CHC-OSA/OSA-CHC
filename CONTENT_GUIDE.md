@@ -329,7 +329,56 @@ Cards sit side by side and stretch to the tallest one, so the text on them has f
 
 ---
 
-## 7. Before you're done
+## 7. Updating the new building page (`/building`)
+
+Everything on the building pages comes from **`src/data/building.js`** plus two photo folders. Nothing else needs touching.
+
+**Mark classrooms as funded.** In `PHASES`, set the phase's `funded` to the number of its classrooms whose funds have been raised (Phase 1 has 9 classrooms, Phase 2 has 12, Phase 3 has 9). The site ticks that many classrooms, in number order. Only the count is shown — **never add who funded a classroom**; that is handled internally and is not published.
+
+**Mark a classroom's construction as completed.** Find `CLASSROOM_OVERRIDES` and add a line keyed by the classroom number shown on the site (Phase 1 = 1–9, Phase 2 = 10–21, Phase 3 = 22–30). The same place can also tick or untick one particular classroom if the count above is not enough.
+
+```js
+const CLASSROOM_OVERRIDES = {
+  1: { construction: "completed" },
+  12: { booked: true },
+};
+```
+
+**Change a phase's status.** In `PHASES`, change the phase's `status` when its construction starts or finishes (`"planned"` → `"ongoing"` → `"completed"`); its classrooms follow automatically. Set `donationsOpen` to `true` / `false` to show or hide the "bookings open" notice.
+
+**Add construction site photos (monthly / biweekly).** Create a folder named with the date the photos were taken and drop the photos in:
+
+```
+src/assets/building/updates/phase-1/2026-10-15/1.jpg
+src/assets/building/updates/phase-1/2026-10-15/2.jpg
+```
+
+The folder name must be `YYYY-MM-DD`. The newest date shows first automatically. To add a one-line description, add it to that phase's `updateCaptions`: `{ "2026-10-15": "முதலாம் மாடித் தளம் இடப்பட்டது" }`.
+
+**Update the money figures (நிதி நிலைமை).** Copy three numbers from the treasurer's project snapshot into `FUNDS`, without commas: total donations, interest earned after withholding tax, and total expenses. Set `updatedOn` to the snapshot date as `YYYY-MM-DD`; it is shown in small print under the totals. The site adds donations and interest to get the total, and subtracts the expenses to get the balance — check that both match the snapshot.
+
+```js
+export const FUNDS = {
+  donations: 70377777.22,
+  interest: 8872609.06,
+  spent: 25988544.56,
+  updatedOn: "2026-10-27",
+};
+```
+
+**Add a donor and receipt.** The donor lists are switched off until they are ready: the button on each phase page is greyed out with a "விரைவில் வெளியிடப்படும்" tag. Set `DONOR_LISTS_PUBLISHED` to `true` in `src/data/building.js` when the lists are ready. Save the receipt as an image in `src/assets/building/receipts/phase-<n>/`, then add the donor to that phase's list in `DONORS` (newest first). `amount`, `date` and `receipt` are optional.
+
+```js
+2: [
+  { name: "திரு. க. பெயர்", date: "2026 ஐப்பசி 10", amount: 500000, receipt: "001.jpg" },
+],
+```
+
+> Receipt images become **publicly viewable and downloadable** once the site is published. Only add a receipt with the donor's consent, and cover any personal details (NIC, address, account numbers) before saving the image.
+
+---
+
+## 8. Before you're done
 
 - Run `npm run dev` and check:
   - The new entry shows up correctly on `/events`, `/developments`, or `/gallery`.

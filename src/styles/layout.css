@@ -55,10 +55,16 @@
   .page-hero { padding-bottom: 100px; }
   .page-hero-compact { padding-bottom: 64px; }
   .page-hero-lead { font-size: 15.5px; }
+  .page-hero h1 { font-size: clamp(24px, 7.5vw, 30px); }
+  .panel-title { gap: 12px; margin-bottom: 20px; font-size: 19px; }
+  .panel-title .icon-badge { width: 40px; height: 40px; font-size: 18px; }
   .home { padding-bottom: 72px; }
 }
+@media (max-width: 400px) {
+  .panel-title { font-size: 17px; overflow-wrap: anywhere; }
+}
 
-@media (max-width: 1300px) {
+@media (max-width: 1440px) {
   .nav-links {
     display: none;
     order: 3;
