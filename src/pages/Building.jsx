@@ -64,7 +64,7 @@ export default function Building() {
           </h2>
           <div className="build-summary">
             <ProgressBar label="கட்டுமானம் பூர்த்தியான வகுப்பறைகள்" value={stats.completed} total={stats.total} />
-            <ProgressBar label="நிதி திரட்டப்பட்டுள்ள வகுப்பறைகள்" value={stats.booked} total={stats.total} />
+            <ProgressBar label="நிதி அனுசரணை உறுதி செய்யப்பட்ட வகுப்பறைகள்" value={stats.booked} total={stats.total} />
           </div>
           <ClassroomGrid classrooms={CLASSROOMS} />
         </section>

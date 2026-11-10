@@ -35,7 +35,7 @@ export default function ClassroomGrid({ classrooms }) {
                     .filter((room) => room.phase === phase.id && room.floor === floor)
                     .map((room) => {
                       const label = `வகுப்பறை ${room.number} — ${FLOOR_LABELS[room.floor]} — ${CONSTRUCTION_LABELS[room.construction]} — ${
-                        room.booked ? "நிதி திரட்டப்பட்டுள்ளது" : "நிதி திரட்டப்படவில்லை"
+                        room.booked ? "நிதி அனுசரணை உறுதி செய்யப்பட்டுள்ளது" : "நிதி அனுசரணை உறுதி செய்யப்படவில்லை"
                       }`;
                       return (
                         <div key={room.id} className={`room room-${room.construction}${room.booked ? " is-booked" : ""}`} role="img" aria-label={label} title={label}>
@@ -70,7 +70,7 @@ export default function ClassroomGrid({ classrooms }) {
           <span className="room-booked" aria-hidden="true">
             <Icon icon={Tick02Icon} strokeWidth={3} />
           </span>{" "}
-          நிதி திரட்டப்பட்டுள்ளது
+          நிதி அனுசரணை உறுதி செய்யப்பட்டுள்ளது
         </li>
       </ul>
     </div>

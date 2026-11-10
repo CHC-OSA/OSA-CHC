@@ -20,7 +20,7 @@ export default function PhaseCard({ phase }) {
       <p className="card-body">{phase.summary}</p>
       {phase.donationsOpen && <span className="tag tag-accent phase-card-open">முன்பதிவுகள் ஏற்றுக்கொள்ளப்படுகின்றன</span>}
       <ProgressBar label="கட்டுமானம் பூர்த்தியான வகுப்பறைகள்" value={stats.completed} total={stats.total} />
-      <ProgressBar label="நிதி திரட்டப்பட்டுள்ள வகுப்பறைகள்" value={stats.booked} total={stats.total} />
+      <ProgressBar label="நிதி அனுசரணை உறுதி செய்யப்பட்ட வகுப்பறைகள்" value={stats.booked} total={stats.total} />
       <div className="card-footer">
         <Link to={to} className="link-arrow">
           மேலதிக விபரங்கள் <Icon icon={ArrowRight02Icon} />
