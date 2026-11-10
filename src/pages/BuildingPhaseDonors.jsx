@@ -1,9 +1,9 @@
 import { useParams } from "react-router";
-import { HugeiconsIcon } from "@hugeicons/react";
 import { CharityIcon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import DonorList from "../components/building/DonorList";
-import { getDonorsByPhase, getPhaseById } from "../data/building";
+import { DONOR_LISTS_PUBLISHED, getDonorsByPhase, getPhaseById } from "../data/building";
 import "../styles/building.css";
 
 export default function BuildingPhaseDonors() {
@@ -29,11 +29,11 @@ export default function BuildingPhaseDonors() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <HugeiconsIcon icon={CharityIcon} size={22} strokeWidth={1.8} />
+              <Icon icon={CharityIcon} />
             </span>
             {phase.title} — நன்கொடையாளர் பட்டியல்
           </h2>
-          {donors.length > 0 ? (
+          {DONOR_LISTS_PUBLISHED && donors.length > 0 ? (
             <DonorList donors={donors} />
           ) : (
             <p className="text-muted" style={{ margin: 0 }}>

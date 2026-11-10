@@ -16,13 +16,18 @@ export const BUILDING = {
   foundationEventId: "foundation-stone-2026",
 };
 
-// Money summary shown on the main page. Amounts are whole rupees; `updatedOn` is YYYY-MM-DD — change it whenever the amounts change.
-// SAMPLE FIGURES — replace with the real amounts before publishing.
+// Money summary shown on the main page, copied from the treasurer's project snapshot. Amounts are in rupees and may
+// have cents; `updatedOn` is the snapshot date as YYYY-MM-DD and is shown under the totals.
+// donations + interest = total funds; total funds - spent = balance in hand.
 export const FUNDS = {
-  collected: 12500000,
-  spent: 8750000,
-  updatedOn: "2026-10-11",
+  donations: 70377777.22,
+  interest: 8872609.06, // savings and fixed-deposit interest, after withholding tax
+  spent: 25988544.56,
+  updatedOn: "2026-10-27",
 };
+
+// Set to true once the donor lists and receipts are ready to publish; until then the button is disabled.
+export const DONOR_LISTS_PUBLISHED = false;
 
 export const FLOOR_LABELS = ["தரைத் தளம்", "முதலாம் மாடி", "இரண்டாம் மாடி"];
 
@@ -52,6 +57,7 @@ export const CONSTRUCTION_LABELS = {
 };
 
 // `bays` is the phase's slice of the 10 classrooms on each floor, left to right as in the model picture.
+// `funded` is how many of the phase's classrooms have their funds raised; they are ticked in number order.
 // `updateCaptions` is optional: { "2026-10-01": "ஒரு வரி விளக்கம்" }.
 export const PHASES = [
   {
@@ -62,6 +68,7 @@ export const PHASES = [
     summary: "9 வகுப்பறைகள், ஒரு படிக்கட்டுத் தொகுதி மற்றும் 3 கழிவறைத் தொகுதிகளை உள்ளடக்கியது. அத்திவாரப் பணிகள் பூர்த்தியடைந்து, கட்டுமானப் பணிகள் தற்போது முன்னெடுக்கப்பட்டு வருகின்றன.",
     scope: { classrooms: 9, staircases: 1, washrooms: 3 },
     bays: [1, 2, 3],
+    funded: 9,
     updateCaptions: {},
   },
   {
@@ -72,6 +79,7 @@ export const PHASES = [
     summary: "12 வகுப்பறைகளையும் ஒரு படிக்கட்டுத் தொகுதியையும் உள்ளடக்கியது. இக்கட்டத்திற்கான வகுப்பறை முன்பதிவுகள் தற்போது ஏற்றுக்கொள்ளப்படுகின்றன.",
     scope: { classrooms: 12, staircases: 1, washrooms: 0 },
     bays: [4, 5, 6, 7],
+    funded: 7,
     updateCaptions: {},
   },
   {
@@ -82,13 +90,14 @@ export const PHASES = [
     summary: "9 வகுப்பறைகளையும் 3 கழிவறைத் தொகுதிகளையும் உள்ளடக்கியது.",
     scope: { classrooms: 9, staircases: 0, washrooms: 3 },
     bays: [8, 9, 10],
+    funded: 0,
     updateCaptions: {},
   },
 ];
 
 // The only place to edit a single classroom. Key is the classroom number shown on the site: numbered phase by phase
 // (Phase 1 = 1–9, Phase 2 = 10–21, Phase 3 = 22–30), ground floor first, left to right.
-// `booked: true` marks it as booked; `construction` overrides the phase default ("pending" | "ongoing" | "completed").
+// Usually leave this empty and change a phase's `funded` count instead. `booked: true / false` overrides that count; `construction` overrides the phase default ("pending" | "ongoing" | "completed").
 // Who booked a classroom is deliberately not recorded here — the site only shows booked / not booked.
 const CLASSROOM_OVERRIDES = {
   // 10: { booked: true },
@@ -107,7 +116,7 @@ export const CLASSROOMS = PHASES.flatMap((phase, p) => {
         number,
         phase: phase.id,
         construction: phase.status === "planned" ? "pending" : phase.status,
-        booked: false,
+        booked: number - firstNumber < (phase.funded ?? 0),
         ...CLASSROOM_OVERRIDES[number],
       };
     })
@@ -117,11 +126,7 @@ export const CLASSROOMS = PHASES.flatMap((phase, p) => {
 // Per phase, newest first. `receipt` is a file name inside src/assets/building/receipts/phase-<n>/.
 // { name: "திரு. க. பெயர்", date: "2026 ஐப்பசி 10", amount: 500000, receipt: "001.jpg" }
 const DONORS = {
-  // SAMPLE DONORS — replace with the real donors and receipts before publishing.
-  1: [
-    { name: "மாதிரி நன்கொடையாளர் 1", date: "2026 ஐப்பசி 10", amount: 500000, receipt: "sample-001.jpeg" },
-    { name: "மாதிரி நன்கொடையாளர் 2", date: "2026 ஐப்பசி 09", amount: 250000, receipt: "sample-002.jpeg" },
-  ],
+  1: [],
   2: [],
   3: [],
 };
@@ -163,6 +168,13 @@ export function getSiteUpdates(phaseId) {
     }));
 }
 
-export const formatRupees = (amount) => `ரூ. ${amount.toLocaleString("en-LK")}`;
+// Digits only, with cents when the amount has them: 79250386.28 → "79,250,386.28".
+export const formatAmount = (amount) =>
+  amount.toLocaleString("en-LK", { minimumFractionDigits: Number.isInteger(amount) ? 0 : 2, maximumFractionDigits: 2 });
+
+export const formatRupees = (amount) => `ரூபா ${formatAmount(amount)}`;
+
+// Sums in cents so that adding and subtracting rupee amounts does not pick up floating-point dust.
+export const addRupees = (...amounts) => Math.round(amounts.reduce((sum, amount) => sum + Math.round(amount * 100), 0)) / 100;
 
 export const formatDate = (isoDate) => isoDate.split("-").reverse().join(".");

@@ -1,14 +1,13 @@
 import { useParams } from "react-router";
-import { FiArrowRight } from "react-icons/fi";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { Camera01Icon, CharityIcon, CraneIcon, DashboardSquare01Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight02Icon, Camera01Icon, CharityIcon, CraneIcon, DashboardSquare01Icon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import Button from "../components/ui/Button";
 import ClassroomGrid from "../components/building/ClassroomGrid";
 import ProgressBar from "../components/building/ProgressBar";
 import SiteUpdates from "../components/building/SiteUpdates";
 import { CONTACT_INFO } from "../data/constants";
-import { PHASE_STATUS_LABELS, getClassroomStats, getClassroomsByPhase, getPhaseById, getSiteUpdates } from "../data/building";
+import { DONOR_LISTS_PUBLISHED, PHASE_STATUS_LABELS, getClassroomStats, getClassroomsByPhase, getPhaseById, getSiteUpdates } from "../data/building";
 import "../styles/building.css";
 
 const BACK = { to: "/building", label: "கட்டடத் திட்டத்திற்குத் திரும்பு" };
@@ -41,7 +40,7 @@ export default function BuildingPhase() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <HugeiconsIcon icon={CraneIcon} size={22} strokeWidth={1.8} />
+              <Icon icon={CraneIcon} />
             </span>
             இக்கட்டத்தில் அமைக்கப்படுபவை
           </h2>
@@ -57,7 +56,7 @@ export default function BuildingPhase() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <HugeiconsIcon icon={DashboardSquare01Icon} size={22} strokeWidth={1.8} />
+              <Icon icon={DashboardSquare01Icon} />
             </span>
             வகுப்பறைகளின் தற்போதைய நிலை
           </h2>
@@ -71,7 +70,7 @@ export default function BuildingPhase() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <HugeiconsIcon icon={Camera01Icon} size={22} strokeWidth={1.8} />
+              <Icon icon={Camera01Icon} />
             </span>
             கட்டுமானப் பணிகளின் புகைப்படங்கள்
           </h2>
@@ -81,7 +80,7 @@ export default function BuildingPhase() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <HugeiconsIcon icon={CharityIcon} size={22} strokeWidth={1.8} />
+              <Icon icon={CharityIcon} />
             </span>
             நன்கொடைகள்
           </h2>
@@ -93,9 +92,18 @@ export default function BuildingPhase() {
             </p>
           )}
           <div className="build-actions">
-            <Button as="link" to={`/building/phase/${phase.id}/donors`} variant="primary">
-              நன்கொடையாளர் விபரங்களும் பற்றுச்சீட்டுகளும் <FiArrowRight aria-hidden="true" />
-            </Button>
+            {DONOR_LISTS_PUBLISHED ? (
+              <Button as="link" to={`/building/phase/${phase.id}/donors`} variant="primary">
+                நன்கொடையாளர் விபரங்களும் பற்றுச்சீட்டுகளும் <Icon icon={ArrowRight02Icon} />
+              </Button>
+            ) : (
+              <>
+                <Button variant="primary" disabled>
+                  நன்கொடையாளர் விபரங்களும் பற்றுச்சீட்டுகளும்
+                </Button>
+                <span className="tag tag-accent-2">விரைவில் வெளியிடப்படும்</span>
+              </>
+            )}
             {phase.donationsOpen && (
               <Button as="link" to="/contact" variant="secondary">
                 தொடர்பு கொள்ள

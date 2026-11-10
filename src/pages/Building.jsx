@@ -1,7 +1,6 @@
 import { Link } from "react-router";
-import { FiArrowRight } from "react-icons/fi";
-import { HugeiconsIcon } from "@hugeicons/react";
-import { DashboardSquare01Icon, MoneyBag02Icon, School01Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight02Icon, DashboardSquare01Icon, MoneyBag02Icon, School01Icon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import FundSummary from "../components/building/FundSummary";
@@ -32,7 +31,7 @@ export default function Building() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <HugeiconsIcon icon={School01Icon} size={22} strokeWidth={1.8} />
+              <Icon icon={School01Icon} />
             </span>
             திட்டம் பற்றிய அறிமுகம்
           </h2>
@@ -42,14 +41,14 @@ export default function Building() {
             </p>
           ))}
           <Link to={`/events/${BUILDING.foundationEventId}`} className="link-arrow">
-            அடிக்கல் நாட்டும் விழா <FiArrowRight aria-hidden="true" />
+            அடிக்கல் நாட்டும் விழா <Icon icon={ArrowRight02Icon} />
           </Link>
         </section>
 
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <HugeiconsIcon icon={MoneyBag02Icon} size={22} strokeWidth={1.8} />
+              <Icon icon={MoneyBag02Icon} />
             </span>
             நிதி நிலைமை
           </h2>
@@ -59,7 +58,7 @@ export default function Building() {
         <section className="panel">
           <h2 className="panel-title">
             <span className="icon-badge" aria-hidden="true">
-              <HugeiconsIcon icon={DashboardSquare01Icon} size={22} strokeWidth={1.8} />
+              <Icon icon={DashboardSquare01Icon} />
             </span>
             வகுப்பறைகளின் தற்போதைய நிலை
           </h2>

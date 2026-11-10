@@ -24,6 +24,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0;
   margin: 0 0 var(--space-2);
   text-wrap: balance; /* even line lengths, so a long Tamil title never leaves one word alone on the last line */
+  overflow-wrap: break-word; /* last resort on narrow phones: break a single long word rather than widen the page */
 }
 h1 { font-size: 42px; }
 h2 { font-size: 30px; }

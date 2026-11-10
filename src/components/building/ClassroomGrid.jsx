@@ -1,8 +1,19 @@
-import { HugeiconsIcon } from "@hugeicons/react";
 import { Tick02Icon } from "@hugeicons/core-free-icons";
+import Icon from "../ui/Icon";
 import { CONSTRUCTION_LABELS, FLOOR_LABELS, PHASES } from "../../data/building";
 
 const FLOORS_TOP_DOWN = [2, 1, 0];
+
+// Floor names beside the cells: one shared column on wide screens, repeated beside each phase on phones.
+function FloorLabels({ inline = false }) {
+  return (
+    <div className={`room-floors${inline ? " room-floors-inline" : " room-floors-shared"}`} aria-hidden="true">
+      {FLOORS_TOP_DOWN.map((floor) => (
+        <span key={floor}>{FLOOR_LABELS[floor]}</span>
+      ))}
+    </div>
+  );
+}
 
 // The building's front, classrooms only: one row per floor, one block per phase.
 export default function ClassroomGrid({ classrooms }) {
@@ -11,15 +22,13 @@ export default function ClassroomGrid({ classrooms }) {
   return (
     <div className="room-grid-wrap">
       <div className="room-grid-scroll">
-        <div className="room-grid" style={{ minWidth: 130 + (classrooms.length / 3) * 40 }}>
-          <div className="room-floors" aria-hidden="true">
-            {FLOORS_TOP_DOWN.map((floor) => (
-              <span key={floor}>{FLOOR_LABELS[floor]}</span>
-            ))}
-          </div>
+        <div className="room-grid" style={{ "--room-grid-min": `${130 + (classrooms.length / 3) * 40}px` }}>
+          <FloorLabels />
           {phases.map((phase) => (
             <div key={phase.id} className="room-phase" style={{ flexGrow: phase.bays.length }}>
               <p className="room-phase-title">{phase.title}</p>
+              <div className="room-phase-body">
+                <FloorLabels inline />
               <div className="room-cells" style={{ gridTemplateColumns: `repeat(${phase.bays.length}, minmax(0, 1fr))` }}>
                 {FLOORS_TOP_DOWN.flatMap((floor) =>
                   classrooms
@@ -33,13 +42,14 @@ export default function ClassroomGrid({ classrooms }) {
                           {room.number}
                           {room.booked && (
                             <span className="room-booked" aria-hidden="true">
-                              <HugeiconsIcon icon={Tick02Icon} size={13} strokeWidth={3} />
+                              <Icon icon={Tick02Icon} strokeWidth={3} />
                             </span>
                           )}
                         </div>
                       );
                     })
                 )}
+              </div>
               </div>
             </div>
           ))}
@@ -58,7 +68,7 @@ export default function ClassroomGrid({ classrooms }) {
         </li>
         <li>
           <span className="room-booked" aria-hidden="true">
-            <HugeiconsIcon icon={Tick02Icon} size={13} strokeWidth={3} />
+            <Icon icon={Tick02Icon} strokeWidth={3} />
           </span>{" "}
           நிதி திரட்டப்பட்டுள்ளது
         </li>
