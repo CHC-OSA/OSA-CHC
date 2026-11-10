@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import { FiArrowRight, FiCalendar, FiImage } from "react-icons/fi";
+import { ArrowRight02Icon, Calendar03Icon, Image01Icon } from "@hugeicons/core-free-icons";
+import Icon from "../ui/Icon";
 import PlaceholderImage from "../ui/PlaceholderImage";
 
 export function GalleryAlbumCard({ album }) {
@@ -19,7 +20,7 @@ export function GalleryAlbumCard({ album }) {
         <PlaceholderImage
           shape="rect"
           aspectRatio="16/10"
-          caption="புகைப்படத் தொகுப்பு அட்டைப்படம்"
+          caption="படத்தொகுப்பு முகப்புப் படம்"
           src={album.cover}
           alt=""
           style={contain ? { objectFit: "contain" } : undefined}
@@ -31,16 +32,16 @@ export function GalleryAlbumCard({ album }) {
         </h3>
         {album.date ? (
           <p className="card-meta">
-            <FiCalendar aria-hidden="true" /> {album.date}
+            <Icon icon={Calendar03Icon} /> {album.date}
           </p>
         ) : (
           <p className="card-meta">
-            <FiImage aria-hidden="true" /> {count > 0 ? `${count} புகைப்படங்கள்` : "விரைவில் புகைப்படங்கள்"}
+            <Icon icon={Image01Icon} /> {count > 0 ? `${count} புகைப்படங்கள்` : "புகைப்படங்கள் விரைவில் இணைக்கப்படும்"}
           </p>
         )}
         <div className="card-footer">
           <Link to={to} className="link-arrow">
-            முழு புகைப்படங்களைக் காண <FiArrowRight aria-hidden="true" />
+            அனைத்துப் புகைப்படங்கள் <Icon icon={ArrowRight02Icon} />
           </Link>
         </div>
       </div>

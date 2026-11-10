@@ -1,5 +1,6 @@
 import { Link } from "react-router";
-import { FiArrowLeft } from "react-icons/fi";
+import { ArrowLeft02Icon } from "@hugeicons/core-free-icons";
+import Icon from "../ui/Icon";
 
 // Blue banner at the top of every inner page; the page's first cards overlap its bottom edge (.page-body).
 // `compact` is for pages with no cards below the banner.
@@ -9,7 +10,7 @@ export default function PageHero({ eyebrow, title, lead, back, compact = false, 
       <div className="container page-hero-inner">
         {back && (
           <Link to={back.to} className="page-back">
-            <FiArrowLeft aria-hidden="true" /> {back.label}
+            <Icon icon={ArrowLeft02Icon} /> {back.label}
           </Link>
         )}
         {eyebrow && <span className="eyebrow">{eyebrow}</span>}

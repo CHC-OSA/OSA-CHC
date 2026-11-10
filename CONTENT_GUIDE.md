@@ -32,9 +32,9 @@ Open `src/data/events.js`. It exports one array called `EVENTS`. Each event is a
 |---|---|---|
 | `id` | Yes | A short, unique, URL-safe identifier — **lowercase English letters, numbers, and hyphens only, no spaces**. This becomes the page URL (`/events/<id>`) and, if you add photos, the name of the photo folder (see §2). Example: `"annual-sports-day-2027"`. |
 | `kicker` | Yes | A short label shown above the title (e.g. `"நிகழ்வு"`, `"சாதனை"`, `"அறிவிப்பு"`, `"செய்தி"`, `"நன்கொடை"`). Free text — pick whatever best describes the entry. |
-| `title` | Yes | The headline, shown on the card and detail page. |
-| `body` | Yes | A 1–2 sentence summary, shown on the card. |
-| `meta` | Yes | A short date or status line shown on the card (e.g. `"2026 டிசம்பர் 06"` or `"விண்ணப்பம் திறந்துள்ளது"`). Free text, not a strict date field. |
+| `title` | Yes | The headline, shown on the card and detail page. **At most 45 characters.** |
+| `body` | Yes | One sentence shown on the card, written from `long`. **90–110 characters** — see "Card text lengths" in §6. |
+| `meta` | Yes | A short date or status line shown on the card (e.g. `"2026 மார்கழி 06"` or `"விண்ணப்பம் திறந்துள்ளது"`). Free text, not a strict date field. |
 | `long` | Yes | The full paragraph shown on the event's own detail page. |
 | `image` | No | Cover photo for the card — see §2. |
 | `gallery` | No | Up to 3 photos for the detail page — see §2. |
@@ -50,7 +50,7 @@ Open `src/data/events.js`. It exports one array called `EVENTS`. Each event is a
   kicker: "நிகழ்வு",
   title: "தலைப்பு இங்கே",
   body: "ஓரிரு வாக்கியச் சுருக்கம் இங்கே.",
-  meta: "2026 டிசம்பர் 25",
+  meta: "2026 மார்கழி 25",
   long: "முழு விபரம் இங்கே — ஒரு பத்தி அளவு.",
 },
 ```
@@ -96,7 +96,7 @@ import sportsPhoto2 from "../assets/events/annual-sports-day-2027/photo-2.jpg";
   kicker: "நிகழ்வு",
   title: "விளையாட்டு விழா 2027",
   body: "...",
-  meta: "2027 அக்டோபர் 20",
+  meta: "2027 ஐப்பசி 20",
   long: "...",
   image: sportsCover,
   gallery: [sportsPhoto1, sportsPhoto2],
@@ -113,9 +113,10 @@ Open `src/data/developments.js`. It exports one array called `DEVELOPMENTS`. Eac
 |---|---|---|
 | `id` | Yes | Same rules as Events — short, unique, lowercase-hyphenated, English only. Becomes `/developments/<id>` and the photo folder name. |
 | `kicker` | Yes | A short category label (e.g. `"கல்வி உட்கட்டமைப்பு"`, `"நலவாழ்வு"`). |
-| `title` | Yes | The project name. |
+| `title` | Yes | The project name. **At most 45 characters.** |
 | `status` | Yes | **Must be exactly one of:** `"ongoing"`, `"completed"`, or `"planned"` (these three values only — anything else will show a broken badge). |
-| `summary` | Yes | A 1–2 sentence description shown on the card and detail page. |
+| `summary` | Yes | One sentence shown on the card. **90–110 characters** — see "Card text lengths" in §6. Also the detail page intro when there is no `long`. |
+| `long` | No | The full description shown as the detail page intro. Add it when the project needs more than the card summary can hold. |
 | `timeline` | Yes | An array of progress updates, oldest first (see below). |
 | `image` | No | Cover/banner photo — see §4. |
 
@@ -123,12 +124,14 @@ Each entry in `timeline` is an object:
 
 ```js
 {
-  date: "2026 சனவரி 20",
-  label: "அடிக்கல் நாட்டல் விழா",
+  date: "2026 தை 20",
+  label: "அடிக்கல் நாட்டு விழா",
   description: "ஒரு வாக்கிய விளக்கம் இங்கே.",
   photos: [],  // optional — see "Adding photos to a timeline stage" below
 }
 ```
+
+Keep `label` to **at most 40 characters**: the newest one is shown on the card as the "latest update".
 
 Add new timeline entries to the **end** of a development's `timeline` array (oldest → newest), since the detail page shows them in that order and the card shows the *last* entry as the "latest update."
 
@@ -142,10 +145,11 @@ Add new timeline entries to the **end** of a development's `timeline` array (old
   kicker: "வகைப்பாடு இங்கே",
   title: "திட்டத்தின் பெயர்",
   status: "planned",
-  summary: "ஓரிரு வாக்கியச் சுருக்கம் இங்கே.",
+  summary: "அட்டையில் காட்டப்படும் ஒரு வாக்கியச் சுருக்கம் (90–110 எழுத்துகள்).",
+  long: "விபரப் பக்கத்தில் காட்டப்படும் முழு விளக்கம் (விரும்பினால்).",
   timeline: [
     {
-      date: "2026 டிசம்பர் 01",
+      date: "2026 மார்கழி 01",
       label: "திட்டம் அறிமுகப்படுத்தப்பட்டது",
       description: "ஒரு வாக்கிய விளக்கம் இங்கே.",
     },
@@ -206,7 +210,7 @@ import stage1Photo2 from "../assets/developments/science-lab/stage-1/2.jpg";
 
 ```js
 {
-  date: "2025 நவம்பர் 10",
+  date: "2025 கார்த்திகை 10",
   label: "திட்டம் அங்கீகரிக்கப்பட்டது",
   description: "...",
   photos: [stage1Photo1, stage1Photo2],
@@ -245,7 +249,7 @@ src/assets/gallery/<album-id>/photo-03.jpg
 
 ```js
 const ALBUMS = [
-  { id: "founders-day-2027", caption: "நிறுவனர் தினம் 2027", date: "2027 ஆனி 12" },
+  { id: "founders-day-2027", caption: "நிறுவுநர் தினம் 2027", date: "2027 ஆனி 12" },
   // ...existing albums
 ];
 ```
@@ -264,7 +268,7 @@ Every album always shows, in array order — put new albums at the top to keep t
 ```js
 {
   id: "founders-day-2027",
-  caption: "நிறுவனர் தினம் 2027",
+  caption: "நிறுவுநர் தினம் 2027",
   date: "2027 ஆனி 12",
   cover: "https://example.com/founders-day-2027/cover.jpg",
   photos: ["https://example.com/founders-day-2027/photo-01.jpg", "https://example.com/founders-day-2027/photo-02.jpg"],
@@ -275,21 +279,70 @@ Use a real image host for this (e.g. Cloudinary or Cloudflare R2). Google Drive 
 
 ---
 
-## 6. Updating the new building page (`/building`)
+## 6. Writing style for Tamil text
+
+The site uses one register throughout: formal Sri Lankan Tamil. Keep new entries consistent with it.
+
+**Fixed terms**
+
+| Concept | Use | Avoid |
+|---|---|---|
+| School name | சாவகச்சேரி இந்துக் கல்லூரி | இந்துக்கல்லூரி |
+| Association | பழைய மாணவர் ஆசிரியர் சங்கம் | பழைய மாணவர் சங்கம், OSA, OSTA |
+| Membership / fee | உறுப்புரிமை / உறுப்புரிமைக் கட்டணம் | அங்கத்துவம், சந்தா |
+| Founded / founder | நிறுவப்பட்டது / நிறுவுநர் | ஸ்தாபிக்கப்பட்டது, ஸ்தாபகர் |
+| Expanded | விரிவாக்கப்பட்ட | விஸ்தரிக்கப்பட்ட |
+| Timeline | காலவரிசை | காலவரைவு |
+| Recent | அண்மைய | சமீபத்திய |
+| Official | உத்தியோகபூர்வ | அதிகாரப்பூர்வ |
+| Building / computer | கட்டடம் / கணினி | கட்டிடம் / கணனி |
+| Handover | கையளிப்பு | ஒப்படைப்பு |
+| Exam year groups | க.பொ.த (சா/த) 1997, க.பொ.த (உ/த) 2000 அணி | O/L, A/L |
+| Currency | ரூபா 250,000 | ரூ., LKR, `/-`, 2,50,000 |
+| Photo / gallery | புகைப்படம் / படத்தொகுப்பு | போட்டோ |
+
+**Card text lengths**
+
+Cards sit side by side and stretch to the tallest one, so the text on them has fixed limits. `npm run lint` fails when one is broken.
+
+| Field | Limit |
+|---|---|
+| `title` (events, developments) | at most 45 characters |
+| `body` (events), `summary` (developments) | 90–110 characters |
+| timeline `label` (developments) | at most 40 characters |
+
+- Every character counts, including spaces and punctuation.
+- Write `long` first, then write the card sentence from it: who did what for whom, plus the one detail that matters most (the amount, the number, or the donor).
+- It must be a complete sentence, not the first part of `long` cut short.
+- Leave full name lists, dates, venues and thanks in `long`.
+
+**Rules**
+
+- Instructions and buttons end in `-வும்` (உள்ளிடவும், அனுப்பவும்), or use a noun label (உறுப்பினர் பதிவு).
+- First person is எமது / எம்மை, not எங்கள் / எங்களை.
+- Passive verbs use `-ப்பட்டது`; plural subjects take `-ப்பட்டன`.
+- Join list items with `-உம் … -உம்` or `ஆகிய`, not `மற்றும்`.
+- Write about donors and guests in the third person. Leave out "இன்று", "கடந்த" and other wording that only made sense on the day.
+- Names: `திரு. ந. சர்வேஸ்வரன்` — a space after `திரு.` and after each initial.
+- Dates: Tamil month names, year first — `2026 ஐப்பசி 03`. (தை = January, மாசி = February, பங்குனி = March, சித்திரை = April, வைகாசி = May, ஆனி = June, ஆடி = July, ஆவணி = August, புரட்டாதி = September, ஐப்பசி = October, கார்த்திகை = November, மார்கழி = December.)
+- Keep Latin script for proper names only (e.g. WhatsApp, SK Construction).
+
+---
+
+## 7. Updating the new building page (`/building`)
 
 Everything on the building pages comes from **`src/data/building.js`** plus two photo folders. Nothing else needs touching.
 
-**Mark a classroom as booked or completed.** Find `CLASSROOM_OVERRIDES` and add a line. The key is the classroom number shown on the site (Phase 1 = 1–9, Phase 2 = 10–21, Phase 3 = 22–30).
+**Mark classrooms as funded.** In `PHASES`, set the phase's `funded` to the number of its classrooms whose funds have been raised (Phase 1 has 9 classrooms, Phase 2 has 12, Phase 3 has 9). The site ticks that many classrooms, in number order. Only the count is shown — **never add who funded a classroom**; that is handled internally and is not published.
+
+**Mark a classroom's construction as completed.** Find `CLASSROOM_OVERRIDES` and add a line keyed by the classroom number shown on the site (Phase 1 = 1–9, Phase 2 = 10–21, Phase 3 = 22–30). The same place can also tick or untick one particular classroom if the count above is not enough.
 
 ```js
 const CLASSROOM_OVERRIDES = {
-  10: { booked: true },
   1: { construction: "completed" },
-  5: { booked: true, construction: "completed" },
+  12: { booked: true },
 };
 ```
-
-The site only shows *booked / not booked*. **Do not add the name of whoever booked a classroom** — that is handled internally and is not published.
 
 **Change a phase's status.** In `PHASES`, change the phase's `status` when its construction starts or finishes (`"planned"` → `"ongoing"` → `"completed"`); its classrooms follow automatically. Set `donationsOpen` to `true` / `false` to show or hide the "bookings open" notice.
 
@@ -302,17 +355,18 @@ src/assets/building/updates/phase-1/2026-10-15/2.jpg
 
 The folder name must be `YYYY-MM-DD`. The newest date shows first automatically. To add a one-line description, add it to that phase's `updateCaptions`: `{ "2026-10-15": "முதலாம் மாடித் தளம் இடப்பட்டது" }`.
 
-**Update the money collected and spent.** Change the three values in `FUNDS`: `collected` and `spent` are whole rupees with no commas, and `updatedOn` is the date of the figures as `YYYY-MM-DD` (it is shown in small print under the totals).
+**Update the money figures (நிதி நிலைமை).** Copy three numbers from the treasurer's project snapshot into `FUNDS`, without commas: total donations, interest earned after withholding tax, and total expenses. Set `updatedOn` to the snapshot date as `YYYY-MM-DD`; it is shown in small print under the totals. The site adds donations and interest to get the total, and subtracts the expenses to get the balance — check that both match the snapshot.
 
 ```js
 export const FUNDS = {
-  collected: 12500000,
-  spent: 8750000,
-  updatedOn: "2026-10-11",
+  donations: 70377777.22,
+  interest: 8872609.06,
+  spent: 25988544.56,
+  updatedOn: "2026-10-27",
 };
 ```
 
-**Add a donor and receipt.** Save the receipt as an image in `src/assets/building/receipts/phase-<n>/`, then add the donor to that phase's list in `DONORS` (newest first). `amount`, `date` and `receipt` are optional.
+**Add a donor and receipt.** The donor lists are switched off until they are ready: the button on each phase page is greyed out with a "விரைவில் வெளியிடப்படும்" tag. Set `DONOR_LISTS_PUBLISHED` to `true` in `src/data/building.js` when the lists are ready. Save the receipt as an image in `src/assets/building/receipts/phase-<n>/`, then add the donor to that phase's list in `DONORS` (newest first). `amount`, `date` and `receipt` are optional.
 
 ```js
 2: [
@@ -324,7 +378,7 @@ export const FUNDS = {
 
 ---
 
-## 7. Before you're done
+## 8. Before you're done
 
 - Run `npm run dev` and check:
   - The new entry shows up correctly on `/events`, `/developments`, or `/gallery`.

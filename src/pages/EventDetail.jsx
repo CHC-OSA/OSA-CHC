@@ -1,17 +1,18 @@
 import { Link, useParams } from "react-router";
-import { FiArrowRight, FiCalendar } from "react-icons/fi";
+import { ArrowRight02Icon, Calendar03Icon } from "@hugeicons/core-free-icons";
+import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
 import { getEventById } from "../data/events";
 
-const BACK = { to: "/events", label: "நிகழ்வுகளுக்குத் திரும்பு" };
+const BACK = { to: "/events", label: "நிகழ்வுகளுக்குத் திரும்பவும்" };
 
 export default function EventDetail() {
   const { id } = useParams();
   const event = getEventById(id);
 
   if (!event) {
-    return <PageHero back={BACK} title="இந்த நிகழ்வு கிடைக்கவில்லை." compact />;
+    return <PageHero back={BACK} title="இந்நிகழ்வைக் காண முடியவில்லை." compact />;
   }
 
   return (
@@ -19,7 +20,7 @@ export default function EventDetail() {
       <PageHero back={BACK} eyebrow={event.kicker} title={event.title}>
         <div className="page-hero-chips">
           <span className="chip">
-            <FiCalendar aria-hidden="true" /> {event.meta}
+            <Icon icon={Calendar03Icon} /> {event.meta}
           </span>
         </div>
       </PageHero>
@@ -34,7 +35,7 @@ export default function EventDetail() {
           {event.album && (
             <div>
               <Link to={`/gallery/${event.album}`} className="link-arrow">
-                அனைத்துப் புகைப்படங்களையும் காண <FiArrowRight aria-hidden="true" />
+                அனைத்துப் புகைப்படங்கள் <Icon icon={ArrowRight02Icon} />
               </Link>
             </div>
           )}
