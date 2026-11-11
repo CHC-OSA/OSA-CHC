@@ -86,9 +86,9 @@ export default function Building() {
             <span className="icon-badge" aria-hidden="true">
               <Icon icon={UserGroupIcon} />
             </span>
-            செயற்றிட்டக் குழுக்கள்
+            செயற்திட்ட குழுக்கள்
           </h2>
-          <p className="build-note">இக்கட்டுமானத் திட்டத்தை முன்னெடுப்பதற்காகப் பின்வரும் குழுக்கள் நியமிக்கப்பட்டுள்ளன.</p>
+          <p className="build-note">இக் கட்டுமான செயற்திட்டத்தினை முன்னெடுத்துச் செல்வதில் பின்வரும் குழுக்கள் செயற்பட்டுவருகின்றன.</p>
           <CommitteeList coordinator={PROJECT_COORDINATOR} committees={COMMITTEES} />
         </section>
       </div>

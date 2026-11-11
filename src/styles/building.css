@@ -195,7 +195,7 @@
   display: flex;
   align-items: center;
   gap: 16px;
-  margin-bottom: 20px;
+  margin-top: 20px;
   padding: 18px 20px;
   border-radius: var(--radius-md);
   background: var(--color-accent-100);
