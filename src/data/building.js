@@ -51,7 +51,7 @@ export const COMMITTEES = [
     members: [
       { name: "C. Eng. T. Jegananthan", role: "தலைவர்", note: "Chartered Engineer" },
       { name: "C. Eng. K. Thirukumar", role: "உறுப்பினர்", note: "Chartered Engineer" },
-      { name: "C. Acc. T. Kalaiselvan", role: "உறுப்பினர்", note: "Chartered Accountant" },
+      { name: "C. Acc. T. Kalaiselvan", role: "உறுப்பினர்", note: "Chief Accountant" },
       { name: "K. Sayanthan", role: "உறுப்பினர்", note: "Senior Lawyer" },
       { name: "C. Eng. S. Kanarajan", role: "உறுப்பினர்", note: "Chartered Engineer" },
       { name: "C. Eng. T. Kobiram", role: "உறுப்பினர்", note: "Chartered Engineer" },
