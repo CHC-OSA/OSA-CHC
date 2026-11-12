@@ -26,6 +26,62 @@ export const FUNDS = {
   updatedOn: "2026-10-27",
 };
 
+// Committees appointed for the building project, in the order the committee sent them.
+// `role` is the position within the committee; `note` is the member's designation or other office (optional).
+// Technical committee names and designations are in English on purpose: the Tamil terms are not widely used.
+export const PROJECT_COORDINATOR = {
+  title: "செயற்திட்ட ஒருங்கிணைப்பாளர்",
+  name: "திரு. ந. ஜதுர்சன்",
+  note: "உறுப்பினர், பழைய மாணவர் சங்கம்",
+};
+
+export const COMMITTEES = [
+  {
+    id: "procurement",
+    title: "செயற்திட்ட பெறுகைக்குழு",
+    members: [
+      { name: "திரு. ந. சர்வேஸ்வரன்", role: "தலைவர்", note: "அதிபர், சாவகச்சேரி இந்துக் கல்லூரி" },
+      { name: "திரு. ஆ. தங்கவேலு", role: "உறுப்பினர்", note: "செயலாளர், பழைய மாணவர் சங்கம்" },
+      { name: "திரு. பு. குகானந்தன்", role: "உறுப்பினர்", note: "செயலாளர், பாடசாலை அபிவிருத்திச் சங்கம்" },
+    ],
+  },
+  {
+    id: "technical",
+    title: "தொழில்நுட்ப குழு",
+    members: [
+      { name: "C. Eng. T. Jegananthan", role: "தலைவர்", note: "Chartered Engineer" },
+      { name: "C. Eng. K. Thirukumar", role: "உறுப்பினர்", note: "Chartered Engineer" },
+      { name: "C. Acc. T. Kalaiselvan", role: "உறுப்பினர்", note: "Chief Accountant" },
+      { name: "K. Sayanthan", role: "உறுப்பினர்", note: "Senior Lawyer" },
+      { name: "C. Eng. S. Kanarajan", role: "உறுப்பினர்", note: "Chartered Engineer" },
+      { name: "C. Eng. T. Kobiram", role: "உறுப்பினர்", note: "Chartered Engineer" },
+      { name: "Eng. S. Sinthujan", role: "உறுப்பினர்", note: "Engineer" },
+    ],
+  },
+  {
+    id: "finance",
+    title: "நிதிக் குழு",
+    members: [
+      { name: "திரு. க. முரளி", role: "தலைவர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+      { name: "திரு. பொ. மனோகரன்", role: "உறுப்பினர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+      { name: "திரு. க. தர்சன்", role: "உறுப்பினர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+      { name: "திரு. யோ. அர்ச்சுனன்", role: "உறுப்பினர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+      { name: "திரு. க. எழிலாதவன்", role: "உறுப்பினர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+    ],
+  },
+  {
+    id: "audit",
+    title: "கணக்காய்வுக் குழு",
+    members: [
+      { name: "கலாநிதி வி. சிறீதரன்", role: "தலைவர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+      { name: "திரு. க. தசீதரன்", role: "உறுப்பினர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+      { name: "திரு. சு. சுமன்", role: "உறுப்பினர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+      { name: "திரு. வ. கௌசிகன்", role: "உறுப்பினர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+      { name: "திரு. ஆ. செந்தூரன்", role: "உறுப்பினர்", note: "உறுப்பினர், பழைய மாணவர் சங்கம்" },
+    ],
+  },
+];
+
 // Set to true once the donor lists and receipts are ready to publish; until then the button is disabled.
 export const DONOR_LISTS_PUBLISHED = false;
 

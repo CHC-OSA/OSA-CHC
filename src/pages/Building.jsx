@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { ArrowRight02Icon, DashboardSquare01Icon, MoneyBag02Icon, School01Icon } from "@hugeicons/core-free-icons";
+import { ArrowRight02Icon, DashboardSquare01Icon, MoneyBag02Icon, School01Icon, UserGroupIcon } from "@hugeicons/core-free-icons";
 import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import PlaceholderImage from "../components/ui/PlaceholderImage";
@@ -7,7 +7,8 @@ import FundSummary from "../components/building/FundSummary";
 import ClassroomGrid from "../components/building/ClassroomGrid";
 import ProgressBar from "../components/building/ProgressBar";
 import PhaseCard from "../components/building/PhaseCard";
-import { BUILDING, CLASSROOMS, FUNDS, PHASES, getClassroomStats } from "../data/building";
+import CommitteeList from "../components/building/CommitteeList";
+import { BUILDING, CLASSROOMS, COMMITTEES, FUNDS, PHASES, PROJECT_COORDINATOR, getClassroomStats } from "../data/building";
 import "../styles/building.css";
 
 export default function Building() {
@@ -78,6 +79,17 @@ export default function Building() {
               <PhaseCard key={phase.id} phase={phase} />
             ))}
           </div>
+        </section>
+
+        <section className="panel">
+          <h2 className="panel-title">
+            <span className="icon-badge" aria-hidden="true">
+              <Icon icon={UserGroupIcon} />
+            </span>
+            செயற்திட்ட குழுக்கள்
+          </h2>
+          <p className="build-note">இக் கட்டுமான செயற்திட்டத்தினை முன்னெடுத்துச் செல்வதில் பின்வரும் குழுக்கள் செயற்பட்டுவருகின்றன.</p>
+          <CommitteeList coordinator={PROJECT_COORDINATOR} committees={COMMITTEES} />
         </section>
       </div>
     </>
