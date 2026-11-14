@@ -1,42 +1,19 @@
 import { Fragment, useState } from "react";
-import { useSearchParams } from "react-router";
-import { AlertCircleIcon, ArrowRight02Icon, Award01Icon, BookOpen01Icon, Briefcase01Icon, Call02Icon, LeftToRightListBulletIcon, Mail01Icon, Tick02Icon, UserGroupIcon, UserIcon } from "@hugeicons/core-free-icons";
+import { Link, useSearchParams } from "react-router";
+import { AlertCircleIcon, ArrowRight02Icon, Award01Icon, BookOpen01Icon, Briefcase01Icon, Call02Icon, Invoice03Icon, LeftToRightListBulletIcon, Mail01Icon, Tick02Icon, UserAdd01Icon, UserGroupIcon, UserIcon } from "@hugeicons/core-free-icons";
 import Icon from "../components/ui/Icon";
 import PageHero from "../components/layout/PageHero";
 import Field, { LabelText } from "../components/ui/Field";
 import SegmentedControl from "../components/ui/SegmentedControl";
 import Button from "../components/ui/Button";
+import ReceiptUpload from "../components/membership/ReceiptUpload";
+import { MEMBERSHIP_SCRIPT_URL, membershipScriptReady, newSubmissionId, sendWithRetry } from "../components/membership/script";
 import { CONTACT_INFO } from "../data/constants";
 import "../styles/membership.css";
-
-// Google Apps Script web app that writes to the membership Google Sheet — see apps-script/membership/README.md
-const SCRIPT_URL = import.meta.env.VITE_MEMBERSHIP_SCRIPT_URL;
-const scriptReady = Boolean(SCRIPT_URL) && !SCRIPT_URL.includes("REPLACE_ME");
 
 // The script answers in 1–4 s. An answer that hasn't come by now is stuck on the way back, so it's sent again.
 const SUBMIT_TIMEOUT_MS = 15000;
 const SUBMIT_ATTEMPTS = 3;
-
-// Identifies one application: the script saves it once, even when it's sent again after an answer got lost.
-const newSubmissionId = () => crypto.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-
-// Posts the answers and returns the script's reply; throws when there is none (offline, timed out, Google error page).
-async function postApplication(body) {
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), SUBMIT_TIMEOUT_MS);
-  try {
-    const res = await fetch(SCRIPT_URL, {
-      method: "POST",
-      // text/plain keeps this a "simple" request, so the browser skips the CORS preflight Apps Script can't answer.
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
-      body,
-      signal: controller.signal,
-    });
-    return await res.json();
-  } finally {
-    clearTimeout(timer);
-  }
-}
 
 const LIFETIME_FEE = "ரூபா 1,000";
 
@@ -44,8 +21,28 @@ const LIFETIME_FEE = "ரூபா 1,000";
 const PROCESS_STEPS = [
   "இப்பக்கத்திலுள்ள விண்ணப்பப் படிவத்தைப் பூர்த்தி செய்து சமர்ப்பிக்கவும்.",
   "உங்கள் உறுப்புரிமை விண்ணப்பம் பழைய மாணவர் ஆசிரியர் சங்கத்தினால் சரிபார்க்கப்படும்.",
-  "சரிபார்ப்பு நிறைவடைந்த பின்னரே கட்டணம் செலுத்துவதற்கான விபரங்கள் வழங்கப்படும்.",
-  "அதன் பின்னர் ரூபா 1,000 உறுப்புரிமைக் கட்டணத்தைச் செலுத்தலாம்.",
+  "சரிபார்ப்பு நிறைவடைந்த பின்னர் உசாத்துணை இலக்கமும் கட்டணம் செலுத்துவதற்கான விபரங்களும் மின்னஞ்சல் மூலம் வழங்கப்படும்.",
+  "ரூபா 1,000 உறுப்புரிமைக் கட்டணத்தைச் செலுத்தும்போது, Remarks பகுதியில் உசாத்துணை இலக்கத்தைக் குறிப்பிடவும்.",
+  "கட்டணப் பற்றுச்சீட்டை இப்பக்கத்திலுள்ள ‘பற்றுச்சீட்டுப் பதிவேற்றம்’ பகுதியில் பதிவேற்றவும்.",
+];
+
+// The two choices plain /join shows. /join?view=receipt opens the receipt upload directly, so the association
+// can send that link together with each applicant's reference number.
+const VIEWS = [
+  {
+    value: "register",
+    step: "படி 1 · புதிய விண்ணப்பதாரர்கள்",
+    title: "உறுப்பினர் பதிவு",
+    text: "சங்கத்தில் இணைய விரும்பும் பழைய மாணவர்களும் ஆசிரியர்களும் விண்ணப்பப் படிவத்தைப் பூர்த்தி செய்யவும்.",
+    icon: UserAdd01Icon,
+  },
+  {
+    value: "receipt",
+    step: "படி 2 · கட்டணம் செலுத்தியோர்",
+    title: "பற்றுச்சீட்டுப் பதிவேற்றம்",
+    text: "மின்னஞ்சலில் உசாத்துணை இலக்கம் பெற்று, கட்டணம் செலுத்தியவர்கள் பற்றுச்சீட்டை இங்கு பதிவேற்றவும்.",
+    icon: Invoice03Icon,
+  },
 ];
 const MIN_YEAR = 1900;
 const CURRENT_YEAR = new Date().getFullYear();
@@ -222,10 +219,13 @@ export default function MembershipForm() {
   const [errorMessage, setErrorMessage] = useState("");
   const [submissionId, setSubmissionId] = useState(newSubmissionId); // stays the same until an application goes through
 
-  // The applicant type lives in the URL, so the association can share a direct link with teachers.
+  // The view and the applicant type live in the URL, so the association can share direct links.
+  // Plain /join shows only the two choices; /join?type=teacher still opens the form for teachers.
   const type = searchParams.get("type") === "teacher" ? "teacher" : "student";
   const isTeacher = type === "teacher";
-  const changeType = (next) => setSearchParams(next === "teacher" ? { type: next } : {}, { replace: true });
+  const viewParam = searchParams.get("view");
+  const view = viewParam === "receipt" ? "receipt" : viewParam === "register" || isTeacher ? "register" : "choose";
+  const changeType = (next) => setSearchParams(next === "teacher" ? { view: "register", type: next } : { view: "register" }, { replace: true });
 
   const required = visible(REQUIRED, type);
   const questions = visible(NUMBERED, type);
@@ -254,21 +254,11 @@ export default function MembershipForm() {
     const found = validate(form, type);
     const firstInvalid = Object.keys(initialState).find((key) => found[key]);
     if (firstInvalid) return focusField(firstInvalid);
-    if (!scriptReady) return fail(MESSAGES.unavailable);
+    if (!membershipScriptReady) return fail(MESSAGES.unavailable);
 
     setStatus("sending");
     const body = JSON.stringify({ ...answersFor(form, type), applicantType: type, submissionId });
-    let result;
-    for (let attempt = 1; attempt <= SUBMIT_ATTEMPTS; attempt++) {
-      try {
-        result = await postApplication(body);
-      } catch (err) {
-        result = undefined;
-        console.error("Membership form: no answer from the script.", err);
-      }
-      // Only a lost answer or a server error can go better on a second try; refused answers won't.
-      if (result && result.error !== "server_error") break;
-    }
+    const result = await sendWithRetry(MEMBERSHIP_SCRIPT_URL, body, { timeoutMs: SUBMIT_TIMEOUT_MS, attempts: SUBMIT_ATTEMPTS, label: "Membership form" });
 
     if (!result) return fail(MESSAGES.network);
     if (!result.ok) {
@@ -290,19 +280,70 @@ export default function MembershipForm() {
   const lifetimeChecked = form.membershipType === "lifetime";
   const invalidClass = (key) => `field apply-span-2${errors[key] ? " is-invalid" : ""}`;
 
+  if (view === "choose") {
+    return (
+      <div className="apply">
+        <PageHero eyebrow="உறுப்புரிமை" title="பழைய மாணவர் ஆசிரியர் சங்க உறுப்புரிமை" lead="யா/சாவகச்சேரி இந்துக் கல்லூரி">
+          <div className="page-hero-chips">
+            <span className="chip chip-gold">ஆயுட்கால உறுப்புரிமை — {LIFETIME_FEE}</span>
+          </div>
+        </PageHero>
+
+        <div className="container page-body">
+          <div className="join-choices">
+            {VIEWS.map(({ value, step, title, text, icon }) => (
+              <Link key={value} to={{ search: `?view=${value}` }} className="panel join-choice">
+                <span className="join-choice-head">
+                  <span className="icon-badge" aria-hidden="true">
+                    <Icon icon={icon} />
+                  </span>
+                  <span className="join-choice-step">{step}</span>
+                </span>
+                <span className="join-choice-text">
+                  <strong>{title}</strong>
+                  <span>{text}</span>
+                </span>
+                <span className="join-choice-go">
+                  தொடரவும் <Icon icon={ArrowRight02Icon} />
+                </span>
+              </Link>
+            ))}
+          </div>
+
+          <p className="apply-help join-help">
+            <Icon icon={Mail01Icon} />
+            <span>
+              மேலதிக விபரங்களுக்கு <a href={`mailto:${CONTACT_INFO.email}`}>{CONTACT_INFO.email}</a>
+            </span>
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  const isReceipt = view === "receipt";
+  const back = { to: "/join", label: "திரும்பிச் செல்லவும்" };
+
   return (
     <div className="apply">
-      <PageHero eyebrow="உறுப்பினர் பதிவு" title="பழைய மாணவர் ஆசிரியர் சங்க உறுப்புரிமை விண்ணப்பம்" lead="யா/சாவகச்சேரி இந்துக் கல்லூரி">
+      <PageHero
+        back={back}
+        eyebrow={isReceipt ? "பற்றுச்சீட்டுப் பதிவேற்றம்" : "உறுப்பினர் பதிவு"}
+        title={isReceipt ? "உறுப்புரிமைக் கட்டணப் பற்றுச்சீட்டு" : "பழைய மாணவர் ஆசிரியர் சங்க உறுப்புரிமை விண்ணப்பம்"}
+        lead="யா/சாவகச்சேரி இந்துக் கல்லூரி"
+      >
         <div className="page-hero-chips">
           <span className="chip">
-            <Icon icon={LeftToRightListBulletIcon} /> 4 பகுதிகள் · {questions.length} விபரங்கள்
+            <Icon icon={LeftToRightListBulletIcon} /> {isReceipt ? "PDF · JPG · PNG — ஆகக்கூடியது 5 MB" : `4 பகுதிகள் · ${questions.length} விபரங்கள்`}
           </span>
           <span className="chip chip-gold">ஆயுட்கால உறுப்புரிமை — {LIFETIME_FEE}</span>
         </div>
       </PageHero>
 
       <div className="container page-body">
-        {status === "success" ? (
+        {isReceipt ? (
+          <ReceiptUpload />
+        ) : status === "success" ? (
           <div className="panel apply-success" role="status">
             <span className="apply-success-icon" aria-hidden="true">
               <Icon icon={Tick02Icon} />
