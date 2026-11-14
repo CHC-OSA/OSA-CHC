@@ -45,7 +45,7 @@ function doPost(e) {
 
     const values = {
       name: clean_(data.name),
-      referenceNo: clean_(data.referenceNo).toUpperCase(),
+      referenceNo: clean_(data.referenceNo),
       paidOn: clean_(data.paidOn),
     };
     const missing = Object.keys(values).filter((key) => !values[key]);
@@ -71,9 +71,9 @@ function doPost(e) {
     try {
       if (sentKey && cache.get(sentKey)) return json_({ ok: true });
 
-      // e.g. "OSA-2026-0123 — S. Kumar — 20261110-143005.pdf"
+      // e.g. "26002 — S. Kumar — 20261110-143005.pdf"
       const stamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyyMMdd-HHmmss");
-      const fileName = values.referenceNo.replace(/\//g, "-") + " — " + values.name + " — " + stamp + "." + ext;
+      const fileName = values.referenceNo + " — " + values.name + " — " + stamp + "." + ext;
       values.fileUrl = getFolder_().createFile(Utilities.newBlob(bytes, data.mimeType, fileName)).getUrl();
       if (sentKey) cache.put(sentKey, "1", CACHE_SECONDS);
 
@@ -102,10 +102,12 @@ function reject_(error, fields) {
   return json_({ ok: false, error: error, fields: fields });
 }
 
-// The reference number emailed to each applicant. Its format isn't fixed yet:
-// letters, digits, "/" and "-", up to 20 characters (e.g. OSA/2026/0123).
+// The reference number emailed to each applicant: 5 digits starting with 26, e.g. 26002.
+// Digits only, because some bank apps reject "/" in the Remarks field. Nothing is stripped or corrected:
+// clean_() only trims spaces at either end, so "CHC/26003" or "26 003" is refused.
+// Mirrored from src/components/membership/ReceiptUpload.jsx (isValidReferenceNo).
 function isValidReferenceNo_(v) {
-  return /^[A-Z0-9][A-Z0-9/-]{0,19}$/.test(v);
+  return /^26\d{3}$/.test(v);
 }
 
 // The folder's id is remembered after the first lookup, so renaming or moving the folder later is fine.

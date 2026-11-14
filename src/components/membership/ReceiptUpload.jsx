@@ -22,10 +22,12 @@ const FILE_TYPES = {
 const ACCEPT = Object.keys(FILE_TYPES).join(",") + ",.pdf,.jpg,.jpeg,.png,.webp";
 
 // The association emails each applicant a reference number (உசாத்துணை இலக்கம்) once the application is checked.
-// Its exact format isn't fixed yet, so this allows letters, digits, "/" and "-" (e.g. OSA/2026/0123).
+// Format: 5 digits starting with 26, e.g. 26001. Digits only, because some bank apps reject "/" in Remarks.
+// The field is not cleaned as the member types: anything else (letters, "/", spaces inside, extra digits)
+// is rejected with an error. Only spaces at either end, e.g. from copying the email, are ignored.
+// The format is never shown on the page: each member must copy the number from their own email.
 // Mirrored in apps-script/receipts/Code.gs (isValidReferenceNo_).
-const isValidReferenceNo = (v) => /^[A-Z0-9][A-Z0-9/-]{0,19}$/.test(v);
-const referenceNoInput = (v) => v.toUpperCase().replace(/[^A-Z0-9/-]/g, "").slice(0, 20);
+const isValidReferenceNo = (v) => /^26\d{3}$/.test(v.trim());
 
 const TODAY = new Date().toLocaleDateString("en-CA");
 
@@ -38,7 +40,7 @@ const GUIDE_STEPS = [
 
 const MESSAGES = {
   required: "இவ்விபரம் கட்டாயமானது.",
-  referenceNo: "சரியான உசாத்துணை இலக்கத்தை உள்ளிடவும்.",
+  referenceNo: "மின்னஞ்சலில் வழங்கப்பட்ட உசாத்துணை இலக்கத்தைச் சரியான வடிவில் உள்ளிடவும்.",
   paidOn: "சரியான திகதியை உள்ளிடவும்.",
   fileType: "PDF, JPG அல்லது PNG கோப்பை மாத்திரம் பதிவேற்றவும்.",
   fileSize: "கோப்பின் அளவு 5 MB இற்குக் குறைவாக இருக்க வேண்டும்.",
@@ -139,7 +141,7 @@ export default function ReceiptUpload() {
     const body = JSON.stringify({
       formType: "receipt",
       name: form.name.trim(),
-      referenceNo: form.referenceNo,
+      referenceNo: form.referenceNo.trim(),
       paidOn: form.paidOn,
       fileName: file.name,
       mimeType: file.type,
@@ -227,9 +229,9 @@ export default function ReceiptUpload() {
             <Field
               label="2. உசாத்துணை இலக்கம் *"
               id="r-referenceNo"
-              autoCapitalize="characters"
+              inputMode="numeric"
               value={form.referenceNo}
-              onChange={setField("referenceNo", referenceNoInput)}
+              onChange={setField("referenceNo")}
               error={errors.referenceNo}
               required
             />
